@@ -7,19 +7,18 @@
 
 ^Check out our paper on it: [Market research via persona-induced Large Language Models](https://url.com)
 
-
 ## How to reproduce our experiments with your own data
-1. Export your chat messages from Facebook, Instagram, and/or WhatsApp (links to instructions below)
+1. Export your chat messages from Facebook, Instagram, and/or WhatsApp (instructions below)
 2. Take the surveys to constitute target responses, for the LLMs proxying you in the same surveys.
 3. Clone this repository
 4. Download [Ollama](https://ollama.com/) and your models of choice, to run inference locally. 
-   - *API-cloud is discouraged due to possible sensitive information leakage.*
+   - *API-providers, and cloud-compute providers are discouraged to mitigate leakage-risk of sensitive information.*
 
 
 > [!IMPORTANT]
 > **Exporting chat messages from Facebook, Instagram, and/or WhatsApp**
-> This is a manual process, and Meta will take about a week.
-> 1. [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Account settings --> Download your information --> Download or transfer information --> pick account[s] (incl. Instagram) --> Specific types of information --> "Messages"
+> This is a relatively manual process, and Meta will take about a week.
+> 1. [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Account settings --> Download your information --> Download or transfer information --> pick account[s] (incl. Instagram) --> Specific types of information --> choose "Messages"
 >   - Get "All time", and in JSON format
 > 2. WhatsApp --> Settings --> Chats -->  Export chat --> pick your 1-on-1 chats to export "Without media"
 
