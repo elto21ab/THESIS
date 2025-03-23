@@ -18,13 +18,11 @@
 
 > [!IMPORTANT]
 > **Exporting chat messages from Facebook, Instagram, and/or WhatsApp**
-> This is a manual process, and Meta will take a few days to a week.
-> - [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Account settings --> Download your information
->   - Get both Facebook and Instagram
->   - Date range = All time
->   - Format = JSON
-> - WhatsApp --> Settings --> Account --> Request account info --> Account information
-
+> This is a manual process, and Meta will take about a week.
+> 1. [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Account settings --> Download your information
+>   - Download or transfer information --> pick account[s] (incl. Instagram) --> Specific types of information --> choose "Messages"
+>   - Get "All time", and in JSON format
+> 2. WhatsApp --> Settings --> Chats -->  Export chat --> pick your 1-on-1 chats to export "Without media"
 
 ------------------------------------
 ## Structure
