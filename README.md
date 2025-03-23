@@ -55,45 +55,44 @@
 >
 >```
 >
-> <details>
-> <summary>Lower-level with key functions</summary>
+><details>
+><summary>Lower-level with key functions</summary>
 >
-> ```
-> └── Data Analysis Pipeline
->    ├── 1. Setup & Configuration
->    │   ├── Import Dependencies
->    │   ├── Constants Definition
->    │   └── Directory Configuration
->    │
->    ├── 2. Data Loading & Validation
->    │   ├── Simulation File Indexing
->    │   ├── Column Validation
->    │   └── Data Type Verification
->    │
->    ├── 3. Data Preprocessing
->    │   ├── Answer Cleaning
->    │   │   ├── Text Normalization
->    │   │   ├── Pattern Matching
->    │   │   └── Invalid Answer Detection
->    │   │
->    │   ├── Data Mapping
->    │   │   ├── Base Simulation Mapping
->    │   │   ├── Subject Inference
->    │   │   └── Answer Remapping
->    │   │
->    │   └── Data Enrichment
->    │       ├── Survey Type Detection
->    │       └── Answer Integration
->    │
->    ├── 4. Analysis
->    │   ├── Correlation Analysis
->    │   ├── Error Calculation
->    │   └── Statistical Measures
->    │
->    └── 5. Visualization & Reporting
->        ├── Performance Metrics
->        ├── Comparison Plots
->        └── Summary Statistics
-> ```
->
-> </details>
+>```
+>└── Data Analysis Pipeline
+>   ├── 1. Setup & Configuration
+>   │   ├── Import Dependencies
+>   │   ├── Constants Definition
+>   │   └── Directory Configuration
+>   │
+>   ├── 2. Data Loading & Validation
+>   │   ├── Simulation File Indexing
+>   │   ├── Column Validation
+>   │   └── Data Type Verification
+>   │
+>   ├── 3. Data Preprocessing
+>   │   ├── Answer Cleaning
+>   │   │   ├── Text Normalization
+>   │   │   ├── Pattern Matching
+>   │   │   └── Invalid Answer Detection
+>   │   │
+>   │   ├── Data Mapping
+>   │   │   ├── Base Simulation Mapping
+>   │   │   ├── Subject Inference
+>   │   │   └── Answer Remapping
+>   │   │
+>   │   └── Data Enrichment
+>   │       ├── Survey Type Detection
+>   │       └── Answer Integration
+>   │
+>   ├── 4. Analysis
+>   │   ├── Correlation Analysis
+>   │   ├── Error Calculation
+>   │   └── Statistical Measures
+>   │
+>   └── 5. Visualization & Reporting
+>       ├── Performance Metrics
+>       ├── Comparison Plots
+>       └── Summary Statistics
+>```
+></details>
