@@ -50,6 +50,7 @@
 ```
 
 > [!info] Lower-level with key functions
+> ```
 > └── Data Analysis Pipeline
 >    ├── 1. Setup & Configuration
 >    │   ├── Import Dependencies
@@ -85,3 +86,4 @@
 >        ├── Performance Metrics
 >        ├── Comparison Plots
 >        └── Summary Statistics
+> ```
