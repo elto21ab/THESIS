@@ -25,6 +25,33 @@
 >   - Format = JSON
 > - WhatsApp --> Settings --> Account --> Request account info --> Account information
 
+>[!NOTE] <details> <summary>High-level</summary>
+>```
+>└── Data Analysis Pipeline
+>    ├── 1. Initial Setup
+>    │   ├── Load simulation files
+>    │   ├── Configure directories
+>    │   └── Import dependencies
+>    │
+>    ├── 2. Data Processing
+>    │   ├── Extract run numbers
+>    │   ├── Infer survey types
+>    │   ├── Map simulations to base cases
+>    │   └── Clean invalid values
+>    │
+>    ├── 3. Analysis
+>    │   ├── Single simulation evaluation
+>    │   ├── Multi-simulation aggregation
+>    │   └── Base simulation comparison
+>    │
+>    └── 4. Visualization
+>        ├── Model comparison plots
+>        ├── Hyperparameter analysis
+>        └── Correlation studies
+>
+>```
+
+
 ------------------------------------
 ## Structure
 > [!NOTE]
