@@ -49,7 +49,8 @@
         └── Correlation studies
 ```
 
-> [!info] Lower-level with key functions
+> [!info]-
+> Lower-level with key functions
 > ```
 > └── Data Analysis Pipeline
 >    ├── 1. Setup & Configuration
