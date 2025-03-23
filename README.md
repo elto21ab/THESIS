@@ -24,10 +24,11 @@
 >   - Format = JSON
 > - WhatsApp --> Settings --> Account --> Request account info --> Account information
 
-
+------------------------------------
+## Structure
 > [!NOTE]
-> ## High-level Structure
-> ```
+> <details> <summary>High-level</summary>
+> ```txt
 > └── Data Analysis Pipeline
 >     ├── 1. Initial Setup
 >     │   ├── Load simulation files
@@ -50,10 +51,10 @@
 >         ├── Hyperparameter analysis
 >         └── Correlation studies
 > ```
-> ------------------------------------
+> </details>
 > <details>
 > <summary>Lower-level with key functions</summary>
-> ```
+> ```txt
 > └── Data Analysis Pipeline
 >    ├── 1. Setup & Configuration
 >    │   ├── Import Dependencies
