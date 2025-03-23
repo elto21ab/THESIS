@@ -25,6 +25,7 @@
 > - WhatsApp --> Settings --> Account --> Request account info --> Account information
 
 ## High-level Structure
+```
 └── Data Analysis Pipeline
     ├── 1. Initial Setup
     │   ├── Load simulation files
@@ -46,9 +47,9 @@
         ├── Model comparison plots
         ├── Hyperparameter analysis
         └── Correlation studies
+```
 
-
-> [!info]- Lower-level with key functions
+> [!info] Lower-level with key functions
 > └── Data Analysis Pipeline
 >    ├── 1. Setup & Configuration
 >    │   ├── Import Dependencies
