@@ -16,7 +16,7 @@
    - *API-cloud is discouraged due to possible sensitive information leakage.*
 
 
-> [!important]- Exporting chat messages from Facebook, Instagram, and/or WhatsApp
+> [!IMPORTANT]- Exporting chat messages from Facebook, Instagram, and/or WhatsApp
 > This is a manual process, and Meta will take <a week
 > - [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Account settings --> Download your information
 >   - Get both Facebook and Instagram
@@ -26,69 +26,69 @@
 
 ------------------------------------
 ## Structure
-> [!NOTE]
-> <details> <summary>High-level</summary>
-> ```txt
-> └── Data Analysis Pipeline
->     ├── 1. Initial Setup
->     │   ├── Load simulation files
->     │   ├── Configure directories
->     │   └── Import dependencies
->     │
->     ├── 2. Data Processing
->     │   ├── Extract run numbers
->     │   ├── Infer survey types
->     │   ├── Map simulations to base cases
->     │   └── Clean invalid values
->     │
->     ├── 3. Analysis
->     │   ├── Single simulation evaluation
->     │   ├── Multi-simulation aggregation
->     │   └── Base simulation comparison
->     │
->     └── 4. Visualization
->         ├── Model comparison plots
->         ├── Hyperparameter analysis
->         └── Correlation studies
-> ```
-> </details>
-> <details>
-> <summary>Lower-level with key functions</summary>
-> ```txt
-> └── Data Analysis Pipeline
->    ├── 1. Setup & Configuration
->    │   ├── Import Dependencies
->    │   ├── Constants Definition
->    │   └── Directory Configuration
->    │
->    ├── 2. Data Loading & Validation
->    │   ├── Simulation File Indexing
->    │   ├── Column Validation
->    │   └── Data Type Verification
->    │
->    ├── 3. Data Preprocessing
->    │   ├── Answer Cleaning
->    │   │   ├── Text Normalization
->    │   │   ├── Pattern Matching
->    │   │   └── Invalid Answer Detection
->    │   │
->    │   ├── Data Mapping
->    │   │   ├── Base Simulation Mapping
->    │   │   ├── Subject Inference
->    │   │   └── Answer Remapping
->    │   │
->    │   └── Data Enrichment
->    │       ├── Survey Type Detection
->    │       └── Answer Integration
->    │
->    ├── 4. Analysis
->    │   ├── Correlation Analysis
->    │   ├── Error Calculation
->    │   └── Statistical Measures
->    │
->    └── 5. Visualization & Reporting
->        ├── Performance Metrics
->        ├── Comparison Plots
->        └── Summary Statistics
-> ```
-> </details>
+[!NOTE]
+<details> <summary>High-level</summary>
+    ```txt
+    └── Data Analysis Pipeline
+        ├── 1. Initial Setup
+        │   ├── Load simulation files
+        │   ├── Configure directories
+        │   └── Import dependencies
+        │
+        ├── 2. Data Processing
+        │   ├── Extract run numbers
+        │   ├── Infer survey types
+        │   ├── Map simulations to base cases
+        │   └── Clean invalid values
+        │
+        ├── 3. Analysis
+        │   ├── Single simulation evaluation
+        │   ├── Multi-simulation aggregation
+        │   └── Base simulation comparison
+        │
+        └── 4. Visualization
+            ├── Model comparison plots
+            ├── Hyperparameter analysis
+            └── Correlation studies
+    ```
+</details>
+<details>
+<summary>Lower-level with key functions</summary>
+```txt
+└── Data Analysis Pipeline
+   ├── 1. Setup & Configuration
+   │   ├── Import Dependencies
+   │   ├── Constants Definition
+   │   └── Directory Configuration
+   │
+   ├── 2. Data Loading & Validation
+   │   ├── Simulation File Indexing
+   │   ├── Column Validation
+   │   └── Data Type Verification
+   │
+   ├── 3. Data Preprocessing
+   │   ├── Answer Cleaning
+   │   │   ├── Text Normalization
+   │   │   ├── Pattern Matching
+   │   │   └── Invalid Answer Detection
+   │   │
+   │   ├── Data Mapping
+   │   │   ├── Base Simulation Mapping
+   │   │   ├── Subject Inference
+   │   │   └── Answer Remapping
+   │   │
+   │   └── Data Enrichment
+   │       ├── Survey Type Detection
+   │       └── Answer Integration
+   │
+   ├── 4. Analysis
+   │   ├── Correlation Analysis
+   │   ├── Error Calculation
+   │   └── Statistical Measures
+   │
+   └── 5. Visualization & Reporting
+       ├── Performance Metrics
+       ├── Comparison Plots
+       └── Summary Statistics
+```
+</details
