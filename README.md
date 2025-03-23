@@ -29,7 +29,7 @@
 ## Structure
 > [!NOTE]
 > <details> <summary>High-level</summary>
->     ```
+>     ```md
 >     └── Data Analysis Pipeline
 >         ├── 1. Initial Setup
 >         │   ├── Load simulation files
@@ -55,7 +55,7 @@
 > </details>
 > <details>
 > <summary>Lower-level with key functions</summary>
-> ```
+> ```md
 > └── Data Analysis Pipeline
 >    ├── 1. Setup & Configuration
 >    │   ├── Import Dependencies
