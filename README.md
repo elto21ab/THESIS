@@ -1,4 +1,4 @@
-> Paper code for the paper "LLMs as Proxy Survey Participants With RAG" by Elias Torjani, Airidas Brikas, and Daniel Hardt (a continuation of our bachelor thesis)
+> Code for the paper, "LLMs as Proxy Survey Participants With RAG", by Elias Torjani, Airidas Brikas, and Daniel Hardt (a continuation of our bachelor thesis)
 
 ### FAQ
 - What is this? 
