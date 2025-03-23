@@ -49,7 +49,7 @@
         └── Correlation studies
 ```
 
-> [!info]-
+> [!NOTE]-
 > Lower-level with key functions
 > ```
 > └── Data Analysis Pipeline
