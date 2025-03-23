@@ -12,7 +12,7 @@
 2. Take the surveys to constitute target responses, for the LLMs proxying you in the same surveys.
 3. Clone this repository
 4. Download [Ollama](https://ollama.com/) and your models of choice, to run inference locally. 
-   - *API-providers, and cloud-compute providers are discouraged to mitigate leakage-risk of sensitive information.*
+   - *Any cloud provider is discouraged to mitigate leakage-risk of sensitive information.*
 
 
 > [!IMPORTANT]

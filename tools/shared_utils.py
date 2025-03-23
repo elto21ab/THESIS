@@ -1,12 +1,9 @@
-import tiktoken
+import tiktoken, os, json
 from typing import List, Dict
 from openai import OpenAI
-import os
 import numpy as np
 from numpy.linalg import norm
 import pandas as pd
-import json
-
 
 def count_tokens(string: str) -> int:
     """Returns the number of tokens in a text string."""
@@ -30,7 +27,6 @@ def assistantMsg(*args) -> dict:
 def systemMsg(*args) -> dict:
     return {"role": "system", "content": "\n".join(args)}
 
-
 def calc_MAE(prediction: pd.Series, target: pd.Series):
     return (prediction - target).abs().sum() / len(prediction)
 
@@ -39,8 +35,6 @@ def unclutterSignature(baseSign: str):
     for remove_item in remove_list:
         baseSign = baseSign.replace(remove_item, '')
     return baseSign
-
-
 
 def describe_prompts(final_prompts: List[List[Dict]]) -> Dict:
     total_all_prompt_tokens = 0 #used elsewhere too
@@ -119,4 +113,3 @@ BLACKLIST_CHAT_REGEX_FILTERS = [
 BLACKLIST_ANSWER_SUBSTRINGS = [
     r"\.", r"\!"
 ]
-

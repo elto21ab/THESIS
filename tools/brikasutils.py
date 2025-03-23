@@ -21,12 +21,11 @@ def gpt(text, gpt4: bool = True, return_full_response: bool = False, api_key = N
         model_final = model
     elif gpt4:
         model_final = "gpt-4o"
-    elif:
+    elif gpt4o_mini:
         model_final = "gpt-4o-mini"
     else:
         model_final = "gpt-4"
         
-    
     HEADERS = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
@@ -645,7 +644,6 @@ class FileRunQueue():
         @param completed_folder_path: str - path to the folder where the completed files are stored. If None, then it is set to queue_folder_path/done
         @param do_move: bool - if True, then moves the file to the completed folder. If False, then adds the file to done_files.
         """
-        
 
         self.queue_folder_path = queue_folder_path
         self.verbose = verbose
@@ -714,10 +712,3 @@ class FileRunQueue():
             return False
         print("Task queue terminated.")
         return True
-
-
-
-    
-        
-            
-

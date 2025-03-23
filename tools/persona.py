@@ -1,9 +1,7 @@
 from typing import List
-import standard_msg_reader as msg_reader
-import re
-import tiktoken
-import shared_utils as utils
-
+from tools import standard_msg_reader as msg_reader
+from tools import shared_utils as utils
+import re, tiktoken
 
 class PersonaEncoder:
     chats: dict
@@ -31,7 +29,6 @@ class PersonaEncoder:
         self.chats[name_id] = list(reversed(msgs))
         print(f"Messages saved to self.chats['{name_id}']")
 
-
     def filter_chats_empty(self):
         for nameid, chat in self.chats.items():
             filteredChat = []
@@ -41,7 +38,6 @@ class PersonaEncoder:
                 filteredChat.append(msg)
             self.chats[nameid] = filteredChat
             
-
     def filter_chats_regex(self, blacklist_re_patterns):
         # Instantiate filter log
         logs = {}
@@ -108,7 +104,6 @@ class PersonaEncoder:
         finalTokens = final_tokens = len(encoding.encode(PersonaEncoder._strinfigy_chat(finalChat)))
         print(f"Chat {nameid} has {final_tokens} ({len(finalChat)} messages)")
 
-
     def count_all_selected_chat_tokens(self):
         chat_tokens = {}
         encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
@@ -125,9 +120,7 @@ class PersonaEncoder:
         return finalText
     
     def parse_rosebud_entries(self, filename, name_id):
-        """
-        Parses Rosebud Diaries
-        """
+        """Parses Rosebud Diaries"""
         with open(filename, 'r', encoding="utf-8") as file:
             md_text = file.read()
 
@@ -145,7 +138,6 @@ class PersonaEncoder:
             blocks.append(block)
 
         self.nonChatModules[name_id] = blocks
-
 
         # Display the results
         total_msgs, min_msgs, max_msgs = 0, len(blocks[0]['msgs']), len(blocks[0]['msgs'])
