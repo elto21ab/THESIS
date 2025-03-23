@@ -24,33 +24,35 @@
 >   - Format = JSON
 > - WhatsApp --> Settings --> Account --> Request account info --> Account information
 
-## High-level Structure
-```
-└── Data Analysis Pipeline
-    ├── 1. Initial Setup
-    │   ├── Load simulation files
-    │   ├── Configure directories
-    │   └── Import dependencies
-    │
-    ├── 2. Data Processing
-    │   ├── Extract run numbers
-    │   ├── Infer survey types
-    │   ├── Map simulations to base cases
-    │   └── Clean invalid values
-    │
-    ├── 3. Analysis
-    │   ├── Single simulation evaluation
-    │   ├── Multi-simulation aggregation
-    │   └── Base simulation comparison
-    │
-    └── 4. Visualization
-        ├── Model comparison plots
-        ├── Hyperparameter analysis
-        └── Correlation studies
-```
 
 > [!NOTE]
-> Lower-level with key functions
+> ## High-level Structure
+> ```
+> └── Data Analysis Pipeline
+>     ├── 1. Initial Setup
+>     │   ├── Load simulation files
+>     │   ├── Configure directories
+>     │   └── Import dependencies
+>     │
+>     ├── 2. Data Processing
+>     │   ├── Extract run numbers
+>     │   ├── Infer survey types
+>     │   ├── Map simulations to base cases
+>     │   └── Clean invalid values
+>     │
+>     ├── 3. Analysis
+>     │   ├── Single simulation evaluation
+>     │   ├── Multi-simulation aggregation
+>     │   └── Base simulation comparison
+>     │
+>     └── 4. Visualization
+>         ├── Model comparison plots
+>         ├── Hyperparameter analysis
+>         └── Correlation studies
+> ```
+> ------------------------------------
+> <details>
+> <summary>Lower-level with key functions</summary>
 > ```
 > └── Data Analysis Pipeline
 >    ├── 1. Setup & Configuration
@@ -88,3 +90,4 @@
 >        ├── Comparison Plots
 >        └── Summary Statistics
 > ```
+> </details>
