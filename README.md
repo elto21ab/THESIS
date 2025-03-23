@@ -16,8 +16,9 @@
    - *API-cloud is discouraged due to possible sensitive information leakage.*
 
 
-> [!IMPORTANT]- Exporting chat messages from Facebook, Instagram, and/or WhatsApp
-> This is a manual process, and Meta will take <a week
+> [!IMPORTANT]
+> **Exporting chat messages from Facebook, Instagram, and/or WhatsApp**
+> This is a manual process, and Meta will take a few days to a week.
 > - [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Account settings --> Download your information
 >   - Get both Facebook and Instagram
 >   - Date range = All time
@@ -28,7 +29,7 @@
 ## Structure
 [!NOTE]
 <details> <summary>High-level</summary>
-    ```txt
+    ```
     └── Data Analysis Pipeline
         ├── 1. Initial Setup
         │   ├── Load simulation files
@@ -54,7 +55,7 @@
 </details>
 <details>
 <summary>Lower-level with key functions</summary>
-```txt
+```
 └── Data Analysis Pipeline
    ├── 1. Setup & Configuration
    │   ├── Import Dependencies
