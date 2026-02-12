@@ -21,5 +21,5 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 ></details>
 >
 
-> [!NOTE]-
+> [!NOTE]
 > This is a forked repository from [this one](https://github.com/Brikas/Thesis), where our original commit history is preserved. We tried to make this repository to make our experiments easier to reproduce, so feel free to use it on your own data.
