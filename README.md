@@ -12,8 +12,8 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
    - *Any cloud provider is discouraged to mitigate leakage-risk of sensitive information.*
 
 
-> [!IMPORTANT]
-> **Exporting chat messages from Facebook, Instagram, and/or WhatsApp**
+> [!EXPORT] -
+> **How to get chat messages from Facebook, Instagram, and/or WhatsApp**
 > This is a relatively manual process, and Meta will take about a week.
 > 1. [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) incl. Instagram --> Account settings --> Download your information --> Download or transfer information --> pick account[s] (incl. Instagram) --> Specific types of information --> choose "Messages"
 >   - Get "All time", and in JSON format
@@ -26,6 +26,7 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 >[!NOTE] <details> <summary>High-level</summary>
 >```
 >└── Data Analysis Pipeline
+>    ├── 0. Data
 >    ├── 1. Initial Setup
 >    │   ├── Load simulation files
 >    │   ├── Configure directories
