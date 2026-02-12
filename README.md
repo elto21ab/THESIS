@@ -20,3 +20,6 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 > 3. Optional: Use Beeper's API to continuosly export new messages, but be aware of our experiment is a snapshot in time.
 ></details>
 >
+
+> [!NOTE]-
+> This is a forked repository from [this one](https://github.com/Brikas/Thesis), where our original commit history is preserved. We tried to make this repository to make our experiments easier to reproduce, so feel free to use it on your own data.
