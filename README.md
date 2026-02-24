@@ -9,7 +9,7 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 1. Export your chat messages from Facebook, Instagram, and/or WhatsApp (instructions below)
 2. Take the surveys to constitute target responses, for the LLMs proxying you in the same surveys.
 3. Clone this repository
-4. Download [Ollama](https://ollama.com/download/) and your models of choice, to run inference locally. 
+4. ~~Download [Ollama](https://ollama.com/download/)~~ [WIP refactoring for performance] Download llama.cpp and a models' gguf quant to run inference locally. 
    - *Any cloud provider is discouraged to mitigate leakage-risk of sensitive information.*
 
 
@@ -22,4 +22,4 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 >
 
 > [!NOTE]
-> This is a forked repository from [this one](https://github.com/Brikas/Thesis), where our original commit history is preserved. We tried to make this repository to make our experiments easier to reproduce, so feel free to use it on your own data.
+> This fork is a refactored version of [this repository](https://github.com/Brikas/Thesis), where our original commit history is preserved. This repostitory is meant to make the experiments easier to reproduce with your own data.
