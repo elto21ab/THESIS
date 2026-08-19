@@ -146,6 +146,9 @@ celerybeat.pid
 .dmypy.json
 dmypy.json
 
+# Agent/browser runtime state
+/chrome-profile/
+
 # Pyre type checker
 .pyre/
 
