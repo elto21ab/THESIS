@@ -1,0 +1,60 @@
+[run]
+dir = "runs/lfm25-8b-a1b-mig1g"
+budget_minutes = 52
+reserve_minutes = 5
+
+[model]
+path = "/work/LCPP_OffloadTesting/models/LFM2.5-8B-A1B-Q4_K_M.gguf"
+class = "moe"
+# Verify from model metadata before actual run.
+moe_layers = 0
+
+[workload]
+prompt_tokens = 20480
+output_tokens = 2048
+context_per_request = 32768
+concurrency = 4
+
+[hardware]
+cpus = 6
+gpu_fraction = 0.14285714285714285
+
+[llama]
+bench = "/work/LCPP_OffloadTesting/llama.cpp/build/bin/llama-bench"
+server = "/work/LCPP_OffloadTesting/llama.cpp/build/bin/llama-server"
+
+[search]
+screen_repetitions = 1
+final_repetitions = 3
+ubatches = [512, 1024, 2048, 4096]
+min_gain = 0.05
+
+# Native ~4-bit per engine. Fill exact checkpoint IDs after support/format validation.
+# Commands use literal placeholders: {model}, {port}, {concurrency}.
+[engines."llama.cpp"]
+model = "/work/LCPP_OffloadTesting/models/LFM2.5-8B-A1B-Q4_K_M.gguf"
+port = 8100
+command = [
+  "/work/LCPP_OffloadTesting/llama.cpp/build/bin/llama-server",
+  "-m", "{model}", "--port", "{port}", "--parallel", "{concurrency}",
+  "--kv-unified", "--cont-batching", "--ctx-size", "131072",
+  "--flash-attn", "on", "--no-cache-prompt", "--metrics", "--no-webui"
+]
+
+[engines.vllm]
+model = "REPLACE_WITH_SUPPORTED_NATIVE_4BIT_CHECKPOINT"
+port = 8200
+command = [
+  "vllm", "serve", "{model}", "--port", "{port}",
+  "--max-num-seqs", "{concurrency}", "--enable-chunked-prefill",
+  "--max-model-len", "32768", "--gpu-memory-utilization", "0.90"
+]
+
+[engines.sglang]
+model = "REPLACE_WITH_SUPPORTED_NATIVE_4BIT_CHECKPOINT"
+port = 8300
+command = [
+  "python", "-m", "sglang.launch_server", "--model-path", "{model}",
+  "--port", "{port}", "--max-running-requests", "{concurrency}",
+  "--context-length", "32768", "--mem-fraction-static", "0.90"
+]
