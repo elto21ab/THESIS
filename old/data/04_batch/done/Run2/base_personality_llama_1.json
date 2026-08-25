@@ -1,0 +1,19 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/personality_base_prompts.json",
+        "survey_type": "PersonalitySurvey",
+        "isLocal": true,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "llama3:70b",
+        "timeout": 300
+    },
+    "info": {
+        "EMBEDDING_NAMEID": "test-A",
+        "VERSION_ID": "8k-static",
+        "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+        "CHUNKS_COUNT_IN_CTX": 10,
+        "SUBJECT": "base"
+    }
+}

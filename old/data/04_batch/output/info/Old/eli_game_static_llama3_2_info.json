@@ -1,0 +1,17 @@
+{
+    "settings": {
+        "model": "llama3:70b",
+        "timeout": 300
+    },
+    "info": {
+        "date": "2024-04-23_010340",
+        "EMBEDDING_NAMEID": "test-A",
+        "VERSION_ID": "8k-static",
+        "RETRIEVAL_PROMPT": "video game features",
+        "CHUNKS_COUNT_IN_CTX": 10,
+        "SUBJECT": "elias",
+        "limit": null,
+        "prompt_count": 40,
+        "avg_tokens_in_prompt": 6142
+    }
+}

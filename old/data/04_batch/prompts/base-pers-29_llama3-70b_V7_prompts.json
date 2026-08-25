@@ -1,0 +1,702 @@
+[
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am the life of the party.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I don't talk a lot.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I feel comfortable around people.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I keep in the background.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I start conversations.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I have little to say.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I talk to a lot of different people at parties.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I don't like to draw attention to myself.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I don't mind being the center of attention.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am quiet around strangers.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I get stressed out easily.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am relaxed most of the time.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I worry about things.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I seldom feel blue.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am easily disturbed.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I get upset easily.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I change my mood a lot.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I have frequent mood swings.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I get irritated easily.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I often feel blue.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I feel little concern for others.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am interested in people.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I insult people.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I sympathize with others' feelings.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am not interested in other people's problems.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I have a soft heart.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am not really interested in others.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I take time out for others.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I feel others' emotions.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I make people feel at ease.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am always prepared.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I leave my belongings around.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I pay attention to details.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I make a mess of things.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I get chores done right away.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I often forget to put things back in their proper place.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I like order.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I shirk my duties.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I follow a schedule.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am exacting in my work.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I have a rich vocabulary.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I have difficulty understanding abstract ideas.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I have a vivid imagination.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am not interested in abstract ideas.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I have excellent ideas.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I do not have a good imagination.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am quick to understand things.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I use difficult words.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I spend time reflecting on things.\nYour choice: "
+        }
+    ],
+    [
+        {
+            "role": "system",
+            "content": "You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\nYou must choose answer to the question below with one of the five options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. The answer must only contain the chosen option. "
+        },
+        {
+            "role": "assistant",
+            "content": "Understood. I will answer the question below with one of the given options."
+        },
+        {
+            "role": "user",
+            "content": "I am full of ideas.\nYour choice: "
+        }
+    ]
+]

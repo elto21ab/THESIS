@@ -1,0 +1,451 @@
+﻿filename,time_taken,status,prompt_file,survey_type,isLocal,LIMIT,error,timestamp
+kano_base_batch-schema_1,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",
+pers_base_batch-schema_1,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",
+kano_base_batch-schema_4,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",
+pers_base_batch-schema_2,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",
+pers_base_batch-schema_3,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",
+kano_base_batch-schema_5,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",
+kano_base_batch-schema_2,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",
+pers_base_batch-schema_4,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",
+pers_base_batch-schema_5,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",
+kano_base_batch-schema_3,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/1053251499.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",
+base_kano_v2_llama3_3,98.915,OK,batch/prompts/base_kano_v2.json,KanoSurvey,True,,,2024-05-01_223948
+kano_base_batch-schema_1,0.001,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",2024-05-01_223948
+base_kano_v2_llama3_2,47.014,OK,batch/prompts/base_kano_v2.json,KanoSurvey,True,,,2024-05-01_224127
+base_personality_v2_llama3_3,0.001,Failed,batch/prompts/base_personality_v2.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/base_personality_v2.json'
+",2024-05-01_224127
+base_personality_v2_llama3_2,0.001,Failed,batch/prompts/base_personality_v2.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/base_personality_v2.json'
+",2024-05-01_224127
+pers_base_batch-schema_1,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",2024-05-01_224127
+base_personality_v2_llama3_1,0.0,Failed,batch/prompts/base_personality_v2.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/base_personality_v2.json'
+",2024-05-01_224127
+kano_base_batch-schema_4,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",2024-05-01_224127
+pers_base_batch-schema_2,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",2024-05-01_224127
+pers_base_batch-schema_3,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",2024-05-01_224127
+kano_base_batch-schema_5,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",2024-05-01_224127
+kano_base_batch-schema_2,0.0,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",2024-05-01_224127
+pers_base_batch-schema_4,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",2024-05-01_224127
+base_kano_v2_llama3_1,46.674,OK,batch/prompts/base_kano_v2.json,KanoSurvey,True,,,2024-05-01_224214
+pers_base_batch-schema_5,0.001,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/pers_base_prompt.json'
+",2024-05-01_224214
+kano_base_batch-schema_3,0.001,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/kano_base_prompt.json'
+",2024-05-01_224214
+base_personality_v2_llama3_3,0.0,Failed,batch/prompts/base_personality_v2.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/base_personality_v2.json'
+",2024-05-01_224214
+base_personality_v2_llama3_2,0.0,Failed,batch/prompts/base_personality_v2.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/base_personality_v2.json'
+",2024-05-01_224214
+base_personality_v2_llama3_1,0.0,Failed,batch/prompts/base_personality_v2.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 32, in <module>
+    with open(rundata[""instructions""][""prompt_file""], 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/IPython/core/interactiveshell.py"", line 324, in _modified_open
+    return io_open(file, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'batch/prompts/base_personality_v2.json'
+",2024-05-01_224214
+base_pers_monster-loop_1,0.019,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_225943
+.DS_Store,0.0,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 29, in <module>
+    rundata = json.load(f)
+              ^^^^^^^^^^^^
+  File ""/opt/homebrew/Cellar/python@3.11/3.11.9/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/__init__.py"", line 293, in load
+    return loads(fp.read(),
+                 ^^^^^^^^^
+  File ""<frozen codecs>"", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x80 in position 3131: invalid start byte
+",2024-05-01_225943
+base_kano_monster-loop_1,0.012,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_225943
+base_personality_v2_llama3_3,49.206,OK,batch/prompts/base_pers_v2.json,PersonalitySurvey,True,,,2024-05-01_225943
+base_personality_v2_llama3_2,48.367,OK,batch/prompts/base_pers_v2.json,PersonalitySurvey,True,,,2024-05-01_230032
+base_pers_monster-loop_5,0.019,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230120
+base_kano_monster-loop_3,0.015,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230120
+base_personality_v2_llama3_1,45.936,OK,batch/prompts/base_pers_v2.json,PersonalitySurvey,True,,,2024-05-01_230120
+base_kano_monster-loop_2,0.014,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230206
+base_pers_monster-loop_4,0.012,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230206
+base_pers_monster-loop_3,0.012,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230206
+base_kano_monster-loop_5,0.011,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230206
+base_kano_monster-loop_4,0.011,Failed,batch/prompts/kano_base_prompt.json,KanoSurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230206
+base_pers_monster-loop_2,0.011,Failed,batch/prompts/pers_base_prompt.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/2741434603.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'llama3:7B' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+",2024-05-01_230206

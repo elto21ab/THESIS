@@ -1,0 +1,1 @@
+{"settings": {"model": "mistral"}, "info": {"date": "2024-04-18_114305", "EMBEDDING_NAMEID": "test02", "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism", "CHUNKS_COUNT_IN_CTX": 30, "survey_type": "<class 'survey.PersonalitySurvey'>", "prompt_count": 10}}

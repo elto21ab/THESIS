@@ -1,0 +1,1 @@
+{"settings": {"model": "llama3:70b", "timeout": 300}, "info": {"date": "2024-04-22_142836", "EMBEDDING_NAMEID": "test-A", "VERSION_ID": "8k-static", "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism", "CHUNKS_COUNT_IN_CTX": 10, "SUBJECT": "base", "limit": null, "prompt_count": 50, "avg_tokens_in_prompt": 98}}

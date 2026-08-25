@@ -1,0 +1,45 @@
+type,question,format,airidas,elias
+0,How old are you?,"15-20; 21-25; 26-30, 31-35; 36-40; Over 40",21-25,21-25
+0,What is your gender?,"Man, Female",Man,Man
+0,"How many hours do you play video games per week (including PC games, mobile games, etc.)?","1-5; 6-10; 11-15; 16-20; 21-25; 26-30; 31-35; 36-40, Over 40",6-10,6-10
+0,What type of device do you play games on the most?,"Phone, PC, Portable Consone, Video Console, Tablet",PC,Video Console
+1,What would you say if there were options to design your own avatar?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I am neutral
+2,What would you say if there were NO options to design your own avatar?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I expect it
+1,What would you say if the game had the option to save the game at any time?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I expect it,I expect it
+2,What would you say if the game did NOT have the option to save the game at any time?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I dislike it,I can tolerate it
+1,What would you say if the game has good graphics?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,"What would you say if the game had NO good graphics, or rather poor graphics?",I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I can tolerate it
+1,What would you say if the game had an exciting storyline?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,What would you say if the game did NOT have an exciting storyline?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I dislike it
+1,"What would you say if there were rewards such as extra points, in-game currency or coins in the game?",I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I dislike it
+2,"What would you say if there were NO rewards such as extra points, in-game currency or coins in the game?",I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I dislike it,I like it
+1,What would you say if the game had realistic game physics?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,What would you say if the game does NOT have realistic physics?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I expect it
+1,What would you say if the game had a relaxed flow rather than being very exciting?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I dislike it
+2,What would you say if the game DON'T have a relaxed flow?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I like it
+1,What would you say if the game had a multiplayer mode?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,What would you say if the game does NOT have multiplayer mode?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I can tolerate it
+1,What would you say if you can loot defeated enemies in the game?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I expect it,I am neutral
+2,What would you say if you CANNOT loot defeated enemies in the game?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I dislike it,I am neutral
+1,What would you say if the game had cutscenes?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I can tolerate it
+2,What would you say if the game DIDN'T have cutscenes?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I like it
+1,What would you say if the game had more and increasingly difficult levels?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,"What would you say if the game had NO levels, or the difficulty didn't increase?",I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I dislike it
+1,What would you say if the game had a high score table or hall of fame?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,What would you say if the game does NOT have a high score table or hall of fame?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I am neutral
+1,What would you say if the game contains role-playing elements?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I am neutral
+2,What would you say if the game contained NO role-playing elements?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I am neutral
+1,What would you say if the game had realistic graphics?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,What would you say if the game DON'T have realistic graphics?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I can tolerate it
+1,What would you say if the game offered the opportunity to level up the character?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I can tolerate it
+2,What would you say if the game does NOT provide a way to level up the character?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I am neutral
+1,What would you say if the game contained violent elements?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I am neutral
+2,What would you say if the game contained NO violent elements?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I am neutral,I am neutral
+1,What would you say if the game gave you creative freedom?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I expect it,I like it
+2,What would you say if the game DIDN'T give you creative freedom?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I dislike it
+1,What would you say if the game had a compelling plot or narrative?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I like it
+2,What would you say if the game DIDN'T have a compelling plot or narrative?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I expect it
+1,What would you say if the game had quests?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I am neutral
+2,What would you say if the game did NOT have quests?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I am neutral
+1,What would you say if the game had a clear ending or goal?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I can tolerate it,I like it
+2,What would you say if the game does NOT have an ending or clear goal?,I like it; I expect it; I am neutral; I can tolerate it; I dislike it,I like it,I can tolerate it

@@ -1,0 +1,17 @@
+﻿SIMULATION_NAMEID,corr,exact_matches,survey_type,temperature,exact_matches_elias,corr_elias,timestamp
+run2-airidas-personality,0.4578155809173665,0.34,<class 'survey.PersonalitySurvey'>,0.5,,,2024-04-17_180108
+run2-airidas-personality_cv2,0.5201743284093222,0.28,<class 'survey.PersonalitySurvey'>,0.5,,,2024-04-17_222836
+run2-airidas-personality_cv3,0.5417011679933312,0.28,<class 'survey.PersonalitySurvey'>,0.5,,,2024-04-17_224005
+run2-base-personality-cv1,0.4696360855329232,0.3,<class 'survey.PersonalitySurvey'>,0.5,,,2024-04-17_225245
+run2-base-personality-cv2,0.46976171475856976,0.28,<class 'survey.PersonalitySurvey'>,0.5,,,2024-04-17_225423
+run2-base-personality-cv3,0.4324004570000318,0.28,<class 'survey.PersonalitySurvey'>,0.5,,,2024-04-17_225559
+run2-base-video-game-cv1,0.4513962926507681,0.4,<class 'survey.KanoSurvey'>,0.5,0.375,0.1326478324420062,2024-04-17_231145
+run2-base-video-game-cv2,0.5754817101019827,0.425,<class 'survey.KanoSurvey'>,0.5,0.375,0.14426337681843782,2024-04-17_231652
+run2-base-video-game-cv3,0.4836158366454674,0.4,<class 'survey.KanoSurvey'>,0.5,0.325,0.005956788335302647,2024-04-17_231815
+run2-airidas-video-game-cv1,0.09035539282929095,0.325,<class 'survey.KanoSurvey'>,0.5,0.375,0.04416637964063223,2024-04-17_234245
+run2-airidas-video-game-cv2,0.08709808412161543,0.4,<class 'survey.KanoSurvey'>,0.5,0.35,0.06257404940124801,2024-04-17_234724
+run2-airidas-video-game-cv3,0.14461978820433435,0.375,<class 'survey.KanoSurvey'>,0.5,0.375,-0.018335202600661793,2024-04-17_235149
+run2-airidas-video-game_smaller-context_cv1,-0.06554567164164832,0.325,<class 'survey.KanoSurvey'>,0.5,0.4,0.014175914545213615,2024-04-17_235415
+video-game_airidas_dynamic_1,0.19655698156711293,0.325,<class 'survey.KanoSurvey'>,0.5,0.35,-0.21124415859095838,2024-04-18_170204
+video-game_airidas_dynamic_2,0.349344632144348,0.375,<class 'survey.KanoSurvey'>,0.5,0.35,-0.20082275760392074,2024-04-18_170642
+video-game_airidas_dynamic_3,0.3496253080715016,0.45,<class 'survey.KanoSurvey'>,0.5,0.4,0.2711680683547036,2024-04-18_170754

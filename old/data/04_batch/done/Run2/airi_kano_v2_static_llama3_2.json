@@ -1,0 +1,22 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/airidas_kano_v2_static.json",
+        "survey_type": "KanoSurvey",
+        "isLocal": true,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "llama3:70b",
+        "timeout": 300
+    },
+    "info": {
+        "note": "v2 means - less chunks in ctx & reversed",
+        "EMBEDDING_NAMEID": "airidas_reversed",
+        "RETRIEVAL_PROMPT": "video game features",
+        "CHUNKS_COUNT_IN_CTX": 15,
+        "SUBJECT": "airidas",
+        "prompt_count": 40,
+        "avg_tokens_in_prompt": 5714,
+        "prompt_template": "systemMsg(   \"You are specialized in impersonating people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit tastes by shadowing chats between the subject and friends. You will be asked to answer questions from the point of view of the persona. Text below:\",   \"Conversations between persona and friends\",      \"\nNEW CONVERSATION:\n\".join(chunks_most_similar)  ),  # Understanding affirmation  assistantMsg('I will answer from the point of view of the persona, based on what I could the deduct from the text provided.'),  # Survey question. With Simulation  userMsg(\"\n\".join([      f\"Persona is surveyed about their video game survey. The persona must choose answer the question below with one of the given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option. \", question, \"The persona chooses: \"  ])),"
+    }
+}

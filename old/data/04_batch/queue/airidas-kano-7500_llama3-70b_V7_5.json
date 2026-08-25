@@ -1,0 +1,31 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/airidas-kano-7500_llama3-70b_V7_prompts.json",
+        "survey_type": "KanoSurvey",
+        "isLocal": true,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "llama3-70b",
+        "timeout": 300
+    },
+    "info": {
+        "CHUNK_SIZE": 75,
+        "OVERLAP_SIZE": 3,
+        "CTX_limit": 7500,
+        "chunk_count": 6,
+        "EMBED_MODEL": "nomic-embed-text",
+        "prompt method": "IMPERSONATE",
+        "retrieval method": "dynamic",
+        "RETRIEVAL_PROMPT": "video game features",
+        "prompt_count": 40,
+        "survey": "kano",
+        "SUBJECT": "airidas",
+        "prompt_template": "\nfor question, chunks_most_similar in zip(surv.questions, dynamic_chunks_most_similar):\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famous people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),     \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+        "CHUNKS_COUNT_IN_CTX": 7,
+        "average_prompt_tokens": 7270,
+        "total_all_prompt_tokens": 290791,
+        "prompt_tokens_min": 5947,
+        "prompt_tokens_max": 7734
+    }
+}

@@ -1,0 +1,30 @@
+{
+  "instructions": {
+    "prompt_file": "batch/prompts/eli-kano-dynamic-50-01-09_V5_llama3_7b_prompts.json",
+    "survey_type": "KanoSurvey",
+    "isLocal": true,
+    "LIMIT": null
+  },
+  "settings": {
+    "model": "llama3",
+    "timeout": 300
+  },
+  "info": {
+    "CHUNK_SIZE": 50,
+    "OVERLAP_SIZE": 1,
+    "tokens_in_chunks": 228585,
+    "CTX_limit": 7000,
+    "model": "nomic-embed-text",
+    "prompt method": "IMPERSONATE",
+    "retrieval method": "dynamic",
+    "retrieval prompt": "video game features",
+    "prompt_count": 40,
+    "survey": "kano",
+    "subject": "eli",
+    "prompt_template": "\nfor question, chunks_most_similar in zip(surv.questions, dynamic_chunks_most_similar):\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famouns people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n**From most to least related**\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),      \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in an {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+    "CHUNKS_COUNT_IN_CTX": 9,
+    "total_all_prompt_tokens": 0,
+    "prompt_tokens_min": 0,
+    "prompt_tokens_max": 0
+  }
+}

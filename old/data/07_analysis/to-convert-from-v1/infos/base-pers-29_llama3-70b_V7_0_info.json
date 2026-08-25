@@ -1,0 +1,27 @@
+{
+    "settings": {
+        "model": "llama3-70b",
+        "timeout": 300
+    },
+    "info": {
+        "date": "2024-05-06_144841",
+        "CHUNK_SIZE": 75,
+        "OVERLAP_SIZE": 3,
+        "CTX_limit": 31000,
+        "EMBED_MODEL": "nomic-embed-text",
+        "prompt method": "IMPERSONATE",
+        "retrieval method": "base",
+        "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+        "prompt_count": 50,
+        "survey": "pers",
+        "SUBJECT": "base",
+        "prompt_template": "\nfor question in surv.questions:\n    p = [\n        systemMsg(\n            \"You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\",\n            f\"You must choose answer to the question below with one of the five options: {', '.join(surv.POSSIBLE_ANSWERS)}. The answer must only contain the chosen option. \"\n        ),\n        assistantMsg('Understood. I will answer the question below with one of the given options.'),\n        userMsg(\n            question,\n            \"Your choice: \"\n        )]\n    final_prompts.append(p)\n            ",
+        "CHUNKS_COUNT_IN_CTX": 29,
+        "average_prompt_tokens": 97,
+        "total_all_prompt_tokens": 4831,
+        "prompt_tokens_min": 94,
+        "prompt_tokens_max": 102,
+        "limit": null,
+        "avg_tokens_in_prompt": 97
+    }
+}

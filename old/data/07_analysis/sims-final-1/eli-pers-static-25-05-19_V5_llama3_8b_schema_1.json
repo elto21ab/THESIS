@@ -1,0 +1,235 @@
+{
+    "info": {
+        "settings": {
+            "model": "llama3",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-05-02_040453",
+            "CHUNK_SIZE": 25,
+            "OVERLAP_SIZE": 5,
+            "tokens_in_chunks": 7754,
+            "CTX_limit": 7000,
+            "model": "nomic-embed-text",
+            "prompt method": "IMPERSONATE",
+            "retrieval method": "static",
+            "retrieval prompt": "openess conciousness extrovert aggreableness neuroticism",
+            "prompt_count": 50,
+            "survey": "pers",
+            "subject": "eli",
+            "prompt_template": "\nfor question in surv.questions:\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famouns people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n**From most to least related**\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),  \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in an {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+            "CHUNKS_COUNT_IN_CTX": 19,
+            "total_all_prompt_tokens": 0,
+            "prompt_tokens_min": 0,
+            "prompt_tokens_max": 0,
+            "limit": null,
+            "avg_tokens_in_prompt": 8073
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            "SOMEWHAT AGREES"
+        ],
+        [
+            "I don't talk a lot.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I feel comfortable around people.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I keep in the background.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I start conversations.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I have little to say.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I am quiet around strangers.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I get stressed out easily.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I am relaxed most of the time.",
+            "SOMEWHAT AGREEMENT"
+        ],
+        [
+            "I worry about things.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I seldom feel blue.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am easily disturbed.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I get upset easily.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I change my mood a lot.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have frequent mood swings.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I get irritated easily.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I often feel blue.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I feel little concern for others.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I am interested in people.",
+            "SOMEWHAT AGREEMENT"
+        ],
+        [
+            "I insult people.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have a soft heart.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am not really interested in others.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I take time out for others.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I feel others' emotions.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I make people feel at ease.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am always prepared.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I leave my belongings around.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I pay attention to details.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I make a mess of things.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I get chores done right away.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I like order.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I shirk my duties.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I follow a schedule.",
+            "SOMEWHAT AGREEMENT"
+        ],
+        [
+            "I am exacting in my work.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have a rich vocabulary.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have a vivid imagination.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have excellent ideas.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I do not have a good imagination.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I am quick to understand things.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I use difficult words.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I spend time reflecting on things.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am full of ideas.",
+            "SOMEWHAT AGREE"
+        ]
+    ]
+}

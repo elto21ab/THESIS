@@ -1,0 +1,186 @@
+{
+    "info": {
+        "settings": {
+            "model": "llama3:70b",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-04-22_173222",
+            "note": "v2 means - less chunks in ctx & reversed",
+            "EMBEDDING_NAMEID": "airidas_reversed",
+            "RETRIEVAL_PROMPT": "video game features",
+            "CHUNKS_COUNT_IN_CTX": 15,
+            "SUBJECT": "airidas",
+            "prompt_count": 40,
+            "avg_tokens_in_prompt": 5714,
+            "prompt_template": "systemMsg(   \"You are specialized in impersonating people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit tastes by shadowing chats between the subject and friends. You will be asked to answer questions from the point of view of the persona. Text below:\",   \"Conversations between persona and friends\",      \"\nNEW CONVERSATION:\n\".join(chunks_most_similar)  ),  # Understanding affirmation  assistantMsg('I will answer from the point of view of the persona, based on what I could the deduct from the text provided.'),  # Survey question. With Simulation  userMsg(\"\n\".join([      f\"Persona is surveyed about their video game survey. The persona must choose answer the question below with one of the given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option. \", question, \"The persona chooses: \"  ])),",
+            "limit": null
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "What would you say if there were options to design your own avatar?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if there were NO options to design your own avatar?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had the option to save the game at any time?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game did NOT have the option to save the game at any time?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game has good graphics?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game had NO good graphics, or rather poor graphics?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had an exciting storyline?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game did NOT have an exciting storyline?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if there were rewards such as extra points, in-game currency or coins in the game?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if there were NO rewards such as extra points, in-game currency or coins in the game?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had realistic game physics?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game does NOT have realistic physics?",
+            "I CAN TOLERATE IT"
+        ],
+        [
+            "What would you say if the game had a relaxed flow rather than being very exciting?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game DON'T have a relaxed flow?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had a multiplayer mode?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game does NOT have multiplayer mode?",
+            "I CAN TOLERATE IT"
+        ],
+        [
+            "What would you say if you can loot defeated enemies in the game?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if you CANNOT loot defeated enemies in the game?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had cutscenes?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game DIDN'T have cutscenes?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had more and increasingly difficult levels?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game had NO levels, or the difficulty didn't increase?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had a high score table or hall of fame?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game does NOT have a high score table or hall of fame?",
+            "I CAN TOLERATE IT"
+        ],
+        [
+            "What would you say if the game contains role-playing elements?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game contained NO role-playing elements?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had realistic graphics?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game DON'T have realistic graphics?",
+            "I CAN TOLERATE IT"
+        ],
+        [
+            "What would you say if the game offered the opportunity to level up the character?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game does NOT provide a way to level up the character?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game contained violent elements?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game contained NO violent elements?",
+            "I CAN TOLERATE IT"
+        ],
+        [
+            "What would you say if the game gave you creative freedom?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game DIDN'T give you creative freedom?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had a compelling plot or narrative?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game DIDN'T have a compelling plot or narrative?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had quests?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game did NOT have quests?",
+            "I DISLIKE IT"
+        ],
+        [
+            "What would you say if the game had a clear ending or goal?",
+            "I LIKE IT"
+        ],
+        [
+            "What would you say if the game does NOT have an ending or clear goal?",
+            "I EXPECT IT"
+        ]
+    ]
+}

@@ -1,0 +1,25 @@
+question,framing,airidas,elias
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store raises the price to $40.",Raise,,
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store changes the price to $40.",Change,Very Unfair,Acceptable
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store raises the price to $20.",Raise,,
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store changes the price to $20.",Change,Unfair,Completely Fair
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store changes the price to $20.",Change,Acceptable,Completely Fair
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store raises the price to $20.",Raise,,
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store raises the price to $40.",Raise,,
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store changes the price to $40.",Change,Acceptable,Unfair
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store changes the price to $20.",Change,Acceptable,Acceptable
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store changes the price to $100.",Change,Unfair,Unfair
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store raises the price to $100.",Raise,,
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store raises the price to $100.",Raise,,
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store changes the price to $16.",Change,Completely Fair,Completely Fair
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store changes the price to $16.",Change,Completely Fair,Completely Fair
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store raises the price to $16.",Raise,,
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store changes the price to $100.",Change,Acceptable,Very Unfair
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store raises the price to $40.",Raise,,
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store changes the price to $100.",Change,Very Unfair,Very Unfair
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store raises the price to $20.",Raise,,
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store changes the price to $16.",Change,Completely Fair,Completely Fair
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store raises the price to $16.",Raise,,
+"A hamburger joint has been selling hamburgers for $15. The morning after mad cow disease is discovered, the store raises the price to $100.",Raise,,
+"A clothing boutique has been selling broaches for $15. The morning after a large explosion at the broach factory, the store raises the price to $16.",Raise,,
+"A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store changes the price to $40.",Change,Acceptable,Acceptable

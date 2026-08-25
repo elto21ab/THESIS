@@ -1,0 +1,235 @@
+{
+    "info": {
+        "settings": {
+            "model": "mixtral-8x22b",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-05-06_230412",
+            "CHUNK_SIZE": 75,
+            "OVERLAP_SIZE": 3,
+            "CTX_limit": 7500,
+            "chunk_count": 6,
+            "EMBED_MODEL": "nomic-embed-text",
+            "prompt method": "IMPERSONATE",
+            "retrieval method": "static",
+            "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+            "prompt_count": 50,
+            "survey": "pers",
+            "SUBJECT": "airidas",
+            "prompt_template": "\nfor question in surv.questions:\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famous people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),     \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+            "average_prompt_tokens": 7409,
+            "total_all_prompt_tokens": 370431,
+            "prompt_tokens_min": 7406,
+            "prompt_tokens_max": 7414,
+            "limit": null,
+            "avg_tokens_in_prompt": 7409
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I don't talk a lot.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I feel comfortable around people.",
+            " The persona chooses: SOMEWHAT DISAGREE"
+        ],
+        [
+            "I keep in the background.",
+            " The persona chooses: \"SOMEWHAT AGREE\""
+        ],
+        [
+            "I start conversations.",
+            " Somewhat Agree"
+        ],
+        [
+            "I have little to say.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            " The persona chooses: SOMEWHAT DISAGREE"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I am quiet around strangers.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get stressed out easily.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I am relaxed most of the time.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I worry about things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I seldom feel blue.",
+            " The persona chooses: SOMEWHAT AGREE"
+        ],
+        [
+            "I am easily disturbed.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I get upset easily.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I change my mood a lot.",
+            " Somewhat Agree"
+        ],
+        [
+            "I have frequent mood swings.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get irritated easily.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I often feel blue.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I feel little concern for others.",
+            " The persona chooses: NEUTRAL"
+        ],
+        [
+            "I am interested in people.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I insult people.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            " AGREE"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have a soft heart.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am not really interested in others.",
+            " The persona chooses: Somewhat Disagree"
+        ],
+        [
+            "I take time out for others.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I feel others' emotions.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I make people feel at ease.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am always prepared.",
+            " The persona chooses: \"SOMEWHAT DISAGREE\""
+        ],
+        [
+            "I leave my belongings around.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I pay attention to details.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I make a mess of things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get chores done right away.",
+            " Persona: Somewhat Disagree"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            " Somewhat Agree"
+        ],
+        [
+            "I like order.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I shirk my duties.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I follow a schedule.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am exacting in my work.",
+            " Somewhat Agree"
+        ],
+        [
+            "I have a rich vocabulary.",
+            " Somewhat Agree"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have a vivid imagination.",
+            " AGREE"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have excellent ideas.",
+            " Somewhat Agree"
+        ],
+        [
+            "I do not have a good imagination.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I am quick to understand things.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I use difficult words.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I spend time reflecting on things.",
+            " The persona chooses: \"AGREE\""
+        ],
+        [
+            "I am full of ideas.",
+            " The persona chooses: Somewhat Agree"
+        ]
+    ]
+}

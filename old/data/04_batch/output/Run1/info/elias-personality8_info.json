@@ -1,0 +1,1 @@
+{"settings": {"model": "command-r-plus:104b-q2_K", "timeout": 300}, "info": {"date": "2024-04-22_012307", "EMBEDDING_NAMEID": "test1", "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism", "CHUNKS_COUNT_IN_CTX": 15, "limit": null, "prompt_count": 50, "avg_tokens_in_prompt": 7451}}

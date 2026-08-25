@@ -1,0 +1,236 @@
+{
+    "info": {
+        "settings": {
+            "model": "mixtral-8x22b",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-05-06_214440",
+            "CHUNK_SIZE": 75,
+            "OVERLAP_SIZE": 3,
+            "CTX_limit": 7500,
+            "chunk_count": 7,
+            "EMBED_MODEL": "nomic-embed-text",
+            "prompt method": "IMPERSONATE",
+            "retrieval method": "dynamic",
+            "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+            "prompt_count": 50,
+            "survey": "pers",
+            "SUBJECT": "eli",
+            "prompt_template": "\nfor question, chunks_most_similar in zip(surv.questions, dynamic_chunks_most_similar):\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famous people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),     \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+            "CHUNKS_COUNT_IN_CTX": 7,
+            "average_prompt_tokens": 7263,
+            "total_all_prompt_tokens": 363133,
+            "prompt_tokens_min": 6319,
+            "prompt_tokens_max": 7750,
+            "limit": null,
+            "avg_tokens_in_prompt": 7263
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I don't talk a lot.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I feel comfortable around people.",
+            " AGREE"
+        ],
+        [
+            "I keep in the background.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I start conversations.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I have little to say.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            " Somewhat Agree"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            " It appears that you are asking for the persona to respond to the statement \"I don't mind being the center of attention\" with one of five options (DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, or AGREE). However, without additional context about the persona, I cannot accurately provide a response.\r\n\r\nIf you are role-playing as this persona and need assistance in continuing the conversation, please specify which option to choose for your character's response. Otherwise, if this is an actual question for someone in particular, they would be able to respond based on their personal feelings about being the center of attention."
+        ],
+        [
+            "I am quiet around strangers.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get stressed out easily.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I am relaxed most of the time.",
+            " NEUTRAL"
+        ],
+        [
+            "I worry about things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I seldom feel blue.",
+            " AGREE"
+        ],
+        [
+            "I am easily disturbed.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I get upset easily.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I change my mood a lot.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I have frequent mood swings.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get irritated easily.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I often feel blue.",
+            " Somewhat Agree"
+        ],
+        [
+            "I feel little concern for others.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I am interested in people.",
+            " AGREE"
+        ],
+        [
+            "I insult people.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            " AGREE"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have a soft heart.",
+            " The persona chooses: AGREE."
+        ],
+        [
+            "I am not really interested in others.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I take time out for others.",
+            " Somewhat Agree"
+        ],
+        [
+            "I feel others' emotions.",
+            " Somewhat Agree"
+        ],
+        [
+            "I make people feel at ease.",
+            " AGREE"
+        ],
+        [
+            "I am always prepared.",
+            " Somewhat Agree"
+        ],
+        [
+            "I leave my belongings around.",
+            " The persona chooses: SOMEWHAT DISAGREE"
+        ],
+        [
+            "I pay attention to details.",
+            " Persona chooses: AGREE"
+        ],
+        [
+            "I make a mess of things.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I get chores done right away.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            " The persona chooses: SOMEWHAT AGREE"
+        ],
+        [
+            "I like order.",
+            " AGREE"
+        ],
+        [
+            "I shirk my duties.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I follow a schedule.",
+            " The persona chooses: SOMEWHAT DISAGREE"
+        ],
+        [
+            "I am exacting in my work.",
+            " It seems like you are looking for a way to continue the conversation where it ended. Here's an appropriate response based on the previous context:\r\n\r\nFriend: \"Hey, I saw your message about the Gemini pro API being free with less than 60 calls/hour and needing VPN due to region limit. That sounds useful! By the way, I checked the format on my laptop and it looks good. Let's move forward with this.\""
+        ],
+        [
+            "I have a rich vocabulary.",
+            " AGREE"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have a vivid imagination.",
+            " AGREE"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have excellent ideas.",
+            " Somewhat Agree"
+        ],
+        [
+            "I do not have a good imagination.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I am quick to understand things.",
+            " The persona chooses: AGREE"
+        ],
+        [
+            "I use difficult words.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I spend time reflecting on things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am full of ideas.",
+            " AGREE"
+        ]
+    ]
+}

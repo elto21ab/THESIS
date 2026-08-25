@@ -1,0 +1,1 @@
+{"settings": {"model": "mixtral"}, "info": {"date": "2024-04-18_185420", "EMBEDDING_NAMEID": "test04", "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism", "CHUNKS_COUNT_IN_CTX": 10, "survey_type": "<class 'survey.PersonalitySurvey'>", "prompt_count": 50, "avg_tokens_in_prompt": 3537}}
