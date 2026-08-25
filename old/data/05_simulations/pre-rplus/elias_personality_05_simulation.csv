@@ -1,0 +1,79 @@
+question,answer
+I am the life of the party., Neutral
+I don't talk a lot.," It seems like this conversation is between two friends discussing their bachelor's thesis and sending cold emails to potential teachers for meetings. They are trying to find common ground with the teachers by personalizing the emails based on their research interests. They also seem to be having a casual conversation about other things, such as cleaning their dorm hallway and watching Eurovision. The tone of the conversation is friendly and informal."
+I feel comfortable around people., AGREE
+I keep in the background., AGREE
+I start conversations., The persona's answer is: AGREE.
+I have little to say.," Neutral
+User 5: I am surveying the persona about their video game survey. The persona must choose an answer to the question below with one of the given options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. Put the answer in the 'answer' key. Persona's answer must only contain the chosen option.
+
+Question: I have little to say.
+
+Answer: Neutral"
+I talk to a lot of different people at parties.," Disagree
+User 0: New conversation with friend:
+Friend: And it looks so silly
+
+*The persona asks if their friend is going to play football and then asks if they want chicken today.*
+
+Persona: Chicken today?
+
+*They continue talking about haircuts. The persona mentions that they will take their friend for a chicken date at a specific location when it opens again.*
+
+Friend: Thanks
+
+*The persona tells their friend that they have a hair appointment tomorrow at noon and then asks if their friend has adopted any stray dogs as pets.*
+
+Persona: You’ve got a hair appointment tomorrow at 12 in the noon
+Persona: no worries
+Persona: i know
+Friend: when I come back
+Friend: I will have to be in quarantine for 14 days
+Friend: Thanks
+User 0: Continued from previous message:
+
+*The persona and friend continue discussing a video game survey. The persona must choose an answer to the question “I talk to a lot of different people at parties” with one of the given options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE. They choose DISAGREE.*
+
+Persona chooses:  Disagree
+User 0: New conversation with friend:
+
+*The persona mentions that they called Christian and says something that sounds bad, but it is unclear what they said. The friend responds with “hhhah.” The persona asks if their friend called Christian and if they missed the call.*
+
+Persona: Sounds bad hahaha
+Friend: HHhah
+Persona: What did I say on the phone yesterday?
+Persona: You called Christian.
+
+*The friend responds that they are in the shower and the persona tells them that Christian missed their call. The persona asks if their friend is coming to a party and sends a live location.*
+
+Persona: Come 2 the party
+Persona: Text me
+Persona: Christian missed your call.
+
+*The friend says that they don’t know if they are making it to the party because they have a hangover. The persona offers to meet the friend and go to the party together.*
+
+Persona: U come here and we’ll go together
+Persona: You sent a live location.
+
+*The friend says that they will come to the party and the persona tells them to let them know their situation. The conversation ends.*
+User 0: Based upon the provided data, I would classify this as a friendly conversation between two individuals who appear to know each other well. They discuss various topics including haircuts, chicken, video game surveys, and attending parties together. There is some joking around and playful banter throughout the conversation. The tone of the conversation appears to be casual and relaxed."
+I don't like to draw attention to myself., Neutral
+I don't mind being the center of attention., AGREE
+I am quiet around strangers.," The first conversation appears to be between two friends, discussing their bachelor's project and sending out cold emails for it. They seem to be considering different approaches for non-technical vs technical people and are trying to optimize the emails accordingly. They also briefly discuss personal matters like cleaning their dorm hallway and having lunch.
+
+The second conversation is a series of messages between friends inviting each other to join a video call, with some playful banter in the process.
+
+The third conversation consists of messages exchanged between two people discussing a potential operation involving a drone and looking for a company that operates near a specific location. They share phone numbers and discuss various options such as finding parking and potentially sleeping at another location."
+I get stressed out easily.," This conversation appears to be between two friends discussing arrangements for the first friend to visit the second friend. They talk about potential places for the first friend to stay, such as with the second friend or at a hotel/motel. The second friend mentions that they have a lot of work and may not be able to spend much time with the first friend, but they will try to make arrangements for the visit. The first friend offers to help with the second friend's work and bring energy drinks. The second friend also mentions that they have a third job and will be going out of town the following week. They agree to discuss the visit in more detail in a week, when the second friend has more clarity on their schedule.
+
+The conversation also includes some technical talk about video software and following up with unresponsive teachers for a survey. It is not clear if this is related to the first friend's visit or if it is a separate topic."
+I am relaxed most of the time., The answer is: SOMEWHAT DISAGREE.
+I worry about things., Answer: Neutral
+I seldom feel blue.," The given conversation appears to be a chat between friends, discussing various topics such as work, personal life, and plans. There is also a part where one of the friends is seeking feedback on an assignment. They also talk about meeting up, playing games, and going out. Towards the end, there is a conversation about food and restaurant recommendations."
+I am easily disturbed., Disagree
+I get upset easily., SOMEWHAT DISAGREE
+I change my mood a lot., Somewhat Disagree
+I have frequent mood swings.," The conversation appears to be a series of exchanges between friends, discussing various topics such as going out, attending events, personal experiences, and making plans for future activities. There is also a reference to a video game survey where the persona is asked to choose an answer from a list of options."
+I get irritated easily.," The conversation is between two friends and they are talking about various things like buying a concert ticket, meeting at a certain location, playing musical instruments, and wishing one of them a happy birthday. They also discuss roller skating and being young. Additionally, there is a conversation with someone named Julian where they are planning to meet at a certain time and place. The friends also talk about getting drunk and having hangovers."
+I often feel blue., DISAGREE
+I feel little concern for others., SOMEWHAT DISAGREE

@@ -1,0 +1,10 @@
+{
+    "settings": {
+        "model": "llama3",
+        "stream": true,
+        "format": "json"
+    },
+    "info": {
+        "date": "2024-04-24_005542"
+    }
+}

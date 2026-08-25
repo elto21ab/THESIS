@@ -1,0 +1,236 @@
+{
+    "info": {
+        "settings": {
+            "model": "mixtral-8x22b",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-05-06_190928",
+            "CHUNK_SIZE": 75,
+            "OVERLAP_SIZE": 3,
+            "CTX_limit": 4000,
+            "chunk_count": 3,
+            "EMBED_MODEL": "nomic-embed-text",
+            "prompt method": "IMPERSONATE",
+            "retrieval method": "dynamic",
+            "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+            "prompt_count": 50,
+            "survey": "pers",
+            "SUBJECT": "airidas",
+            "prompt_template": "\nfor question, chunks_most_similar in zip(surv.questions, dynamic_chunks_most_similar):\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famous people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),     \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+            "CHUNKS_COUNT_IN_CTX": 4,
+            "average_prompt_tokens": 3492,
+            "total_all_prompt_tokens": 174615,
+            "prompt_tokens_min": 1216,
+            "prompt_tokens_max": 4208,
+            "limit": null,
+            "avg_tokens_in_prompt": 3492
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            " Somewhat Agree"
+        ],
+        [
+            "I don't talk a lot.",
+            " The persona chooses: SOMEWHAT AGREE"
+        ],
+        [
+            "I feel comfortable around people.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I keep in the background.",
+            " NEUTRAL"
+        ],
+        [
+            "I start conversations.",
+            " It seems like there are two different conversation logs here with some gaps in between. For the second part of the conversation where you asked for my response to \"I start conversations,\" based on the options given (DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE), I would choose:\r\n\r\nSOMEWHAT AGREE."
+        ],
+        [
+            "I have little to say.",
+            " It seems like you have shared a conversation between two individuals discussing various topics such as condoms, hiding personal information in photos, analyzing an advertisement campaign by BP, and assessing personality traits through an OCEAN test. In response to your question about the options for \"I have little to say\", it is important to note that this phrase typically conveys a sense of reservation or lack of enthusiasm towards a topic.\r\n\r\nGiven the context of the conversation, if I were in the persona's position and needed to choose from the options: DISAGREE, SOMEWHAT DISAGREE, NEUTRAL, SOMEWHAT AGREE, AGREE, my response would depend on the specific question or statement being addressed. However, based on the phrase \"I have little to say,\" a suitable choice might be between NEUTRAL and SOMEWHAT DISAGREE, depending on whether I want to express complete indifference or mild disagreement with the topic at hand.\r\n\r\nAs for the other parts of your message that appear as separate conversations, they involve discussions about condoms, hiding personal information in photos, and analyzing a video advertisement by BP. These topics are quite diverse and do not seem related to each other nor to my function as an assistant. Therefore, I would be unable to provide specific responses or actions based solely on this information.\r\n\r\nIn summary:\r\n1. In response to the question about \"I have little to say,\" a suitable option might be NEUTRAL or SOMEWHAT DISAGREE, depending on whether one wants to express complete indifference or mild disagreement with the topic at hand.\r\n2. The separate conversations shared in your message involve diverse topics that are not directly related and would require specific questions for me to provide appropriate responses or actions."
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            " AGREE"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            " Somewhat Agree"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            " AGREE"
+        ],
+        [
+            "I am quiet around strangers.",
+            " The persona chooses: AGREE"
+        ],
+        [
+            "I get stressed out easily.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am relaxed most of the time.",
+            " Somewhat Agree"
+        ],
+        [
+            "I worry about things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I seldom feel blue.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am easily disturbed.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get upset easily.",
+            " Somewhat Agree"
+        ],
+        [
+            "I change my mood a lot.",
+            " The persona chooses: SOMEWHAT AGREE"
+        ],
+        [
+            "I have frequent mood swings.",
+            " The persona chooses: SOMEWHAT AGREE"
+        ],
+        [
+            "I get irritated easily.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I often feel blue.",
+            " Somewhat Agree"
+        ],
+        [
+            "I feel little concern for others.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I am interested in people.",
+            " AGREE"
+        ],
+        [
+            "I insult people.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            " AGREE."
+        ],
+        [
+            "I am not interested in other people's problems.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have a soft heart.",
+            " AGREE"
+        ],
+        [
+            "I am not really interested in others.",
+            " Somewhat Agree"
+        ],
+        [
+            "I take time out for others.",
+            " AGREE"
+        ],
+        [
+            "I feel others' emotions.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I make people feel at ease.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am always prepared.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I leave my belongings around.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I pay attention to details.",
+            " The persona chooses: \"AGREE\"."
+        ],
+        [
+            "I make a mess of things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get chores done right away.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            " Somewhat Agree"
+        ],
+        [
+            "I like order.",
+            " The persona chooses: AGREE"
+        ],
+        [
+            "I shirk my duties.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I follow a schedule.",
+            " AGREE"
+        ],
+        [
+            "I am exacting in my work.",
+            " The persona chooses: AGREE"
+        ],
+        [
+            "I have a rich vocabulary.",
+            " Somewhat Agree"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have a vivid imagination.",
+            " AGREE"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I have excellent ideas.",
+            " The persona chooses: AGREE"
+        ],
+        [
+            "I do not have a good imagination.",
+            " The persona chooses: SOMEWHAT AGREE"
+        ],
+        [
+            "I am quick to understand things.",
+            " AGREE"
+        ],
+        [
+            "I use difficult words.",
+            " The persona chooses: Somewhat Agree"
+        ],
+        [
+            "I spend time reflecting on things.",
+            " AGREE"
+        ],
+        [
+            "I am full of ideas.",
+            " AGREE"
+        ]
+    ]
+}

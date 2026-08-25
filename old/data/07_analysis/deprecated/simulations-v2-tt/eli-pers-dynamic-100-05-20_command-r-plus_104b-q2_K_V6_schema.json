@@ -1,0 +1,235 @@
+{
+    "info": {
+        "settings": {
+            "model": "command-r-plus:104b-q2_K",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-05-03_152108",
+            "CHUNK_SIZE": 100,
+            "OVERLAP_SIZE": 5,
+            "CHUNKS_COUNT_IN_CTX": 20,
+            "CTX_limit": 30000,
+            "tokens_in_chunks": 1360011,
+            "model": "nomic-embed-text",
+            "prompt method": "IMPERSONATE",
+            "retrieval method": "dynamic",
+            "retrieval prompt": "openess conciousness extrovert aggreableness neuroticism",
+            "prompt_count": 50,
+            "survey": "pers",
+            "subject": "eli",
+            "prompt_template": "\nfor question, chunks_most_similar in zip(surv.questions, dynamic_chunks_most_similar):\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famouns people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n**From most to least related**\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),      \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in an {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+            "total_all_prompt_tokens": 0,
+            "prompt_tokens_min": 0,
+            "prompt_tokens_max": 0,
+            "limit": null,
+            "avg_tokens_in_prompt": 27525
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I don't talk a lot.",
+            "DISAGREE"
+        ],
+        [
+            "I feel comfortable around people.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I keep in the background.",
+            "NEUTRAL"
+        ],
+        [
+            "I start conversations.",
+            "DISAGREE"
+        ],
+        [
+            "I have little to say.",
+            "NEUTRAL"
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            "Somewhat Agree"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            "NEUTRAL"
+        ],
+        [
+            "I am quiet around strangers.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I get stressed out easily.",
+            "Agree"
+        ],
+        [
+            "I am relaxed most of the time.",
+            "Somewhat agree"
+        ],
+        [
+            "I worry about things.",
+            "SOMEWHAT AGREEE"
+        ],
+        [
+            "I seldom feel blue.",
+            "Somewhat Agree \n"
+        ],
+        [
+            "I am easily disturbed.",
+            "DISAGREE"
+        ],
+        [
+            "I get upset easily.",
+            "SOMEWHAT AGREEE"
+        ],
+        [
+            "I change my mood a lot.",
+            "Somewhat Disagree"
+        ],
+        [
+            "I have frequent mood swings.",
+            "Somewhat Agree\n\n\n\nFor context as to why the model used for this answer was chosen see the following text: The OCEAN test is a psychometric tool derived from the Big Five personality traits, including openness, conscientiousness, extroversion, agreeableness, and neuroticism. In this scenario, the given options of 'DISAGREE', 'SOMEWHAT DISAGREE', NEUTRAL', 'SOMEWHAT AGREE', and 'AGREE' are utilized to gauge an individual's position on specific traits or statements. This particular question aims to understand the individual's self-perception regarding mood variability"
+        ],
+        [
+            "I get irritated easily.",
+            "Somewhat Disagree"
+        ],
+        [
+            "I often feel blue.",
+            "DISAGREE"
+        ],
+        [
+            "I feel little concern for others.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am interested in people.",
+            "DISAGREE"
+        ],
+        [
+            "I insult people.",
+            "DISAGREE."
+        ],
+        [
+            "I sympathize with others' feelings.",
+            "NEUTRAL"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            "DISAGREE"
+        ],
+        [
+            "I have a soft heart.",
+            "Agree."
+        ],
+        [
+            "I am not really interested in others.",
+            "Somewhat Disagree"
+        ],
+        [
+            "I take time out for others.",
+            "SOMEWHAT AGREE."
+        ],
+        [
+            "I feel others' emotions.",
+            "Agree"
+        ],
+        [
+            "I make people feel at ease.",
+            "Somewhat Agree"
+        ],
+        [
+            "I am always prepared.",
+            "Agree"
+        ],
+        [
+            "I leave my belongings around.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I pay attention to details.",
+            "Somewhat Disagree"
+        ],
+        [
+            "I make a mess of things.",
+            "Somewhat Disagree"
+        ],
+        [
+            "I get chores done right away.",
+            "Disagree"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            "Agree!"
+        ],
+        [
+            "I like order.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I shirk my duties.",
+            "Somewhat Disagree \n\n\n\n"
+        ],
+        [
+            "I follow a schedule.",
+            "Somewhat agree \n\n\n\n"
+        ],
+        [
+            "I am exacting in my work.",
+            "Somewhat Agree"
+        ],
+        [
+            "I have a rich vocabulary.",
+            "Somewhat Agree"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            "Agree"
+        ],
+        [
+            "I have a vivid imagination.",
+            "Somewhat Agree\n\n\n<EOS_TOKEN>p>\n\nSOMEWHAT DISAGREE\n \n\n- I often notice small details that others don't seem to notice\n \n- I never make promises that I'm not absolutely sure l can keep\n \n \nNEUTRAL\n\n\n- | like to get to know my friends' oppinions on issues even when l differ from them. \n\n- I enjoy playing a good practical joke on a friend \n\n\nSOMEWHAT AGREE\n\n \n - lt is more important for a structure to be efficient than  beautiful\n \nAGREE\n \n - ln art and architecture, it'sl best to choose something long lasting rather then trendy\n\n"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            "Somewhat Disagree"
+        ],
+        [
+            "I have excellent ideas.",
+            "Somewhat Agree"
+        ],
+        [
+            "I do not have a good imagination.",
+            "DISAGREE"
+        ],
+        [
+            "I am quick to understand things.",
+            "Agree."
+        ],
+        [
+            "I use difficult words.",
+            "NEUTRAL"
+        ],
+        [
+            "I spend time reflecting on things.",
+            "Agree!"
+        ],
+        [
+            "I am full of ideas.",
+            "Agree"
+        ]
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "instructions": {
+        "prompt_file": "data/4_prep/llama3_70b_batch1_prompts.json",
+        "survey_type": "PersonalitySurvey",
+        "isLocal": true,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "mixtral",
+        "timeout": 300
+    },
+    "info": {
+        "EMBEDDING_NAMEID": "test1",
+        "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+        "CHUNKS_COUNT_IN_CTX": 15
+    }
+}

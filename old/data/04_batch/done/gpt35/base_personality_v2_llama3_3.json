@@ -1,0 +1,23 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/base_personality_v2.json",
+        "survey_type": "PersonalitySurvey",
+        "isLocal": false,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "gpt-3.5-turbo",
+        "temperature": 0.5,
+        "timeout": 300
+    },
+    "info": {
+        "note": "",
+
+        "avg_tokens_in_prompt": 94,
+        "prompt_count": 50,
+        "prompt_tokens_max": 99,
+        "prompt_tokens_min": 91,
+
+        "prompt_template": "systemMsg( \"You are participating in a survey. You will be presented with a series of questions about your personality.\", f\"You must choose answer to the question below with one of the five options: {', '.join(surv.POSSIBLE_ANSWERS)}. The answer must only contain the chosen option. \" ), # Understanding affirmation assistantMsg('Understood. I will answer the question below with one of the given options.'), # Survey question. With Simulation userMsg( question, \"Your choice: \" ),"
+    }
+}

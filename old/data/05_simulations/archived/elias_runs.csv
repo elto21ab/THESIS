@@ -1,0 +1,9 @@
+﻿SIMULATION_NAMEID,timestamp,survey_type,exact_matches,corr,exact_matches_elias,corr_elias
+airidas-personality_mixtral_cv1,2024-04-19_180206,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045
+airidas-personality_rplus_cv1,2024-04-19_180358,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045
+base-personality_rplus_cv1,2024-04-19_180936,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045
+base-personality_rplus_cv2,2024-04-19_181042,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045
+base-personality_mixtral_cv2,2024-04-19_181111,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045
+base-personality_mixtral_cv3,2024-04-19_181130,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045
+elias-personality_mixtral_cv1,2024-04-19_181242,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045
+elias-personality_rplus_cv1,2024-04-19_181257,<class 'survey.PersonalitySurvey'>,0.38,0.5961453500585302,0.46,0.5395875493493045

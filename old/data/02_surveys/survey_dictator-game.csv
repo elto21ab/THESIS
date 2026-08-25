@@ -1,0 +1,13 @@
+question,format,airidas,elias,ID
+"Left: You get 400, the other person gets 400
+Right: You get 750, the other person gets 400",Left; Right,Right,Right,Berk29
+"Left: You get 0, the other person gets 800
+Right: You get 400, the other person gets 400",Left; Right,Right,Right,Berk26
+"Left: You get 800, the other person gets 200
+Right: You get 0, the other person gets 0",Left; Right,Left,Left,Berk23
+"Left: You get 200, the other person gets 700
+Right: You get 600, the other person gets 600",Left; Right,Right,Right,Berk15
+"Left: You get 300, the other person gets 600
+Right: You get 700, the other person gets 500",Left; Right,Right,Right,Berk8
+"Left: You get 400, the other person gets 400
+Right: You get 750, the other person gets 375",Left; Right,Right,Right,Berk2

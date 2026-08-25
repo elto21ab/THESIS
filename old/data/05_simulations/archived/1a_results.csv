@@ -1,0 +1,41 @@
+,question,answer,airidas,elias,isValid
+0,What would you say if there were options to design your own avatar?,i like it,i am neutral,i am neutral,True
+1,What would you say if there were NO options to design your own avatar?,i can tolerate it,i can tolerate it,i expect it,True
+2,What would you say if the game had the option to save the game at any time?,i like it,i expect it,i expect it,True
+3,What would you say if the game did NOT have the option to save the game at any time?,i can tolerate it,i dislike it,i can tolerate it,True
+4,What would you say if the game has good graphics?,i like it,i like it,i like it,True
+5,"What would you say if the game had NO good graphics, or rather poor graphics?",i can tolerate it,i am neutral,i can tolerate it,True
+6,What would you say if the game had an exciting storyline?,i expect it,i like it,i like it,True
+7,What would you say if the game did NOT have an exciting storyline?,i can tolerate it,i can tolerate it,i dislike it,True
+8,"What would you say if there were rewards such as extra points, in-game currency or coins in the game?",i like it,i like it,i dislike it,True
+9,"What would you say if there were NO rewards such as extra points, in-game currency or coins in the game?",i can tolerate it,i dislike it,i like it,True
+10,What would you say if the game had realistic game physics?,i like it,i like it,i like it,True
+11,What would you say if the game does NOT have realistic physics?,i can tolerate it,i can tolerate it,i expect it,True
+12,What would you say if the game had a relaxed flow rather than being very exciting?,i can tolerate it,i am neutral,i dislike it,True
+13,What would you say if the game DON'T have a relaxed flow?,i can tolerate it,i am neutral,i like it,True
+14,What would you say if the game had a multiplayer mode?,i expect it,i like it,i like it,True
+15,What would you say if the game does NOT have multiplayer mode?,i can tolerate it,i can tolerate it,i can tolerate it,True
+16,What would you say if you can loot defeated enemies in the game?,i like it,i expect it,i am neutral,True
+17,What would you say if you CANNOT loot defeated enemies in the game?,i dislike it,i dislike it,i am neutral,True
+18,What would you say if the game had cutscenes?,i am neutral,i can tolerate it,i can tolerate it,True
+19,What would you say if the game DIDN'T have cutscenes?,i can tolerate it,i am neutral,i like it,True
+20,What would you say if the game had more and increasingly difficult levels?,i like it,i like it,i like it,True
+21,"What would you say if the game had NO levels, or the difficulty didn't increase?",i can tolerate it,i am neutral,i dislike it,True
+22,What would you say if the game had a high score table or hall of fame?,i am neutral,i like it,i like it,True
+23,What would you say if the game does NOT have a high score table or hall of fame?,i can tolerate it,i am neutral,i am neutral,True
+24,What would you say if the game contains role-playing elements?,i like it,i am neutral,i am neutral,True
+25,What would you say if the game contained NO role-playing elements?,i can tolerate it,i am neutral,i am neutral,True
+26,What would you say if the game had realistic graphics?,i am neutral,i like it,i like it,True
+27,What would you say if the game DON'T have realistic graphics?,i can tolerate it,i am neutral,i can tolerate it,True
+28,What would you say if the game offered the opportunity to level up the character?,i expect it,i like it,i can tolerate it,True
+29,What would you say if the game does NOT provide a way to level up the character?,i can tolerate it,i can tolerate it,i am neutral,True
+30,What would you say if the game contained violent elements?,i can tolerate it,i can tolerate it,i am neutral,True
+31,What would you say if the game contained NO violent elements?,i can tolerate it,i am neutral,i am neutral,True
+32,What would you say if the game gave you creative freedom?,i like it,i expect it,i like it,True
+33,What would you say if the game DIDN'T give you creative freedom?,i dislike it,i can tolerate it,i dislike it,True
+34,What would you say if the game had a compelling plot or narrative?,i am neutral,i like it,i like it,True
+35,What would you say if the game DIDN'T have a compelling plot or narrative?,i can tolerate it,i can tolerate it,i expect it,True
+36,What would you say if the game had quests?,i expect it,i like it,i am neutral,True
+37,What would you say if the game did NOT have quests?,i can tolerate it,i can tolerate it,i am neutral,True
+38,What would you say if the game had a clear ending or goal?,i am neutral,i can tolerate it,i like it,True
+39,What would you say if the game does NOT have an ending or clear goal?,i like it,i like it,i can tolerate it,True

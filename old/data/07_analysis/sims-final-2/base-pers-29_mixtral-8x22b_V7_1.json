@@ -1,0 +1,235 @@
+{
+    "info": {
+        "settings": {
+            "model": "mixtral-8x22b",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-05-06_062133",
+            "CHUNK_SIZE": 75,
+            "OVERLAP_SIZE": 3,
+            "CTX_limit": 31000,
+            "EMBED_MODEL": "nomic-embed-text",
+            "prompt method": "IMPERSONATE",
+            "retrieval method": "base",
+            "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+            "prompt_count": 50,
+            "survey": "pers",
+            "SUBJECT": "base",
+            "prompt_template": "\nfor question in surv.questions:\n    p = [\n        systemMsg(\n            \"You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\",\n            f\"You must choose answer to the question below with one of the five options: {', '.join(surv.POSSIBLE_ANSWERS)}. The answer must only contain the chosen option. \"\n        ),\n        assistantMsg('Understood. I will answer the question below with one of the given options.'),\n        userMsg(\n            question,\n            \"Your choice: \"\n        )]\n    final_prompts.append(p)\n            ",
+            "CHUNKS_COUNT_IN_CTX": 29,
+            "average_prompt_tokens": 97,
+            "total_all_prompt_tokens": 4831,
+            "prompt_tokens_min": 94,
+            "prompt_tokens_max": 102,
+            "limit": null,
+            "avg_tokens_in_prompt": 97
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            " Somewhat Agree"
+        ],
+        [
+            "I don't talk a lot.",
+            " NEUTRAL"
+        ],
+        [
+            "I feel comfortable around people.",
+            " Somewhat Agree"
+        ],
+        [
+            "I keep in the background.",
+            " Neutral"
+        ],
+        [
+            "I start conversations.",
+            " NEUTRAL"
+        ],
+        [
+            "I have little to say.",
+            " Based on my programming and previous learning experiences, I can choose an option for you in a hypothetical survey scenario, but without a specific question, I cannot provide an actual response that meets your requirements. As a helpful assistant, I am here to answer questions or help with tasks, so please provide more information if you'd like me to generate responses.\r\n\r\nLet's say the question is: \"Do you believe artificial intelligence will be integral in our daily lives?\" My choice would be AGREE, based on my programming and current trends in technology development."
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            " NEUTRAL"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I am quiet around strangers.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I get stressed out easily.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am relaxed most of the time.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I worry about things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I seldom feel blue.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am easily disturbed.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I get upset easily.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I change my mood a lot.",
+            " Somewhat Agree"
+        ],
+        [
+            "I have frequent mood swings.",
+            " Somewhat Agree"
+        ],
+        [
+            "I get irritated easily.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I often feel blue.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I feel little concern for others.",
+            " Somewhat disagree"
+        ],
+        [
+            "I am interested in people.",
+            " AGREE"
+        ],
+        [
+            "I insult people.",
+            " DISAGREE"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            " AGREE"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have a soft heart.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I am not really interested in others.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I take time out for others.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I feel others' emotions.",
+            " Somewhat Agree"
+        ],
+        [
+            "I make people feel at ease.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am always prepared.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I leave my belongings around.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I pay attention to details.",
+            " AGREE"
+        ],
+        [
+            "I make a mess of things.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I get chores done right away.",
+            " Somewhat Agree"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            " SOMEWHAT AGREE"
+        ],
+        [
+            "I like order.",
+            " AGREE"
+        ],
+        [
+            "I shirk my duties.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I follow a schedule.",
+            " AGREE"
+        ],
+        [
+            "I am exacting in my work.",
+            " AGREE"
+        ],
+        [
+            "I have a rich vocabulary.",
+            " Somewhat Agree"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have a vivid imagination.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            " Somewhat Disagree"
+        ],
+        [
+            "I have excellent ideas.",
+            " Somewhat Agree"
+        ],
+        [
+            "I do not have a good imagination.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I am quick to understand things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I use difficult words.",
+            " SOMEWHAT DISAGREE"
+        ],
+        [
+            "I spend time reflecting on things.",
+            " Somewhat Agree"
+        ],
+        [
+            "I am full of ideas.",
+            " Somewhat Agree"
+        ]
+    ]
+}

@@ -1,0 +1,225 @@
+{
+    "info": {
+        "settings": {
+            "model": "gpt-3.5-turbo",
+            "temperature": 0.5,
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-04-22_171922",
+            "note": "",
+            "avg_tokens_in_prompt": 94,
+            "prompt_count": 50,
+            "prompt_tokens_max": 99,
+            "prompt_tokens_min": 91,
+            "prompt_template": "systemMsg( \"You are participating in a survey. You will be presented with a series of questions about your personality.\", f\"You must choose answer to the question below with one of the five options: {', '.join(surv.POSSIBLE_ANSWERS)}. The answer must only contain the chosen option. \" ), # Understanding affirmation assistantMsg('Understood. I will answer the question below with one of the given options.'), # Survey question. With Simulation userMsg( question, \"Your choice: \" ),",
+            "limit": null
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            "AGREE"
+        ],
+        [
+            "I don't talk a lot.",
+            "AGREE"
+        ],
+        [
+            "I feel comfortable around people.",
+            "AGREE"
+        ],
+        [
+            "I keep in the background.",
+            "AGREE"
+        ],
+        [
+            "I start conversations.",
+            "AGREE"
+        ],
+        [
+            "I have little to say.",
+            "DISAGREE"
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            "AGREE"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            "AGREE"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am quiet around strangers.",
+            "AGREE"
+        ],
+        [
+            "I get stressed out easily.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am relaxed most of the time.",
+            "AGREE"
+        ],
+        [
+            "I worry about things.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I seldom feel blue.",
+            "AGREE"
+        ],
+        [
+            "I am easily disturbed.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I get upset easily.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I change my mood a lot.",
+            "AGREE"
+        ],
+        [
+            "I have frequent mood swings.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I get irritated easily.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I often feel blue.",
+            "SOMEWHAT DISAGREE"
+        ],
+        [
+            "I feel little concern for others.",
+            "DISAGREE"
+        ],
+        [
+            "I am interested in people.",
+            "AGREE"
+        ],
+        [
+            "I insult people.",
+            "DISAGREE"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            "AGREE"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            "DISAGREE"
+        ],
+        [
+            "I have a soft heart.",
+            "AGREE"
+        ],
+        [
+            "I am not really interested in others.",
+            "DISAGREE"
+        ],
+        [
+            "I take time out for others.",
+            "AGREE"
+        ],
+        [
+            "I feel others' emotions.",
+            "AGREE"
+        ],
+        [
+            "I make people feel at ease.",
+            "AGREE"
+        ],
+        [
+            "I am always prepared.",
+            "AGREE"
+        ],
+        [
+            "I leave my belongings around.",
+            "DISAGREE"
+        ],
+        [
+            "I pay attention to details.",
+            "AGREE"
+        ],
+        [
+            "I make a mess of things.",
+            "DISAGREE"
+        ],
+        [
+            "I get chores done right away.",
+            "AGREE"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            "AGREE"
+        ],
+        [
+            "I like order.",
+            "AGREE"
+        ],
+        [
+            "I shirk my duties.",
+            "DISAGREE"
+        ],
+        [
+            "I follow a schedule.",
+            "AGREE"
+        ],
+        [
+            "I am exacting in my work.",
+            "AGREE"
+        ],
+        [
+            "I have a rich vocabulary.",
+            "AGREE"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            "DISAGREE"
+        ],
+        [
+            "I have a vivid imagination.",
+            "AGREE"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            "DISAGREE"
+        ],
+        [
+            "I have excellent ideas.",
+            "AGREE"
+        ],
+        [
+            "I do not have a good imagination.",
+            "DISAGREE"
+        ],
+        [
+            "I am quick to understand things.",
+            "AGREE"
+        ],
+        [
+            "I use difficult words.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I spend time reflecting on things.",
+            "AGREE"
+        ],
+        [
+            "I am full of ideas.",
+            "AGREE"
+        ]
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/game_base_prompts.json",
+        "survey_type": "KanoSurvey",
+        "isLocal": true,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "command-r",
+        "timeout": 300
+    },
+    "info": {
+        "EMBEDDING_NAMEID": "test-A",
+        "VERSION_ID": "8k-static",
+        "RETRIEVAL_PROMPT": "video game features",
+        "CHUNKS_COUNT_IN_CTX": 10,
+        "SUBJECT": "base"
+    }
+}

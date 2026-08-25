@@ -1,0 +1,92 @@
+﻿filename,timestamp,time_taken,status,prompt_file,survey_type,isLocal,LIMIT,error
+eli-pers-hybrid-150-05-12_mixtral:instruct_V6_schema_1,2024-05-03_125933,543.796,OK,batch/prompts/eli-pers-hybrid-150-05-12_mixtral:instruct_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-dynamic-75-05-28_command-r_V6_schema_3,2024-05-03_130837,867.79,OK,batch/prompts/eli-pers-dynamic-75-05-28_command-r_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-dynamic-150-05-12_mixtral:instruct_V6_schema_2,2024-05-03_132305,504.24,OK,batch/prompts/eli-pers-dynamic-150-05-12_mixtral:instruct_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-dynamic-200-05-09_mixtral:8x22b-instruct-v0.1-q2_K_V6_schema,2024-05-03_134926,1536.502,OK,batch/prompts/eli-pers-dynamic-200-05-09_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-dynamic-100-05-20_mixtral:8x22b-instruct-v0.1-q2_K_V6_schema,2024-05-03_141503,1404.431,OK,batch/prompts/eli-pers-dynamic-100-05-20_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-hybrid-200-05-09_command-r-plus:104b-q2_K_V6_schema,2024-05-03_143827,2560.701,OK,batch/prompts/eli-pers-hybrid-200-05-09_command-r-plus:104b-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-dynamic-100-05-20_command-r-plus:104b-q2_K_V6_schema,2024-05-03_152108,2849.963,OK,batch/prompts/eli-pers-dynamic-100-05-20_command-r-plus:104b-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-dynamic-200-05-09_command-r-plus:104b-q2_K_V6_schema,2024-05-03_160838,2839.527,OK,batch/prompts/eli-pers-dynamic-200-05-09_command-r-plus:104b-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-hybrid-100-05-20_mixtral:8x22b-instruct-v0.1-q2_K_V6_schema,2024-05-03_165557,1677.001,OK,batch/prompts/eli-pers-hybrid-100-05-20_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-hybrid-200-05-09_mixtral:8x22b-instruct-v0.1-q2_K_V6_schema,2024-05-03_172354,1523.811,OK,batch/prompts/eli-pers-hybrid-200-05-09_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-hybrid-100-05-20_command-r-plus:104b-q2_K_V6_schema,2024-05-03_174918,2761.313,OK,batch/prompts/eli-pers-hybrid-100-05-20_command-r-plus:104b-q2_K_V6_prompts.json,PersonalitySurvey,True,,
+eli-pers-hybrid-250-05-02_mixtral-q2_K_V6_schema_1,2024-05-04_112738,0.122,Failed,batch/prompts/eli-pers-hybrid-250-05-02_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/223075676.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'mixtral:8x22b-instruct-v0.1-q2_K' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+"
+eli-pers-dynamic-200-05-02_mixtral-q2_K_V6_schema_1,2024-05-04_112738,0.124,Failed,batch/prompts/eli-pers-dynamic-200-05-02_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/223075676.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'mixtral:8x22b-instruct-v0.1-q2_K' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+"
+eli-pers-dynamic-250-05-01_mixtral-q2_K_V6_schema_1,2024-05-04_112738,0.063,Failed,batch/prompts/eli-pers-dynamic-250-05-01_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/223075676.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'mixtral:8x22b-instruct-v0.1-q2_K' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+"
+eli-pers-hybrid-200-05-02_mixtral-q2_K_V6_schema_1,2024-05-04_112738,0.117,Failed,batch/prompts/eli-pers-hybrid-200-05-02_mixtral:8x22b-instruct-v0.1-q2_K_V6_prompts.json,PersonalitySurvey,True,,"Traceback (most recent call last):
+  File ""/var/folders/bk/njz8h9d15b78r5q_bldv98zc0000gp/T/ipykernel_25160/223075676.py"", line 78, in <module>
+    full_response = client.chat.completions.create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_utils/_utils.py"", line 275, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/resources/chat/completions.py"", line 581, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1233, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 922, in request
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File ""/opt/homebrew/lib/python3.11/site-packages/openai/_base_client.py"", line 1013, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'error': {'message': ""model 'mixtral:8x22b-instruct-v0.1-q2_K' not found, try pulling it first"", 'type': 'api_error', 'param': None, 'code': None}}
+"

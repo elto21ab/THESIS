@@ -1,0 +1,28 @@
+{
+    "model": "nomic-embed-text",
+    "CHUNK_SIZE": 30,
+    "OVERLAP_SIZE": 10,
+    "chunks_count": 1112,
+    "total_messages": 22561,
+    "stat_total_msgs_in_chunks": 33360,
+    "modules_chat": {
+        "elias": 8022,
+        "petyo": 169785,
+        "alexandra": 1809,
+        "andreas": 1259,
+        "anna": 28468,
+        "antoni": 1539,
+        "arijan": 7040,
+        "denis": 4345,
+        "FED": 1434,
+        "filip": 2342,
+        "joanna": 20464,
+        "kuba": 5784,
+        "laura": 1097,
+        "liisa": 2596,
+        "luiza": 3067,
+        "marcus": 13006,
+        "patryk": 16798,
+        "victoria": 14144
+    }
+}

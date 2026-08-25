@@ -1,0 +1,18 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/airidas-personality_cv1_prompts.json",
+        "survey_type": "PersonalitySurvey",
+        "isLocal": false,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "gpt-3.5-turbo",
+        "temperature": 0.5,
+        "timeout": 300
+    },
+    "info": {
+        "EMBEDDING_NAMEID": "test1",
+        "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+        "CHUNKS_COUNT_IN_CTX": 30
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "model": "nomic-embed-text",
+    "CHUNK_SIZE": 30,
+    "OVERLAP_SIZE": 10,
+    "chunks_count": 130,
+    "total_messages": 2828,
+    "stat_total_msgs_in_chunks": 3900,
+    "modules_chat": {
+        "airidas": 9995,
+        "christian": 5252,
+        "nikolay": 3128,
+        "mathis": 1325,
+        "daniela": 2881,
+        "diba": 1799,
+        "aziz": 1219,
+        "jacob": 1124,
+        "chris": 1535,
+        "filip": 1306,
+        "mihi": 1098,
+        "viktoria": 1168
+    }
+}

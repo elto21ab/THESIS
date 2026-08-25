@@ -1,0 +1,1 @@
+{"settings": {"model": "gpt-3.5-turbo", "temperature": 0.5}, "info": {"date": "2024-04-17_232828", "EMBEDDING_NAMEID": "test1", "RETRIEVAL_PROMPT": "video game features", "CHUNKS_COUNT_IN_CTX": 35, "survey_type": "<class 'survey.KanoSurvey'>", "prompt_count": 40, "avg_tokens_in_prompt": 13718}}

@@ -1,0 +1,26 @@
+{
+    "model": "nomic-embed-text",
+    "CHUNK_SIZE": 75,
+    "OVERLAP_SIZE": 3,
+    "chunks_count": 929,
+    "modules_chat": {
+        "elias": 26008,
+        "petyo": 479653,
+        "anna": 86964,
+        "patryk": 53291,
+        "andreas": 4533,
+        "victoria": 41688,
+        "joanna": 60978,
+        "antoni": 4692,
+        "arijan": 20900,
+        "denis": 12326,
+        "alexandra": 5312,
+        "FED": 4450,
+        "filip": 6843,
+        "kuba": 16892,
+        "laura": 3357,
+        "liisa": 7927,
+        "luiza": 8399,
+        "marcus": 36691
+    }
+}

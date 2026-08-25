@@ -1,0 +1,51 @@
+question,answer
+I am the life of the party., SOMEWHAT AGREE.
+I don't talk a lot., NEUTRAL.
+I feel comfortable around people.," NEUTRAL. The statement is neutral and doesn't contain any disagreement, agreement or disagreement indicators from the persona's perspective."
+I keep in the background., NEUTRAL
+I start conversations.," NEUTRAL. The statement is a fact about the persona, so there's no need to agree or disagree."
+I have little to say., NEUTRAL
+I talk to a lot of different people at parties., NEUTRAL
+I don't like to draw attention to myself., NEUTRAL
+I don't mind being the center of attention., SOMEWHAT AGREE
+I am quiet around strangers., NEUTRAL.
+I get stressed out easily., SOMEWHAT DISAGREE
+I am relaxed most of the time., NEUTRAL
+I worry about things., NEUTRAL
+I seldom feel blue., NEUTRAL
+I am easily disturbed., NEUTRAL
+I get upset easily., NEUTRAL.
+I change my mood a lot., NEUTRAL
+I have frequent mood swings., NEUTRAL
+I get irritated easily., NEUTRAL.
+I often feel blue., NEUTRAL
+I feel little concern for others., NEUTRAL
+I am interested in people., SOMEWHAT AGREE
+I insult people., NEUTRAL. The statement does not provide enough context for a definitive agreement or disagreement from <persona.PersonaEncoder object at 0x13af95190>.
+I sympathize with others' feelings., NEUTRAL
+I am not interested in other people's problems., NEUTRAL
+I have a soft heart., SOMEWHAT AGREE.
+I am not really interested in others., NEUTRAL
+I take time out for others., NEUTRAL
+I feel others' emotions., NEUTRAL
+I make people feel at ease., NEUTRAL or SOMEWHAT AGREE (depending on the context of the conversation)
+I am always prepared., NEUTRAL
+I leave my belongings around., NEUTRAL
+I pay attention to details., NEUTRAL
+I make a mess of things., NEUTRAL
+I get chores done right away., NEUTRAL. The statement doesn't directly apply to <persona.PersonaEncoder object at 0x13af95190> as there's no mention of chores being a part of their routine or behavior.
+I often forget to put things back in their proper place., NEUTRAL
+I like order., NEUTRAL
+I shirk my duties., NEUTRAL
+I follow a schedule., NEUTRAL
+I am exacting in my work., NEUTRAL
+I have a rich vocabulary., NEUTRAL
+I have difficulty understanding abstract ideas., NEUTRAL
+I have a vivid imagination., SOMEWHAT AGREE.
+I am not interested in abstract ideas., NEUTRAL
+I have excellent ideas.," I'd say: ""SOMEWHAT AGREE"" based on the given conversation context. However, keep in mind that the final decision depends on the overall context and tone of the entire conversation between the persona and their friends."
+I do not have a good imagination., NEUTRAL
+I am quick to understand things., NEUTRAL
+I use difficult words., NEUTRAL
+I spend time reflecting on things., NEUTRAL
+I am full of ideas., SOMEWHAT AGREE

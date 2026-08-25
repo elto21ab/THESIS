@@ -1,0 +1,228 @@
+{
+    "info": {
+        "settings": {
+            "model": "llama3:70b",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-04-23_002632",
+            "note": "WARNING: max tokens in one prompt - 12000",
+            "SUBJECT": "airidas",
+            "CHUNKS_COUNT_IN_CTX": 12,
+            "EMBEDDING_NAMEID": "airidas_reversed",
+            "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+            "avg_tokens_in_prompt": 7108,
+            "prompt_count": 50,
+            "prompt_tokens_max": 12630,
+            "prompt_tokens_min": 4381,
+            "prompt_template": "systemMsg( \"You are specialized in impersonating people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit tastes by shadowing chats between the subject and friends. You will be asked to answer questions from the point of view of the persona. Text below:\", \"Conversations between persona and friends\", \"\nNEW CONVERSATION:\n\".join(chunks_most_similar) ), # Understanding affirmation assistantMsg('I will answer from the point of view of the persona, based on what I could the deduct from the text provided.'), # Survey question. With Simulation userMsg(\"\n\".join([ f\"Persona is surveyed about their personality. The persona must choose answer the question below with one of the given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option. \", question, \"The persona chooses: \" ])),",
+            "limit": null
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            "DISAGREE"
+        ],
+        [
+            "I don't talk a lot.",
+            "DISAGREE"
+        ],
+        [
+            "I feel comfortable around people.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I keep in the background.",
+            "DISAGREE"
+        ],
+        [
+            "I start conversations.",
+            "SOMEWHAT AGRE"
+        ],
+        [
+            "I have little to say.",
+            "DISAGREE"
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            "AGREE"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            "DISAGREE"
+        ],
+        [
+            "I am quiet around strangers.",
+            "DISAGREE"
+        ],
+        [
+            "I get stressed out easily.",
+            "DISAGREE"
+        ],
+        [
+            "I am relaxed most of the time.",
+            "DISAGREE"
+        ],
+        [
+            "I worry about things.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I seldom feel blue.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am easily disturbed.",
+            "DISAGREE"
+        ],
+        [
+            "I get upset easily.",
+            "DISAGREE"
+        ],
+        [
+            "I change my mood a lot.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I have frequent mood swings.",
+            "DISAGREE"
+        ],
+        [
+            "I get irritated easily.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I often feel blue.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I feel little concern for others.",
+            "DISAGREE"
+        ],
+        [
+            "I am interested in people.",
+            "NEUTRAL"
+        ],
+        [
+            "I insult people.",
+            "DISAGREE"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            "DISAGREE"
+        ],
+        [
+            "I have a soft heart.",
+            "AGREE"
+        ],
+        [
+            "I am not really interested in others.",
+            "DISAGREE"
+        ],
+        [
+            "I take time out for others.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I feel others' emotions.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I make people feel at ease.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am always prepared.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I leave my belongings around.",
+            "AGREE"
+        ],
+        [
+            "I pay attention to details.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I make a mess of things.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I get chores done right away.",
+            "DISAGREE"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            "AGREE"
+        ],
+        [
+            "I like order.",
+            "NEUTRAL"
+        ],
+        [
+            "I shirk my duties.",
+            "DISAGREE"
+        ],
+        [
+            "I follow a schedule.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I am exacting in my work.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I have a rich vocabulary.",
+            "SOMEWHAT AG AG...::.: and,\\\\\\\\ embod and.,:.\\\\\\\\ is\\\\\\\\ and.\n for,.. and: to. with.\\\\\\\\ the a of)\\\\\\\\\\\\\\\\..\\\\\\\\) to as the to.\\\\\\\\ for, of. in a is. and, to. -..\\\\\\\\, for..\n and. or and a)\n: I of of\\\\\\\\ a to in.://.. are D #### the.\n is is I\\\\ to.\\\\\\\\. the a., on to{ and and\\\\\\\\ for a the is:: in. a of: have's.\\\\\\\\) The a. of. on. and.),.\\\\\\\\ on to a The is , is to of or) and\\\\\\\\ for, are of,. is or., a\\\\\\\\,.,\\\\\\\\ , )). of.\\\\\\\\\\\\\\\\ \\\\\\\\ I the) ) in at and..\n with] in,) a a is\\\\\\\\{\\\\\\\\; I of the. of to.. or a: that to and. of to R and, and some. on and. embod\\\\\\\\ at.,\\\\\\\\\\\\\\\\] the. and,: to of for\\\\\\\\ a.\n to the. and..\n is or C to R.` the' D\\\\\\\\ have),\\\\\\\\ and, ).\\\\.\\\\\\\\) a a\\\\\\\\\\\\ The the in the on).. for , the the's\\\\\\\\\\\\\\\\ on\\\\\\\\, at.)).' a\\'\\\\ and] are and, I. and) embod in.,. of and on is the..\n. or a.\n` in...),\\\\\\\\ and. ####, in of in,):.:implify\\\\\\\\ by.\\\\\\\\) ).{ at\\\\ the\\\\\\\\:// on and. and: is. as to) to is \\ is,. that a), is it. in\\\\\\\\), and. and and a a\\\\\\\\ and.,, C is are ()..\\\\\\\\) a. is some\\\\\\\\\\\\.\\\\\\\\ a),.. and\\\\\\\\ and\\\\\\\\.).\n in I at) of or.\n. is, as)]) is with have\\\\\\\\ and.).}\\\\\\\\) a a,199"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            "DISAGREE"
+        ],
+        [
+            "I have a vivid imagination.",
+            "AGREE"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            "DISAGREE"
+        ],
+        [
+            "I have excellent ideas.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I do not have a good imagination.",
+            "DISAGREE"
+        ],
+        [
+            "I am quick to understand things.",
+            "AGREE"
+        ],
+        [
+            "I use difficult words.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I spend time reflecting on things.",
+            "AGREE"
+        ],
+        [
+            "I am full of ideas.",
+            "AGREE"
+        ]
+    ]
+}

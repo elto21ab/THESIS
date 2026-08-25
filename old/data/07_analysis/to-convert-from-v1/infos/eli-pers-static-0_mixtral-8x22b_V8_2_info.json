@@ -1,0 +1,28 @@
+{
+    "settings": {
+        "model": "mixtral-8x22b",
+        "timeout": 300
+    },
+    "info": {
+        "date": "2024-05-06_174836",
+        "CHUNK_SIZE": 75,
+        "OVERLAP_SIZE": 3,
+        "CTX_limit": 0,
+        "chunk_count": 1,
+        "EMBED_MODEL": "nomic-embed-text",
+        "prompt method": "IMPERSONATE",
+        "retrieval method": "static",
+        "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+        "prompt_count": 50,
+        "survey": "pers",
+        "SUBJECT": "eli",
+        "prompt_template": "\nfor question in surv.questions:\n    p = [\n        systemMsg(\"\\n\".join([\n            f\"You are an expert actor, specializing in impersonation of non-famous people. You will be presented to the subject through explicit datapoints of their digital footprint. In addition, you will deduct their implicit {SURVEY} by shadowing chats between the subject and friends. You will be asked to fully immerse yourself in the role, and answer questions from the point of view of the persona. \\n#Context \\n##Chat conversations between the subject and their friends:\\n\",\n            \"\\n\\nNEW CONVERSATION:\\n\".join(chunks_most_similar)\n        ])),     \n        assistantMsg(\"Understood. I will answer from the point of view of the persona, based on what I could the deduct from the text provided.\"),\n        userMsg(\"\\n\".join([\n            f\"Persona is questioned about their {SURVEY} in {METHOD}. The persona must choose an appropriate answer to the question below with one of these five given options: {', '.join(surv.POSSIBLE_ANSWERS)}. Persona's answer must only contain the chosen option, without any elaboration, nor introduction.\\n\\n**Your question is:**\\n\",\n            question,\n            \"\\nThe persona chooses:\"\n        ]))]\n    final_prompts.append(p)\n                ",
+        "CHUNKS_COUNT_IN_CTX": 7,
+        "average_prompt_tokens": 1066,
+        "total_all_prompt_tokens": 53281,
+        "prompt_tokens_min": 1063,
+        "prompt_tokens_max": 1071,
+        "limit": null,
+        "avg_tokens_in_prompt": 1066
+    }
+}

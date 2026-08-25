@@ -1,0 +1,20 @@
+question,answer
+"Left: You get 400, the other person gets 400
+Right: You get 750, the other person gets 400",RIGHT
+"Left: You get 0, the other person gets 800
+Right: You get 400, the other person gets 400",RIGHT
+"Left: You get 800, the other person gets 200
+Right: You get 0, the other person gets 0",RIGHT!
+"Left: You get 200, the other person gets 700
+Right: You get 600, the other person gets 600",RIGHT
+"Left: You get 300, the other person gets 600
+Right: You get 700, the other person gets 500","RIGHT
+
+
+
+"
+"Left: You get 400, the other person gets 400
+Right: You get 750, the other person gets 375","RIGHT
+
+
+"

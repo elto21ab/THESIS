@@ -1,0 +1,2 @@
+﻿SIMULATION_NAMEID,timestamp,survey_type,exact_matches,corr,exact_matches_elias,corr_elias
+elias_personality_03,2024-04-18_134347,<class 'survey.PersonalitySurvey'>,0.23809523809523808,0.09798087391026379,0.2619047619047619,0.1665474589335875

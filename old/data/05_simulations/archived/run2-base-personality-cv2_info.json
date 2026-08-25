@@ -1,0 +1,1 @@
+{"settings": {"model": "gpt-3.5-turbo", "temperature": 0.5}, "info": {"date": "2024-04-17_225251", "EMBEDDING_NAMEID": "test1", "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism", "CHUNKS_COUNT_IN_CTX": 30, "survey_type": "<class 'survey.PersonalitySurvey'>", "prompt_count": 50}}

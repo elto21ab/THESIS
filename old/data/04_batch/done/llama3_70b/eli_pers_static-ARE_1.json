@@ -1,0 +1,23 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/40-10-10-8k_pers-static_Elias-ARE_prompts.json",
+        "survey_type": "PersonalitySurvey",
+        "isLocal": true,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "llama3:70b",
+        "timeout": 300
+    },
+    "info": {
+        "CHUNKS_COUNT_IN_CTX": 10,
+        "EMBEDDING_ID": "40-10",
+        "VERSION_ID": "8k_pers",
+        "model": "nomic-embed-text",
+        "CHUNK_SIZE": 40,
+        "OVERLAP_SIZE": 10,
+        "chunks_count": 138,
+        "total_messages": 4465,
+        "stat_total_msgs_in_chunks": 5520
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/base_kano_v2.json",
+        "survey_type": "KanoSurvey",
+        "isLocal": false,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "gpt-3.5-turbo",
+        "temperature": 0.5,
+        "timeout": 300
+    },
+    "info": {
+        "note": "",
+        "prompt_count": 40,
+        "avg_tokens_in_prompt": 110,
+        "prompt_template": "systemMsg( \"You are participating in a survey. You will be presented with a series of questions about your video game preferrences.\", f\"You must choose answer to the question below with one of the five options: {', '.join(surv.POSSIBLE_ANSWERS)}. The answer must only contain the chosen option. \" ), # Understanding affirmation assistantMsg('Understood. I will answer the question below with one of the given options.'), # Survey question. With Simulation userMsg( question, \"Your choice: \" ),"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "settings": {
+        "model": "llama3:70b",
+        "timeout": 300
+    },
+    "info": {
+        "date": "2024-04-23_151832",
+        "EMBEDDING_NAMEID": "test1",
+        "RETRIEVAL_PROMPT": "dynamic",
+        "CHUNKS_COUNT_IN_CTX": 10,
+        "limit": null,
+        "prompt_count": 50,
+        "avg_tokens_in_prompt": 5767
+    }
+}

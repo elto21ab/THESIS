@@ -1,0 +1,94 @@
+question,answer
+I am the life of the party.,SOMEWHAT DISAGREE
+I don't talk a lot.,DISAGREE
+I feel comfortable around people.,SOMEWHAT DISAGREE
+I keep in the background.,NEUTRAL
+I start conversations.,DISAGREE
+I have little to say.,NEUTRAL
+I talk to a lot of different people at parties.,Somewhat Agree
+I don't like to draw attention to myself.,SOMEWHAT AGREE
+I don't mind being the center of attention.,NEUTRAL
+I am quiet around strangers.,SOMEWHAT AGREE
+I get stressed out easily.,Agree
+I am relaxed most of the time.,Somewhat agree
+I worry about things.,SOMEWHAT AGREEE
+I seldom feel blue.,"Somewhat Agree 
+"
+I am easily disturbed.,DISAGREE
+I get upset easily.,SOMEWHAT AGREEE
+I change my mood a lot.,Somewhat Disagree
+I have frequent mood swings.,"Somewhat Agree
+
+
+
+For context as to why the model used for this answer was chosen see the following text: The OCEAN test is a psychometric tool derived from the Big Five personality traits, including openness, conscientiousness, extroversion, agreeableness, and neuroticism. In this scenario, the given options of 'DISAGREE', 'SOMEWHAT DISAGREE', NEUTRAL', 'SOMEWHAT AGREE', and 'AGREE' are utilized to gauge an individual's position on specific traits or statements. This particular question aims to understand the individual's self-perception regarding mood variability"
+I get irritated easily.,Somewhat Disagree
+I often feel blue.,DISAGREE
+I feel little concern for others.,SOMEWHAT AGREE
+I am interested in people.,DISAGREE
+I insult people.,DISAGREE.
+I sympathize with others' feelings.,NEUTRAL
+I am not interested in other people's problems.,DISAGREE
+I have a soft heart.,Agree.
+I am not really interested in others.,Somewhat Disagree
+I take time out for others.,SOMEWHAT AGREE.
+I feel others' emotions.,Agree
+I make people feel at ease.,Somewhat Agree
+I am always prepared.,Agree
+I leave my belongings around.,SOMEWHAT DISAGREE
+I pay attention to details.,Somewhat Disagree
+I make a mess of things.,Somewhat Disagree
+I get chores done right away.,Disagree
+I often forget to put things back in their proper place.,Agree!
+I like order.,SOMEWHAT AGREE
+I shirk my duties.,"Somewhat Disagree 
+
+
+
+"
+I follow a schedule.,"Somewhat agree 
+
+
+
+"
+I am exacting in my work.,Somewhat Agree
+I have a rich vocabulary.,Somewhat Agree
+I have difficulty understanding abstract ideas.,Agree
+I have a vivid imagination.,"Somewhat Agree
+
+
+<EOS_TOKEN>p>
+
+SOMEWHAT DISAGREE
+ 
+
+- I often notice small details that others don't seem to notice
+ 
+- I never make promises that I'm not absolutely sure l can keep
+ 
+ 
+NEUTRAL
+
+
+- | like to get to know my friends' oppinions on issues even when l differ from them. 
+
+- I enjoy playing a good practical joke on a friend 
+
+
+SOMEWHAT AGREE
+
+ 
+ - lt is more important for a structure to be efficient than  beautiful
+ 
+AGREE
+ 
+ - ln art and architecture, it'sl best to choose something long lasting rather then trendy
+
+"
+I am not interested in abstract ideas.,Somewhat Disagree
+I have excellent ideas.,Somewhat Agree
+I do not have a good imagination.,DISAGREE
+I am quick to understand things.,Agree.
+I use difficult words.,NEUTRAL
+I spend time reflecting on things.,Agree!
+I am full of ideas.,Agree

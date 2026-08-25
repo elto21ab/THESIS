@@ -1,0 +1,15 @@
+{
+    "instructions": {
+        "prompt_file": "batch/prompts/40-10-10-8k_pers-dynamic_Elias-IMPERSONATE_prompts.json",
+        "survey_type": "PersonalitySurvey",
+        "isLocal": true,
+        "LIMIT": null
+    },
+    "settings": {
+        "model": "llama3:70b",
+        "timeout": 300
+    },
+    "info": {
+        "EMBEDDING_NAMEID": "Not in chunks?"
+    }
+}

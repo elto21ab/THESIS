@@ -1,0 +1,235 @@
+{
+    "info": {
+        "settings": {
+            "model": "llama3-70b",
+            "timeout": 300
+        },
+        "info": {
+            "date": "2024-05-06_024959",
+            "CHUNK_SIZE": 75,
+            "OVERLAP_SIZE": 3,
+            "CTX_limit": 31000,
+            "EMBED_MODEL": "nomic-embed-text",
+            "prompt method": "IMPERSONATE",
+            "retrieval method": "base",
+            "RETRIEVAL_PROMPT": "openess conciousness extrovert aggreableness neuroticism",
+            "prompt_count": 50,
+            "survey": "pers",
+            "SUBJECT": "base",
+            "prompt_template": "\nfor question in surv.questions:\n    p = [\n        systemMsg(\n            \"You are participating in a survey. You will be presented with a series of questions about your {SURVEY}.\",\n            f\"You must choose answer to the question below with one of the five options: {', '.join(surv.POSSIBLE_ANSWERS)}. The answer must only contain the chosen option. \"\n        ),\n        assistantMsg('Understood. I will answer the question below with one of the given options.'),\n        userMsg(\n            question,\n            \"Your choice: \"\n        )]\n    final_prompts.append(p)\n            ",
+            "CHUNKS_COUNT_IN_CTX": 29,
+            "average_prompt_tokens": 97,
+            "total_all_prompt_tokens": 4831,
+            "prompt_tokens_min": 94,
+            "prompt_tokens_max": 102,
+            "limit": null,
+            "avg_tokens_in_prompt": 97
+        }
+    },
+    "QA": [
+        [
+            "question",
+            "answer"
+        ],
+        [
+            "I am the life of the party.",
+            "AGREE"
+        ],
+        [
+            "I don't talk a lot.",
+            "NEUTRAL"
+        ],
+        [
+            "I feel comfortable around people.",
+            "AGREE"
+        ],
+        [
+            "I keep in the background.",
+            "DISAGREE"
+        ],
+        [
+            "I start conversations.",
+            "AGREE"
+        ],
+        [
+            "I have little to say.",
+            "AGREE"
+        ],
+        [
+            "I talk to a lot of different people at parties.",
+            "AGREE"
+        ],
+        [
+            "I don't like to draw attention to myself.",
+            "AGREE"
+        ],
+        [
+            "I don't mind being the center of attention.",
+            "AGREE"
+        ],
+        [
+            "I am quiet around strangers.",
+            "AGREE"
+        ],
+        [
+            "I get stressed out easily.",
+            "AGREE"
+        ],
+        [
+            "I am relaxed most of the time.",
+            "AGREE"
+        ],
+        [
+            "I worry about things.",
+            "AGREE"
+        ],
+        [
+            "I seldom feel blue.",
+            "AGREE"
+        ],
+        [
+            "I am easily disturbed.",
+            "AGREE"
+        ],
+        [
+            "I get upset easily.",
+            "AGREE"
+        ],
+        [
+            "I change my mood a lot.",
+            "AGREE"
+        ],
+        [
+            "I have frequent mood swings.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I get irritated easily.",
+            "AGREE"
+        ],
+        [
+            "I often feel blue.",
+            "AGREE"
+        ],
+        [
+            "I feel little concern for others.",
+            "DISAGREE"
+        ],
+        [
+            "I am interested in people.",
+            "AGREE"
+        ],
+        [
+            "I insult people.",
+            "DISAGREE"
+        ],
+        [
+            "I sympathize with others' feelings.",
+            "AGREE"
+        ],
+        [
+            "I am not interested in other people's problems.",
+            "AGREE"
+        ],
+        [
+            "I have a soft heart.",
+            "AGREE"
+        ],
+        [
+            "I am not really interested in others.",
+            "AGREE"
+        ],
+        [
+            "I take time out for others.",
+            "AGREE"
+        ],
+        [
+            "I feel others' emotions.",
+            "AGREE"
+        ],
+        [
+            "I make people feel at ease.",
+            "AGREE"
+        ],
+        [
+            "I am always prepared.",
+            "AGREE"
+        ],
+        [
+            "I leave my belongings around.",
+            "AGREE"
+        ],
+        [
+            "I pay attention to details.",
+            "AGREE"
+        ],
+        [
+            "I make a mess of things.",
+            "AGREE"
+        ],
+        [
+            "I get chores done right away.",
+            "AGREE"
+        ],
+        [
+            "I often forget to put things back in their proper place.",
+            "AGREE"
+        ],
+        [
+            "I like order.",
+            "AGREE"
+        ],
+        [
+            "I shirk my duties.",
+            "DISAGREE"
+        ],
+        [
+            "I follow a schedule.",
+            "AGREE"
+        ],
+        [
+            "I am exacting in my work.",
+            "AGREE"
+        ],
+        [
+            "I have a rich vocabulary.",
+            "AGREE"
+        ],
+        [
+            "I have difficulty understanding abstract ideas.",
+            "SOMEWHAT AGREE"
+        ],
+        [
+            "I have a vivid imagination.",
+            "AGREE"
+        ],
+        [
+            "I am not interested in abstract ideas.",
+            "AGREE"
+        ],
+        [
+            "I have excellent ideas.",
+            "AGREE"
+        ],
+        [
+            "I do not have a good imagination.",
+            "AGREE"
+        ],
+        [
+            "I am quick to understand things.",
+            "AGREE"
+        ],
+        [
+            "I use difficult words.",
+            "NEUTRAL"
+        ],
+        [
+            "I spend time reflecting on things.",
+            "AGREE"
+        ],
+        [
+            "I am full of ideas.",
+            "AGREE"
+        ]
+    ]
+}

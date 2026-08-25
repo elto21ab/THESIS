@@ -1,0 +1,44 @@
+{
+    "master": 1.137,
+    "by_subject": {
+        "airidas": 1.076,
+        "elias": 1.1980
+    },
+    "by_survey": {
+        "KanoSurvey": 1.004,
+        "PersonalitySurvey": 1.27
+    },
+    "by_model": {
+        "llama3-70b": 1.38375,
+        "llama3-8b": 1.034,
+        "mixtral-8x22b": 0.990
+    },
+    "by_survey_subject": {
+        "PersAiri": 1.324,
+        "PersEli": 1.215,
+        "KanoAiri": 0.828,
+        "KanoEli": 1.180
+    },
+    "by_simulation": {
+        "kano_llama3-70b": 1.0375,
+        "pers_llama3-70b": 1.73,
+        "kano_llama3-8b": 1.0375,
+        "pers_llama3-8b": 1.036,
+        "kano_mixtral-8x22b": 0.9375,
+        "pers_mixtral-8x22b": 1.043
+    },
+    "atomic": {
+        "base-kano-29_llama3-70b_V7_airi": 0.841,
+        "base-kano-29_llama3-70b_V7_eli": 1.233,
+        "base-pers-29_llama3-70b_V7_airi": 1.853,
+        "base-pers-29_llama3-70b_V7_eli": 1.606,
+        "base-kano-29_llama3-8b_V7_airi": 0.941,
+        "base-kano-29_llama3-8b_V7_eli": 1.133,
+        "base-pers-29_llama3-8b_V7_airi": 1.1,
+        "base-pers-29_llama3-8b_V7_eli": 0.973,
+        "base-kano-29_mixtral-8x22b_V7_airi": 0.701,
+        "base-kano-29_mixtral-8x22b_V7_eli": 1.175,
+        "base-pers-29_mixtral-8x22b_V7_airi": 1.02,
+        "base-pers-29_mixtral-8x22b_V7_eli": 1.066
+    }
+}
