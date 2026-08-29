@@ -1,18 +1,24 @@
 # UCloud inference optimization
 
-Start here:
+**Start here (order):**
+1. [`hpc/runbook/UCLOUD_SSH_RUNBOOK.md`](hpc/runbook/UCLOUD_SSH_RUNBOOK.md) — how to SSH, billing, job UI quirks, pkill foot-guns.
+2. [`hpc/runbook/UCLOUD_VLLM_PRECHECKLIST.md`](hpc/runbook/UCLOUD_VLLM_PRECHECKLIST.md) — pre-flight checklist, env block, quant lessons. **Read before launching any vLLM job.**
+3. [`hpc/experiments/README.md`](hpc/experiments/README.md) — experiment index (what was tried, verdicts, links).
+4. [`hpc/runbook/DECISIONS_AND_NEXT_SESSION.md`](hpc/runbook/DECISIONS_AND_NEXT_SESSION.md) — current objective (aggregate pp/tg TPS per billed GPU-hour), metric definitions, next steps.
+5. [`hpc/runbook/INFERENCE_TUNING_HANDOFF.md`](hpc/runbook/INFERENCE_TUNING_HANDOFF.md) — full historical handoff (older, superseded in parts by the prechecklist).
 
-1. [`docs/DECISIONS_AND_NEXT_SESSION.md`](docs/DECISIONS_AND_NEXT_SESSION.md) — current decisions, corrections, metrics, next implementation/run.
-2. [`docs/INFERENCE_TUNING_HANDOFF.md`](docs/INFERENCE_TUNING_HANDOFF.md) — full hardware/history/reproduction handoff.
-3. [`checkpoints/run-12372444/RESULTS_8B.md`](checkpoints/run-12372444/RESULTS_8B.md) — compact validated 8B results.
+## Layout
+```
+hpc/
+├── runbook/         operational docs (SSH, prechecklist, decisions, historical handoff)
+├── experiments/     one dir per experiment, each with README (postmortem + results)
+├── results/         compact validated result sheets (RESULTS_8B.md, ALT_ENGINES.md)
+├── tools/           tune_inference.py (serve-bench driver), prepare_benchmark_prompts.py
+├── configs/         inference-tune.example.toml
+├── data/            V7 benchmark prompt suites (+ manifests)
+├── scripts/         UCloud bootstrap + upload + provisioning
+└── checkpoints/     tarballs + small artifacts (incl. run-12372444 final run, qwen38 0828)
+```
 
-Folders:
-
-- `tools/`: tuner + prompt-preparation CLI
-- `configs/`: example TOML
-- `scripts/`: UCloud bootstrap
-- `data/`: generated benchmark prompt suites; original V7 source remains elsewhere
-- `checkpoints/`: compact local experiment artifacts, incl. historical Qwen run
-- `docs/`: handoff and decisions
-
-Policy: no token-aware admission. Preserve full-context freedom per request; tune aggregate context pool + server parallelism P; use durable retries/backpressure Q.
+## Policy
+No token-aware admission; preserve full-context freedom per request. Tune aggregate context pool + server parallelism P; durable retries/backpressure Q. Engine settled on **vLLM ≥0.27** (Blackwell/NVFP4); llama.cpp kept for router-aware offload of too-big models.
