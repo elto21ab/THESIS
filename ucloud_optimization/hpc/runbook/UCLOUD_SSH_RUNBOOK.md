@@ -57,3 +57,8 @@ Survives disconnect; monitor by tailing the log from later ssh calls.
 - `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:False` required on MIG (torch NVML assert); values must be capitalized (`False` not `false` — this torch build's parser is case-strict).
 - vLLM JIT needs nvcc + dev headers; toolchain persisted at `/work/LCPP_OffloadTesting/runtime/cuda-13/` — export `CUDA_HOME`/`PATH`/`LD_LIBRARY_PATH` before any serve (see QWEN38_NVFP4_EXPERIMENT.md pre-flight checklist).
 - `pkill -f` second instance: never in a compound command whose own cmdline contains the pattern from an earlier `pgrep -af` in the same line — the pgrep pattern text itself matches and kills the session.
+
+## 2026-08-29 additions
+- Remote restructured: everything now under `/work/LCPP_OffloadTesting/hpc/` (models, toolchain, venvs, data, experiments, results). `llama-inference/` folded into `hpc/experiments/2026-08-19_llama_first/` and its source emptied.
+- Filesystem-only maintenance: cheap `terminal-ubuntu` job on `cpu-amd-zen5-1-vcpu` (1 core-hour) w/ folders attached does the job. "Add folder" needs the folder-row click in the picker dialog to actually attach.
+- Stop button is **hold-to-confirm**: `pb hold <session> <ref> --ms 2500` (new patchright CLI command added this date; plain click only arms it).
