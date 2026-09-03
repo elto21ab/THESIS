@@ -1,6 +1,10 @@
 # UCloud inference optimization
 
-**Start here (order):**
+**Tracks:**
+- `hpc/` — llama.cpp primary + engine sweeps (historical, settled: vLLM ≥0.27 for NVFP4 on Blackwell).
+- [`vllm/`](vllm/README.md) — **current track**: vLLM-only, Q8 (FP8 W8A8) vs NVFP4 (W4A4) benchmarking across model sizes. Remote: `/work/LCPP_OffloadTesting/vLLM/`.
+
+**Start here (order, hpc track):**
 1. [`hpc/runbook/UCLOUD_SSH_RUNBOOK.md`](hpc/runbook/UCLOUD_SSH_RUNBOOK.md) — how to SSH, billing, job UI quirks, pkill foot-guns.
 2. [`hpc/runbook/UCLOUD_VLLM_PRECHECKLIST.md`](hpc/runbook/UCLOUD_VLLM_PRECHECKLIST.md) — pre-flight checklist, env block, quant lessons. **Read before launching any vLLM job.**
 3. [`hpc/experiments/README.md`](hpc/experiments/README.md) — experiment index (what was tried, verdicts, links).
