@@ -1,0 +1,30 @@
+{
+  "source": "data/04_batch/prompts/V7",
+  "member": 0,
+  "files": [
+    "data/04_batch/prompts/V7/31500/airidas-kano-31500_mixtral-8x22b_V7_prompts.json",
+    "data/04_batch/prompts/V7/31500/airidas-pers-31500_mixtral-8x22b_V7_prompts.json",
+    "data/04_batch/prompts/V7/31500/eli-kano-31500_mixtral-8x22b_V7_prompts.json",
+    "data/04_batch/prompts/V7/31500/eli-pers-31500_mixtral-8x22b_V7_prompts.json",
+    "data/04_batch/prompts/V7/airidas-kano-0_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/airidas-kano-4000_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/airidas-kano-7500_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/airidas-pers-0_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/airidas-pers-4000_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/airidas-pers-7500_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/eli-kano-0_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/eli-kano-4000_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/eli-kano-7500_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/eli-pers-0_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/eli-pers-4000_llama3-70b_V7_prompts.json",
+    "data/04_batch/prompts/V7/eli-pers-7500_llama3-70b_V7_prompts.json"
+  ],
+  "groups": 16,
+  "unique_prompts": 48,
+  "subset": 48,
+  "reasoning": false,
+  "char_range": [
+    3065,
+    131981
+  ]
+}
