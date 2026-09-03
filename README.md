@@ -13,12 +13,14 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
    - *Any cloud provider is discouraged to mitigate leakage-risk of PII (sensive and private data).*
 
 
-> [!EXPORT] <details> <summary>How to get chat data from each platform</summary>
-> *Facebook/Instagrame will take about 3 days for "all time", and Whatsapp is instant*
-> 1. [Facebook & Instagram](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Create export --> pick account[s] (incl. Instagram) --> export to device --> Customize information --> Clear all other than "Messages" (Get "All time", in JSON format, and pick lower media quality)
-> 2. WhatsApp --> Settings --> Chats -->  Export chat --> pick your 1-on-1 chats to export (no media)
-> 3. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time.
-></details>
+<details>
+<summary><b>Export: How to get chat data from each platform</b></summary>
+
+*Facebook/Instagrame will take about 3 days for "all time", and Whatsapp is instant*
+1. [Facebook & Instagram](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Create export --> pick account[s] (incl. Instagram) --> export to device --> Customize information --> Clear all other than "Messages" (Get "All time", in JSON format, and pick lower media quality)
+2. WhatsApp --> Settings --> Chats -->  Export chat --> pick your 1-on-1 chats to export (no media)
+3. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time.
+</details>
 
 > [!NOTE]
 > This fork is a refactored version of [this repository](https://github.com/Brikas/Thesis), where our original commit history is preserved. This repostitory is meant to make the experiments easier to reproduce with your own data.
