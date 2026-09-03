@@ -1,0 +1,93 @@
+eval_next_chunk:
+
+max_ctx 1000
+opimal = 750
+min 500
+
+while (cur < min_ctx OR single person in a day) AND (adding another one is not going to be > max_ctx):
+- add one more msg below (scope is msg)
+
+- add day below (scope is day)
+
+
+if (day > max_ctx)
+
+
+## CHUNK 1
+while (FALSE(600) OR TRUE) AND (TRUE(+200)):
+- we add
+- 800
+
+while (FALSE(800) OR FALSE) AND (TRUE(+200)):
+- we dont add
+- 800
+
+
+## CHUNK 2
+while (T(0) OR TRUE) AND (TRUE(+200)):
+- we add
+
+
+DAY 1 400
+DAY 2 400
+DAY 3 300
+DAY 4 900
+DAY 5 1150
+---
+MERGED1+2 800
+MERGED2+3 700
+CHUNK 4 900
+CHUNK 5 1000
+CHUNK 6 500
+--
+Chunk 1 750
+Chunk 2 400
+
+# 2026-1212
+dasda 400
+# 2026-1313
+350
+
+
+Day - 3500
+CHunk 1 750 +
+chunk 2 750 +
+chunk 2 950 +
+chunk 3 550 +
+chunk 3 750 +
+chunk 4 500 +
+
+
+Day - 3500 
+chunk 500 +
+chunk 500 +
+chunk 900 +
+1600
+chunk 500
+chunk 500
+chunk 600
+
+
+chunk 500
+chunk 500
+chunk 500
+
+
+
+
+
+- if (cur < min_ctx) or (single person in a day AND cur < max_ctx):
+    
+
+    
+    
+
+        -  determine most similar to above or below 
+- else if (single person in a day AND cur < max_ctx)
+    - determine most similar to above or below 
+
+
+or ≠ xor
+or = and/or
+
+if <min_ctx or only single person in day --> determine most similar to above or below --> if <min_ctx still repeat, elif <min_ctx<{chunk}<max_ctx merge, else chunk alone.
