@@ -166,3 +166,6 @@ cython_debug/
 #.idea/
 
 .vscode/
+
+# intermediate big files
+/ucloud_optimization/hpc/checkpoints
