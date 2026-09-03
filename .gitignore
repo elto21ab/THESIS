@@ -168,4 +168,4 @@ cython_debug/
 .vscode/
 
 # intermediate big files
-/ucloud_optimization/hpc/checkpoints
+/ucloud_optimization/*
