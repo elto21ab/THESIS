@@ -1,83 +1,63 @@
-# DPO Meeting Flowchart + Legal Basis Map
+# DPO Meeting Flowchart + Legal Map
 
-## Decision tree (meeting flow)
+## Decision tree
 
 ```
-START: Who is controller?
-│
-├─ University (supervisor signs as project responsible, u2 = authorized members)
-│   │
-│   ▼
-│   Art. 6(1)(e) public-interest research + §10 DBL / Art. 9(2)(j)
-│   │
-│   ▼
-│   SUBJECT: explicit informed consent (donation + surveys) ── Art. 6(1)(a), 9(2)(a), Art. 7
-│   │
-│   ▼
-│   OTHER (+ nth-order mentioned persons): no consent feasible
-│   │   Q: individual notice required? (Art. 14)
-│   │   │
-│   │   ├─ DPO accepts Art. 14(5)(b): disproportionate effort / seriously impairs objectives
-│   │   │   evidence: n×10²–10³ contacts, donor-only channel, cohort collapse (documented friction)
-│   │   │   └─► PATH A (PREFERRED): full-fidelity corpus, no content edits
-│   │   │       safeguards (Art. 89(1), 32): header-mask SUBJECT/OTHER, pseudonymized storage,
-│   │   │       access control (3 named), encryption, DPIA (Art. 35), destruction schedule,
-│   │   │       opt-out mailbox + erasure-on-objection (Art. 21 ongoing, Art. 17)
-│   │   │       goodwill extras: public notice page + uni registry entry (NOT required, offer)
-│   │   │
-│   │   └─ DPO rejects 14(5)(b)
-│   │       ▼
-│   │       CONCESSION LADDER (rung-by-rung, each w/ fidelity-cost argument):
-│   │       R1: consistent pseudonyms for OTHER identifiers (keep coreference)
-│   │       R2: chunk-varying pseudonyms (kill cross-corpus linkability)
-│   │       R3: decoy injection on PII-model-flagged msgs (RR plausible deniability)
-│   │       R4: full-msg obfuscation of flagged msgs (2.2 bottom-up)
-│   │       R5: distilled context labels only (last resort)
-│   │       │
-│   │       ▼
-│   │       Still refused? → demand written reasoning; escalate (faculty/univ. research integrity);
-│   │       or re-scope as supervisor's own subproject w/ thesis as contribution
-│
-└─ DPO insists students = independent controllers ──► REJECT framing:
-    thesis under uni supervision + uni infrastructure + supervisor accountability
-    = processing "som led i" research activity (§10). Ask: what formalization would satisfy?
-    (supervisor-owned uCloud project, signed DPIA, Art. 30 record naming u as members)
+STEP 0 — SUPERVISOR MEETING (before DPO)
+└─ Supervisor signs as project responsible → university = controller (Art. 4(7))
+   formalization: supervisor-owned uCloud project, signed DPIA, Art. 30 record names us 2 as members
+
+▼
+STEP 1 — DPO: settle controller first (everything hangs on it)
+├─ DPO accepts university controllership ──► STEP 2
+└─ DPO: "thesis = students' own project"
+    → ask: "what formalization satisfies institutional controllership? we adopt it verbatim"
+    → fallback: supervisor's own research subproject, thesis = contribution
+
+▼
+STEP 2 — Basis: Art. 6(1)(e) + Art. 9(2)(j)/DBL §10 (consent NOT the regime for research)
+├─ SUBJECT: explicit consent (6(1)(a)/9(2)(a) + Art. 7 + 13 notice)
+└─ OTHER + mentioned persons: no consent — research basis covers
+    │
+    ▼
+STEP 3 — Notice: Art. 14(5)(b) exemption (ONE combined claim)
+    effort: no channel (no API), n×10²–10³ contacts, donor-burden → cohort collapse (documented friction)
+    impairment: ex-ante notice/objection breaks corpus↔survey timing sync; selection bias
+    impact ≈ 0: OTHERs not analyzed, no quotes/profiling, corpus destroyed
+    objection: Art. 21(6)/17 ongoing → erasure, NO pre-processing window
+    substitute: public page + registry + opt-out mailbox (voluntary goodwill, not required)
+    │
+    ├─ DPO accepts ──► PATH A (PREFERRED): full-fidelity corpus, header-mask only
+    │   safeguards (89(1)/32): header-mask SUBJECT/OTHER, pseudonymized storage,
+    │   3 named access, encryption, DPIA (35 + 35(2) consult), destruction schedule,
+    │   research-only commitment (§10 "solely scientific study")
+    │
+    └─ DPO rejects ──► "which safeguard makes 14(5)(b) sufficient?"
+        ▼
+        CONCESSION LADDER (option1, gentlest-first, cite fidelity cost each):
+        R1 consistent pseudonyms → R2 chunk-varying → R3 decoy injection (RR deniability)
+        → R4 full-msg obfuscation → R5 distilled context labels
+        ▼
+        Still refused → written reasoning → escalate; anonymization dossier route (Rec. 26
+        "reasonably likely means" + Breyer vs their absolutist standard; motivated-intruder test)
 ```
 
-## Legal map per option
+## Legal map
 
-| Ref | Provision | Role |
-|---|---|---|
-| **A. Basis (all paths under uni controllership)** | | |
-| | GDPR Art. 4(7) | controller = university via supervisor |
-| | GDPR Art. 6(1)(e) | lawful basis: public-interest research |
-| | GDPR Art. 9(2)(j) + DBL §10(1) | special-category processing in research |
-| | GDPR Art. 89(1) | safeguards condition for research derogations |
-| **B. SUBJECT** | | |
-| | GDPR Art. 6(1)(a), 7 + 9(2)(a) | explicit consent: donation, surveys, Art. 9 content |
-| | GDPR Art. 13 | notice to donor (info duty fulfilled directly) |
-| **C. OTHER (no consent)** | | |
-| | GDPR Art. 14(5)(b) | notice exemption: disproportionate effort / impairs objectives |
-| | GDPR Art. 21(6) + 17 | ongoing objection → erasure procedure (no pre-window) |
-| | GDPR Art. 5(1)(c), 25 | minimization + by-design (header-masking, access limits) |
-| **D. Anonymization fallback (ladder R3+)** | | |
-| | Recital 26 + C-582/14 Breyer | identifiability = "means reasonably likely to be used" |
-| | WP29/EDPB 3 tests | singling-out, linkability, inference |
-| | DPIA annex | motivated-intruder adversary model + residual risk |
-| **E. Governance artifacts** | | |
-| | GDPR Art. 30 | record of processing (names u2 as members) |
-| | GDPR Art. 35 (+35(2)) | DPIA + DPO consultation |
-| | GDPR Art. 32 | security: uCloud, encryption, access control |
-| | GDPR Art. 28 | uCloud DPA (processor) |
-| **F. Dead ends (do not raise)** | | |
-| | Art. 2(2)(c) household | only donor-side collection step, never our processing |
-| | "service/ToS like OpenAI" | consent can't bind OTHERs; retention → controllership |
-| | public donor-name list | new processing + membership inference |
+| Provision | Role |
+|---|---|
+| Art. 4(7) | controller = university via supervisor |
+| Art. 6(1)(e) | general basis: public-interest research |
+| Art. 9(2)(j) + DBL §10 | special-category processing for research, no consent; §10(1) "solely scientific study" → research-only commitment |
+| Art. 6(1)(a), 7, 9(2)(a), 13 | SUBJECT consent + notice |
+| Art. 14(5)(b) | OTHER notice exemption (impossible / disproportionate effort / impairs objectives — "in particular for research") |
+| Art. 14(5)(a) | supplementary: donors who already told contacts (log only) |
+| Art. 21(6), 17 | ongoing objection → erasure; no pre-window |
+| Art. 89(1), 5(1)(c), 25, 32 | safeguards: header-mask, pseudonymization, access control, minimization |
+| Art. 30, 35(2), 28 | record, DPIA + DPO consult, uCloud DPA |
+| Rec. 26 + Breyer C-582/14 | identifiability = "means reasonably likely to be used" (fallback dossier) |
+| WP29 3 tests | singling-out / linkability / inference (fallback dossier) |
+| ~~Art. 2(2)(c)~~, ~~OpenAI-ToS~~, ~~donor-name list~~ | dead framings — never raise |
 
-## One-page narrative for meeting
-1. Controller question first — everything hangs on it
-2. Basis: 6(1)(e) + 9(2)(j)/§10 — consent not the regime for OTHERs
-3. Notice: 14(5)(b) package (effort × impact × safeguards), objection = ongoing erasure
-4. Safeguards menu offered generously; content fidelity = red line (scientific validity)
-5. If pushback: ladder R1→R5, quantify fidelity cost per rung
-6. End w/ written asks: basis confirmation, 14(5)(b) acceptance, DPIA review timeline
+## Narrative order
+1. Controller (supervisor formalized) → 2. Basis (6(1)(e) + 9(2)(j)/§10) → 3. 14(5)(b) package → 4. Safeguards offered generously → 5. Content fidelity = red line → 6. Ladder only if pushed → 7. Written asks: basis confirmed, 14(5)(b) accepted, DPIA review timeline

@@ -9,7 +9,7 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 1. Export your chat messages from Facebook, Instagram, and/or WhatsApp (instructions below)
 2. Take the surveys to constitute target responses, for the LLMs proxying you in the same surveys.
 3. Clone this repository
-4. ~~Download [Ollama](https://ollama.com/download/)~~ [WIP refactoring for performance] Download llama.cpp and a models' gguf quant to run inference locally. 
+4. Download ~~[Ollama](https://ollama.com/download/)~~, ~~llama.cpp and a models' gguf quant~~, vLLM [WIP for HPC] to run inference locally. 
    - *Any cloud provider is discouraged to mitigate leakage-risk of PII (sensive and private data).*
 
 
