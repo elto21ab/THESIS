@@ -3,6 +3,10 @@
 Check out our [abstract-length] paper on it: [Market research via persona-induced Large Language Models](https://sltc2024.github.io/abstracts/torjani.pdf), or see our poster below as a TL;DR
 ![Poster](Poster.png)
 
+<video src="videos/fb-export-demo.mp4" controls width="420"></video>
+<video src="videos/ig-export-demo.mp4" controls width="420"></video>
+
+
 
 ---
 
@@ -27,8 +31,6 @@ d. WhatsApp (via phone app) --> Settings --> Chats -->  Export chat --> pick you
 e. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time.
 </details>
 
-<video src="videos/fb data export.mp4" controls width="420"></video>
-<video src="videos/ig data export.mp4" controls width="420"></video>
 
 > [!NOTE]
 > This fork is a refactored version of [this repository](https://github.com/Brikas/Thesis), where our original commit history is preserved. We refactored for speed, transparency, and reproducability.
