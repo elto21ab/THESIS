@@ -169,3 +169,5 @@ cython_debug/
 
 # intermediate big files
 /ucloud_optimization/*
+# preprocess pipeline artefacts
+preprocess/out/
