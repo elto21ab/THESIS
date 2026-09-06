@@ -1,0 +1,9 @@
+[project]
+name = "thesis"
+version = "0.1.0"
+description = "Thesis repo — FB/IG/WA messenger export preprocessing (preprocess/)"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+package = false
