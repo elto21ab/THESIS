@@ -32,7 +32,7 @@ Two independent limbs; claim both + "in particular for research" phrase = legisl
 
 ## Safeguards offered (Art. 89(1) / 32) — the price for no-notice/no-consent
 - Header-masking: names → SUBJECT/OTHER labels (our preferred, default level)
-- Pseudonymized storage, encryption, access control (3 named people), uCloud (GDPR-compliant, DPA Art. 28)
+- Pseudonymized storage, encryption, access control (2 students + 2 supervisors), uCloud (GDPR-compliant, DPA Art. 28)
 - DPIA (Art. 35) + DPO consultation (35(2)); Art. 30 record
 - Retention + destruction schedule; research-only use commitment (§10 "solely scientific study"; no demos/startup/portfolio use)
 - No raw corpus publication (preemptive concession)

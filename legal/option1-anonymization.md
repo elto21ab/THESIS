@@ -7,7 +7,7 @@ DPO letter: "any information that could directly or indirectly identify... any o
 - Actual test (Rec. 26): identifiability by "means **reasonably likely** to be used" — relative, practical, not metaphysical
 - *Breyer* C-582/14 (CJEU 2016): dynamic IP = personal data for website because ISP linkage was reasonably available; where linkage requires disproportionate/impracticable/illegal means → NOT identifiable. Identifiability is contextual.
 - WP29/EDPB three-risk test: **singling-out**, **linkability**, **inference** — assess each separately
-- Deliverable = anonymization **dossier** (techniques + adversary model + measured residual risk + DPO sign-off), not metaphysical proof
+- Deliverable = anonymization **dossier** (techniques + adversary model + measured residual risk + DPO review log), not metaphysical proof
 
 ## Core technical argument (randomized-response logic)
 - **RR (randomized response)**: survey trick — coin flip decides truthful vs forced answer → individual answers unconfirmable, population stats valid

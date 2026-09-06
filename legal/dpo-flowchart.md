@@ -8,11 +8,16 @@ STEP 0 — SUPERVISOR MEETING (before DPO)
    formalization: supervisor-owned uCloud project, signed DPIA, Art. 30 record names us 2 as members
 
 ▼
-STEP 1 — DPO: settle controller first (everything hangs on it)
-├─ DPO accepts university controllership ──► STEP 2
+STEP 1 — Controller: determined by facts + docs, NOT DPO confirmation
+├─ Formalize: supervisor signs DPIA as project responsible → uni = controller (Art. 4(7))
+│    uCloud project owned by uni; Art. 30 record names uni + us 2 as members
+│    (HPC evidence alone insufficient — uni could be mere processor, killing §10)
+├─ DPO agrees w/ the framing ──► STEP 2 (comment in accountability file, nothing more)
 └─ DPO: "thesis = students' own project"
     → ask: "what formalization satisfies institutional controllership? we adopt it verbatim"
-    → fallback: supervisor's own research subproject, thesis = contribution
+    → legal position unchanged: controller = whoever determines purposes/means;
+      DPO can't confer/deny (38(3)). Fallback: supervisor's own research subproject,
+      thesis = contribution
 
 ▼
 STEP 2 — Basis: Art. 6(1)(e) + Art. 9(2)(j)/DBL §10 (consent NOT the regime for research)
@@ -27,9 +32,9 @@ STEP 3 — Notice: Art. 14(5)(b) exemption (ONE combined claim)
     objection: Art. 21(6)/17 ongoing → erasure, NO pre-processing window
     substitute: public page + registry + opt-out mailbox (voluntary goodwill, not required)
     │
-    ├─ DPO accepts ──► PATH A (PREFERRED): full-fidelity corpus, header-mask only
+    ├─ DPO no objection (comments incorporated) ──► PATH A (PREFERRED): full-fidelity corpus, header-mask only
     │   safeguards (89(1)/32): header-mask SUBJECT/OTHER, pseudonymized storage,
-    │   3 named access, encryption, DPIA (35 + 35(2) consult), destruction schedule,
+    │   4 named access (2 students + 2 supervisors), encryption, DPIA (35; 35(2) consult recorded), destruction schedule,
     │   research-only commitment (§10 "solely scientific study")
     │
     └─ DPO rejects ──► "which safeguard makes 14(5)(b) sufficient?"

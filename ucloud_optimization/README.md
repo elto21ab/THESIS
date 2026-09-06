@@ -3,6 +3,7 @@
 **Tracks:**
 - `hpc/` — llama.cpp primary + engine sweeps (historical, settled: vLLM ≥0.27 for NVFP4 on Blackwell).
 - [`vllm/`](vllm/README.md) — **current track**: vLLM-only, Q8 (FP8 W8A8) vs NVFP4 (W4A4) benchmarking across model sizes. Remote: `/work/LCPP_OffloadTesting/vLLM/`.
+- [`donations/`](donations/README.md) — participant data-donation pipeline (clean-bundle uploads into UCloud). Code done + proven via tunnel; **blocked on SDU public-URL provisioning** — see README + API notes.
 
 **Start here (order, hpc track):**
 1. [`hpc/runbook/UCLOUD_SSH_RUNBOOK.md`](hpc/runbook/UCLOUD_SSH_RUNBOOK.md) — how to SSH, billing, job UI quirks, pkill foot-guns.

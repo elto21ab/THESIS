@@ -24,3 +24,6 @@ University = controller (supervisor project responsible) → Art. 6(1)(e) → Ar
 - `option2-notice-exemption.md` — primary strategy
 - `option1-anonymization.md` — fallback + redaction ladder
 - `dpo-flowchart.md` — meeting decision tree + legal map
+- `donor-consent-tandc.md` — donor-facing consent form/T&C (upload site)
+- `dpia-draft.md` — DPIA (Art. 35) draft — internal; supervisor sign-off, DPO consult recorded
+- `clause-legal-map.md` — clause → provision reference (internal, flowchart)

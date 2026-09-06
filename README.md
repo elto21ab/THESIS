@@ -1,4 +1,4 @@
-> Code for the paper, "LLMs as Proxy Survey Participants With RAG", by Elias Torjani, Airidas Brikas, and Daniel Hardt (our BSc thesis)
+> Code for our MSc thesis, a continuation of our paper "LLMs as Proxy Survey Participants With RAG", by Elias Torjani, Airidas Brikas, and Daniel Hardt (our BSc thesis)
 
 Check out our [abstract-length] paper on it: [Market research via persona-induced Large Language Models](https://sltc2024.github.io/abstracts/torjani.pdf), or see our poster below as a TL;DR
 ![Poster](Poster.png)
@@ -16,10 +16,13 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 <details>
 <summary><b>Export: How to get chat data from each platform</b></summary>
 
-*Facebook/Instagrame will take about 3 days for "all time", and Whatsapp is instant*
-1. [Facebook & Instagram](https://accountscenter.facebook.com/info_and_permissions/dyi) --> Create export --> pick account[s] (incl. Instagram) --> export to device --> Customize information --> Clear all other than "Messages" (Get "All time", in JSON format, and pick lower media quality)
-2. WhatsApp --> Settings --> Chats -->  Export chat --> pick your 1-on-1 chats to export (no media)
-3. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time.
+**IT IS REQUIRED TO GO THROUGH MESSENGER BEFORE FACEBOOK DUE TO CHANGES IN ENCRYPTION-QUIRKS (E2EE)**
+*Facebook/Instagram will take about 3 days for "all time", and Whatsapp is instant*
+0. [Messenger](https://www.messenger.com) --> click on your profile picture in bottom left corner --> Privacy & safety --> End-to-end encrypted chats --> Message storage (ensure Chat history Last backup is today's date) --> Download message storage data --> Select "All time" and lower-quality media --> Download file.
+1. [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) (IG is also exported here in this url) --> Create export --> pick account[s] --> export to device --> Customize information --> Clear all other than "Messages" (Get "All time", in JSON format, and pick lower media quality). Wait for email confirming the export is ready --> download zip file.
+2. [Instagram](https://accountscenter.facebook.com/info_and_permissions/dyi) Exact same process as Facebook, just pick your Instagram account instead.
+3. WhatsApp (via phone app) --> Settings --> Chats -->  Export chat --> pick your 1-on-1 chats to export.
+4. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time.
 </details>
 
 > [!NOTE]
