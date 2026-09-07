@@ -28,11 +28,12 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 3. [Instagram](https://accountscenter.facebook.com/info_and_permissions/dyi) Exact same process as Facebook, just pick your Instagram account instead. \
 4. WhatsApp (via phone app) --> Settings --> `Chats` -->  `Export chat` --> pick your 1-on-1 chats to export (instant). \
 6. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time. \
-</details>
 
 | Facebook export | Instagram export |
 |---|---|
 | ![fb export demo](videos/fb-export-demo.gif) | ![ig export demo](videos/ig-export-demo.gif) |
+
+</details>
 
 > [!NOTE]
 > This fork is a refactored version of [this repository](https://github.com/Brikas/Thesis), where our original commit history is preserved. We refactored for speed, transparency, and reproducability.
