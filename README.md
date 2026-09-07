@@ -5,20 +5,31 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 
 ---
 
+## Demo (YouTube embed — click to play)
+
+[![Demo: messenger export preprocessing](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+---
+
+https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5
+
+---
 ## How to reproduce our experiments with your own data
 1. Export your chat messages from Facebook, Instagram, and/or WhatsApp (instructions below)
 2. Take the surveys to constitute target responses, for the LLMs proxying you in the same surveys.
 3. Clone this repository
-4. Download ~~[Ollama](https://ollama.com/download/)~~, ~~llama.cpp+gguf-models~~, vLLM [WIP for HPC] to run inference locally.
+4. Download ~~[Ollama](https://ollama.com/download/)~~, ~~llama.cpp+gguf-models~~ vLLM [WIP for HPC] to run inference locally.
    - *Any cloud provider is discouraged to mitigate leakage-risk of PII (sensive and private data).*
 5. Run preprocessing script in folder w/ your exported data (zip/json). Standardized format, merge, dedup, chunk, and embed.
 6. Run batch survey script w/ flags for your exported data, survey questions, and LLM model of choice.
 7. Run analysis script to calculate fidelity and plot results.
 
+---
+
 <details>
 <summary><b>Export data from each platform</b></summary>
 
-*REQUIRED TO MESSENGER BEFORE FACEBOOK DUE TO ENCRYPTION-QUIRK!* \
+*REQUIRED TO MESSENGER BEFORE FACEBOOK DUE TO ENCRYPTION-QUIRK!* 
 
 1. [Messenger](https://www.messenger.com) --> click on your profile picture in bottom left corner --> `Privacy & safety` --> `End-to-end encrypted chats` --> `Message storage` (ensure Chat history Last backup is today's date) --> `Download message storage data` --> Select `All time` and `lower-quality media` --> `Download file`. \
 2. [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) (IG is also exported here in this url) --> `Create export` --> pick account[s] --> `export to device` --> `Customize information` --> Clear all other than `Messages` (Get `All time`, in `JSON` format, and pick `lower media quality`). Wait for email confirming the export is ready (~3 days for "all time") --> download zip file. \
@@ -26,9 +37,9 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 4. WhatsApp (via phone app) --> Settings --> `Chats` -->  `Export chat` --> pick your 1-on-1 chats to export (instant). \
 6. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time. \
 
-| Facebook export | Instagram export |
+| 2. FB guide | 3. IG guide |
 |---|---|
-| ![fb export demo](videos/fb-export-demo.gif) | ![ig export demo](videos/ig-export-demo.gif) |
+| ![fb export demo](videos/fb-export-demo.gif) | ![IG Demo](https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) |
 
 </details>
 
