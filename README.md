@@ -3,15 +3,6 @@
 Check out our [abstract-length] paper on it: [Market research via persona-induced Large Language Models](https://sltc2024.github.io/abstracts/torjani.pdf), or see our poster below as a TL;DR
 ![Poster](Poster.png)
 
-## Demo (iframe example — Big Buck Bunny sample)
-
-<iframe width="420" height="236" src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" title="youtube iframe test" frameborder="0" allowfullscreen></iframe>
-
-
-
-
-
-
 ---
 
 ## How to reproduce our experiments with your own data
