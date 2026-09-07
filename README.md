@@ -27,9 +27,15 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 4. WhatsApp (via phone app) --> Settings --> `Chats` -->  `Export chat` --> pick your 1-on-1 chats to export (instant). \
 6. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time. \
 
-| FB Demo | IG Demo |
+| FB export | IG export |
 |---|---|
-| [![FBDemo](videos/fb-thumb.jpg)](https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [![IGDemo](videos/ig-thumb.jpg)](https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) |
+| ![FB export demo](videos/fb-export-demo.gif) | ![IG export demo](videos/ig-export-demo.gif) |
+
+Full-res versions (inline player):
+
+https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5
+
+https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3
 
 </details>
 
