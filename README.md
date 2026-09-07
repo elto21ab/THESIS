@@ -3,8 +3,8 @@
 Check out our [abstract-length] paper on it: [Market research via persona-induced Large Language Models](https://sltc2024.github.io/abstracts/torjani.pdf), or see our poster below as a TL;DR
 ![Poster](Poster.png)
 
-<video src="videos/fb-export-demo.mp4" controls width="420"></video>
-<video src="videos/ig-export-demo.mp4" controls width="420"></video>
+![fb export demo](videos/fb-export-demo.mp4)
+![ig export demo](videos/ig-export-demo.mp4)
 
 
 
@@ -24,7 +24,7 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 <summary><b>Export data from each platform</b></summary>
 
 *REQUIRED TO MESSENGER BEFORE FACEBOOK DUE TO ENCRYPTION-QUIRK!*
-a. [Messenger](https://www.messenger.com) --> click on your profile picture in bottom left corner --> `Privacy & safety` --> End-to-end encrypted chats --> Message storage (ensure Chat history Last backup is today's date) --> Download message storage data --> Select "All time" and lower-quality media --> Download file.
+a. [Messenger](https://www.messenger.com) --> click on your profile picture in bottom left corner --> Privacy & safety --> End-to-end encrypted chats --> Message storage (ensure Chat history Last backup is today's date) --> Download message storage data --> Select "All time" and lower-quality media --> Download file.
 b. [Facebook](https://accountscenter.facebook.com/info_and_permissions/dyi) (IG is also exported here in this url) --> Create export --> pick account[s] --> export to device --> Customize information --> Clear all other than "Messages" (Get "All time", in JSON format, and pick lower media quality). Wait for email confirming the export is ready (~3 days for "all time") --> download zip file.
 c. [Instagram](https://accountscenter.facebook.com/info_and_permissions/dyi) Exact same process as Facebook, just pick your Instagram account instead.
 d. WhatsApp (via phone app) --> Settings --> Chats -->  Export chat --> pick your 1-on-1 chats to export (instant).
