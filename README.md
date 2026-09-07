@@ -4,16 +4,6 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 ![Poster](Poster.png)
 
 ---
-
-## Demo (YouTube embed — click to play)
-
-[![Demo: messenger export preprocessing](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
----
-
-https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5
-
----
 ## How to reproduce our experiments with your own data
 1. Export your chat messages from Facebook, Instagram, and/or WhatsApp (instructions below)
 2. Take the surveys to constitute target responses, for the LLMs proxying you in the same surveys.
@@ -37,9 +27,9 @@ https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5
 4. WhatsApp (via phone app) --> Settings --> `Chats` -->  `Export chat` --> pick your 1-on-1 chats to export (instant). \
 6. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time. \
 
-| 2. FB guide | 3. IG guide |
+| 2. FB Demo | 3. IG Demo |
 |---|---|
-| ![fb export demo](videos/fb-export-demo.gif) | ![IG Demo](https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) |
+| https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5 | https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3 |
 
 </details>
 
