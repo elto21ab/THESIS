@@ -5,7 +5,7 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 
 ## Demo (iframe example — Big Buck Bunny sample)
 
-<iframe width="420" height="236" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="youtube iframe test" frameborder="0" allowfullscreen></iframe>
+<iframe width="420" height="236" src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" title="youtube iframe test" frameborder="0" allowfullscreen></iframe>
 
 
 
