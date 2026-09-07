@@ -29,7 +29,7 @@ Check out our [abstract-length] paper on it: [Market research via persona-induce
 
 | FB export | IG export |
 |---|---|
-| ![FB export demo](videos/fb-export-demo.gif) | ![IG export demo](videos/ig-export-demo.gif) |
+| [![FB export demo](videos/fb-export-demo.gif)](https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [![IG export demo](videos/ig-export-demo.gif)](https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) |
 
 Full-res versions (inline player):
 
