@@ -21,7 +21,7 @@ University = controller (supervisor project responsible) → Art. 6(1)(e) → Ar
 
 ## Files
 - `supervisor-brief.md` — read first; the A/B/C decision doc; bring to supervisor meeting
-- `option2-notice-exemption.md` — paths A/B full legal chain + 14(5)(b) evidence package + forarbejde finding
+- `option2-notice-exemption.md` — path A full legal chain + 14(5)(b) evidence package + forarbejde finding
 - `option1-anonymization.md` — path C + fallback redaction ladder + DP/DPO strategy
 - `dpo-flowchart.md` — meeting decision tree + legal map
 - `donor-consent-tandc.md` — donor-facing consent form/T&C (upload site)
