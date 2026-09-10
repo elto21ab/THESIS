@@ -43,6 +43,16 @@ No semantic edits to OTHER msgs (no paraphrase/decoys) — imitation validity de
 ## Art. 14(5)(a) — supplementary only
 Where donors demonstrably informed contacts themselves, (a) also applies; log it. Never load-bearing.
 
+## The forarbejde finding (why "research exception" is an argument, not a rule)
+Betænkning 1565 (2018 forarbejde) has **no black-letter "thesis included/excluded" line.**
+Searched full text for "videnskabelig undersøgelse," "studerende," "væsentlig
+samfundsmæssig," "forskningsformål" — no categorical carve-out for ordinary student work.
+Operative definition = Datatilsynet's current practice (BrainCapture sandbox report §3.5.2),
+**standards-based**: new knowledge + contribution to collective knowledge + breadth/depth of
+societal benefit. Strongest framing ≠ "the law says we're research" (it doesn't, cleanly)
+but: *"the test is open; here's demonstrable evidence we clear it"* — supervisor co-author,
+funded conference, accepted poster, peer-reviewed abstract, intent to publish.
+
 ## If DPO rejects
 1. Ask which safeguard would make 14(5)(b) sufficient (forces negotiation, not gates)
 2. Escalate ladder from option1 (R1 consistent pseudonyms → ... → R5 distilled context)

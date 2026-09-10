@@ -67,6 +67,27 @@ Retention: **[date — must equal T&C §7 and Art. 30 record]**.
 
 Build personal retrieval corpus → local LLM imitates donor's survey answers (proxy personas) → compare proxy vs. real answers. **Never:** raw data publication, model training, commercial/demo/startup use, per-individual reporting on OTHERs. OTHERS' messages are retrieval context only — not analyzed, quoted, profiled.
 
+### 1.6 Societal importance — the "væsentlig samfundsmæssig betydning" prong (§10 DBL / Art. 9(2)(j))
+
+Justification of the Danish-research-regime hook (DPO + ERB *judgment*, argued not proven). Purpose phrased to satisfy "videnskabelige/statistiske undersøgelser af væsentlig samfundsmæssig betydning": developing + validating a **privacy-preserving method for consumer/social/health survey research via personalised LLM proxy personas.**
+
+**A. Substantive research (LLM proxy survey participants — "digital twins").** Study builds a privacy-preserving pipeline: local LLM + donor's RAG chat corpus → imitate donor's survey/personality (OCEAN) answers → measure fidelity (proxy vs. real, Likert/OCEAN scales). Aim: reliable, low-cost, low-burden proxy survey participants that reduce reliance on repeated human sampling for (i) social-science personality & attitudinal research, (ii) market/consumer-research panels, (iii) mental-health & well-being screening trajectories.
+- Recital 156 (scientific research, societal well-being); **Art. 9(2)(j)**; Recital 157 (knowledge society); Art. 6(1)(e) (university research = public task).
+
+**B. Public-health / well-being prong.** Proxy personas enable longitudinal personality & well-being research (social support, loneliness, life satisfaction) at scale without subject fatigue or dropout → welfare value; opens research that is otherwise cost-prohibitive.
+- Recital 156; **Art. 9(2)(j)/(i)**; Charter **Art. 35**.
+
+**C. Method / PET prong — the mechanism is the contribution.** The pipeline itself is a PET: on-device LLM inference (README: cloud discouraged to mitigate PII leakage), pseudonymized corpus, retrieval-only (no training, no raw export), aggregate-only output that never re-identifies individuals. The method advances society's capacity to run sensitive-conversational-data research w/o sacrificing data subjects → population-scale societal importance.
+- **Art. 25** (data protection by design); Recital 78; **Art. 5(1)(f)**; Recital 26 (aggregate output outside personal-data scope); Art. 89(1).
+
+**D. Individual-rights / Charter prong.** Lowering the privacy cost of research strengthens core rights, not undermines them.
+- Charter **Art. 7 & 8**; GDPR Art. 1; Recitals 1–4.
+
+**E. Necessity + proportionality tie-in (§10's co-prong).** Significance alone is insufficient — §10 also demands **necessity** (no less-intrusive means). Fulfilled by design: donor-selected chats, header-masking, low-quality media, retrieval-only, destruction schedule, research-only use; and *less intrusive* than the consent-all alternative (no channel to 10²–10³ OTHERs → Art. 14(5)(b); documented recruitment friction). The PET design is itself the minimization/necessity argument.
+- §10 stk. 1 ("nødvendig"); **Art. 5(1)(c)** minimization; Art. 35 DPIA documents both.
+
+**Conclusion for the §10 basis:** purpose = "statistiske/videnskabelige undersøgelser af væsentlig samfundsmæssig betydning", necessity + PET minimization documented → basis under §10 is arguable *provided* ERB/DPO accept A–C and the no-public-release posture (§5 R2: no raw corpus publication; aggregates only).
+
 ## 2. Necessity & proportionality (35(7)(b), 5(1)(c), 25)
 
 | Question | Answer |
