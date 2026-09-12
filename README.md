@@ -29,20 +29,20 @@ If you are a donor here is the upload and survey [link](https://donate.torjani.a
 4. WhatsApp (via phone app) --> Settings --> `Chats` -->  `Export chat` --> pick your 1-on-1 chats to export (instant). \
 5. Optional: Use Beeper's API to continuosly export new messages. But be aware of our experiment's scope being a snapshot in time. \
 
-| 1. Messenger Demo |
-|---|
-| [![Messenger export demo](videos/msg-export-demo.gif)](https://github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) |
-
-| 2. FB Demo | 3. IG Demo |
+| 1. Messenger Demo | 5. Data-upload (placeholder) |
 |---|---|
-| [![FB export demo](videos/fb-export-demo.gif)](https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [![IG export demo](videos/ig-export-demo.gif)](https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) |
+| [![Messenger export demo](videos/msg-export-demo.gif)](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) | [![Data-upload placeholder](videos/msg-export-demo.gif)](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) |
+
+| 2. FB Demo | 3. IG Demo | 4. WA (placeholder) |
+|---|---|---|
+| [![FB export demo](videos/fb-export-demo.gif)](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [![IG export demo](videos/ig-export-demo.gif)](https://www.github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) | [![WA placeholder](videos/fb-export-demo.gif)](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) |
 
 <details>
 <summary><b>(preview) Layout B — single row, fixed image height</b></summary>
 
-| 1. Messenger Demo | 2. FB Demo | 3. IG Demo |
-|---|---|---|
-| [<img src="videos/msg-export-demo.gif" height="280" alt="Messenger export demo">](https://github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) | [<img src="videos/fb-export-demo.gif" height="280" alt="FB export demo">](https://github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [<img src="videos/ig-export-demo.gif" height="280" alt="IG export demo">](https://github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) |
+| 1. Messenger Demo | 2. FB Demo | 3. IG Demo | 4. WA (placeholder) | 5. Data-upload (placeholder) |
+|---|---|---|---|---|
+| [<img src="videos/msg-export-demo.gif" height="280" alt="Messenger export demo">](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) | [<img src="videos/fb-export-demo.gif" height="280" alt="FB export demo">](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [<img src="videos/ig-export-demo.gif" height="280" alt="IG export demo">](https://www.github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) | [<img src="videos/fb-export-demo.gif" height="280" alt="WA placeholder">](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [<img src="videos/msg-export-demo.gif" height="280" alt="Data-upload placeholder">](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) |
 
 </details>
 
