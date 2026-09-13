@@ -31,18 +31,18 @@ If you are a donor here is the upload and survey [link](https://donate.torjani.a
 
 | 1. Messenger Demo | 5. Data-upload (placeholder) |
 |---|---|
-| [![Messenger export demo](videos/msg-export-demo.gif)](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) | [![Data-upload placeholder](videos/msg-export-demo.gif)](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) |
+| [![Messenger export demo](videos/msg-export-demo.gif)](https://www.github.com/user-attachments/assets/34419835-4ac2-4893-beb9-404368373162) | [![Data-upload placeholder](videos/msg-export-demo.gif)](https://www.github.com/user-attachments/assets/34419835-4ac2-4893-beb9-404368373162) |
 
-| 2. FB Demo | 3. IG Demo | 4. WA (placeholder) |
+| 2. FB Demo | 3. IG Demo | 4. WA Demo |
 |---|---|---|
-| [![FB export demo](videos/fb-export-demo.gif)](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [![IG export demo](videos/ig-export-demo.gif)](https://www.github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) | [![WA placeholder](videos/fb-export-demo.gif)](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) |
+| [![FB export demo](videos/fb-export-demo.gif)](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [![IG export demo](videos/ig-export-demo.gif)](https://www.github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) | [![WA export demo](videos/wa-export-demo.gif)](https://www.github.com/user-attachments/assets/6fe0ab7a-8857-4fe5-944e-a71712efbd4d) |
 
 <details>
 <summary><b>(preview) Layout B — single row, fixed image height</b></summary>
 
-| 1. Messenger Demo | 2. FB Demo | 3. IG Demo | 4. WA (placeholder) | 5. Data-upload (placeholder) |
+| 1. Messenger Demo | 2. FB Demo | 3. IG Demo | 4. WA Demo | 5. Data-upload (placeholder) |
 |---|---|---|---|---|
-| [<img src="videos/msg-export-demo.gif" height="280" alt="Messenger export demo">](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) | [<img src="videos/fb-export-demo.gif" height="280" alt="FB export demo">](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [<img src="videos/ig-export-demo.gif" height="280" alt="IG export demo">](https://www.github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) | [<img src="videos/fb-export-demo.gif" height="280" alt="WA placeholder">](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [<img src="videos/msg-export-demo.gif" height="280" alt="Data-upload placeholder">](https://www.github.com/user-attachments/assets/b9b55689-0107-4ed2-8e28-77b4696deb03) |
+| [<img src="videos/msg-export-demo.gif" height="280" alt="Messenger export demo">](https://www.github.com/user-attachments/assets/34419835-4ac2-4893-beb9-404368373162) | [<img src="videos/fb-export-demo.gif" height="280" alt="FB export demo">](https://www.github.com/user-attachments/assets/667d0c7c-bdd6-4276-8af8-62cc8502bfa5) | [<img src="videos/ig-export-demo.gif" height="280" alt="IG export demo">](https://www.github.com/user-attachments/assets/209be9c7-2145-4fdc-80b4-a7ab5798cfc3) | [<img src="videos/wa-export-demo.gif" height="280" alt="WA export demo">](https://www.github.com/user-attachments/assets/6fe0ab7a-8857-4fe5-944e-a71712efbd4d) | [<img src="videos/msg-export-demo.gif" height="280" alt="Data-upload placeholder">](https://www.github.com/user-attachments/assets/34419835-4ac2-4893-beb9-404368373162) |
 
 </details>
 
