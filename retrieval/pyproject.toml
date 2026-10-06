@@ -1,0 +1,12 @@
+[project]
+name = "retrieval"
+version = "0.1.0"
+description = "Chunking + embedding + retrieval over thesis-deid donation bundles"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26", "requests>=2.31"]
+
+[project.optional-dependencies]
+embed = ["torch>=2.8", "transformers>=4.57", "peft>=0.15.2"]
+
+[tool.uv]
+package = false
