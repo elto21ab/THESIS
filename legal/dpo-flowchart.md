@@ -5,12 +5,12 @@
 ```
 STEP 0 — SUPERVISOR MEETING (before DPO)
 └─ Supervisor signs as project responsible → university = controller (Art. 4(7))
-   formalization: supervisor-owned uCloud project, signed DPIA, Art. 30 record names us 2 as members
+   formalization: signed DPIA + Art. 30 record; uCloud ownership transfer = reserve action only if DPO challenges the means prong
 
 ▼
 STEP 1 — Controller: determined by facts + docs, NOT DPO confirmation
 ├─ Formalize: supervisor signs DPIA as project responsible → uni = controller (Art. 4(7))
-│    uCloud project owned by uni; Art. 30 record names uni + us 2 as members
+│    Art. 30 record names uni; uCloud tenancy currently operated by us 2 — transferable to supervisor if DPO challenges (means prong)
 │    (HPC evidence alone insufficient — uni could be mere processor, killing §10)
 ├─ DPO agrees w/ the framing ──► STEP 2 (comment in accountability file, nothing more)
 └─ DPO: "thesis = students' own project"
@@ -30,16 +30,16 @@ STEP 3 — Notice: Art. 14(5)(b) exemption (ONE combined claim)
     impairment: ex-ante notice/objection breaks corpus↔survey timing sync; selection bias
     impact ≈ 0: OTHERs not analyzed, no quotes/profiling, corpus destroyed
     objection: Art. 21(6)/17 ongoing → erasure, NO pre-processing window
-    substitute: public page + registry + opt-out mailbox (voluntary goodwill, not required)
+    substitute: erasure contact + donor-channel info (no public page; reserve concession)
     │
     ├─ DPO no objection (comments incorporated) ──► PATH A (PREFERRED): full-fidelity corpus, header-mask only
     │   safeguards (89(1)/32): header-mask SUBJECT/OTHER, pseudonymized storage,
-    │   4 named access (2 students + 2 supervisors), encryption, DPIA (35; 35(2) consult recorded), destruction schedule,
+    │   named access only (2 students + supervisor(s)), encryption, DPIA (35; 35(2) consult recorded), destruction schedule,
     │   research-only commitment (§10 "solely scientific study")
     │
     └─ DPO rejects ──► "which safeguard makes 14(5)(b) sufficient?"
         ▼
-        CONCESSION LADDER (option1, gentlest-first, cite fidelity cost each):
+        CONCESSION LADDER (path C, gentlest-first, cite fidelity cost each):
         R1 consistent pseudonyms → R2 chunk-varying → R3 decoy injection (RR deniability)
         → R4 full-msg obfuscation → R5 distilled context labels
         ▼

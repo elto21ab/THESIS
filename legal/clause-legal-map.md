@@ -1,6 +1,6 @@
 # Clause → Provision Map (flowchart style)
 
-Reference for supervisor/DPO. Cross-refs `donor-consent-tandc.md` v1.0. The T&C is the only donor-facing document; this file is internal.
+Reference for supervisor/DPO. Cross-refs `donor-consent-t&c.md` v1.0. The T&C is the only donor-facing document; this file is internal.
 
 ## 1. Flow — one breath
 
@@ -16,12 +16,12 @@ CORPUS = SUBJECT ∪ OTHER ∪ mentioned persons
  ├─ OTHER + mentioned data
  │    ├─ research basis: 6(1)(e) + 9(2)(j) + DBL §10              → §4(b)  [NO consent needed]
  │    ├─ no individual notice: 14(5)(b)  (effort + impairment)    → §4(b)
- │    │    └─ substitute: T&C + public page + registry + mailbox  → §5, §8
+ │    │    └─ substitute: T&C transparency + erasure mailbox        → §5, §8
  │    └─ supplementary: donor-informed contacts logged (14(5)(a)) → §5 [optional, never required]
  ▼
 SAFEGUARDS layer (price of no-notice/no-consent)
  ├─ header-mask SUBJECT/OTHER, pseudonymize, encrypt              → 89(1), 25, 32, 5(1)(c)
- ├─ 4 named access holders (2 students + 2 supervisors)          → 32(1)(d)
+ ├─ named access only (2 students + supervisor(s))              → 32(1)(d)
  ├─ DPIA + DPO consult + Art. 30 record                           → 35(1), 35(2), 30
  ▼
 uCloud (processor, Denmark, EU)                                     → 28 DPA; no 3rd-country transfer
@@ -66,6 +66,5 @@ DESTRUCTION (≤ retention per DPIA); only aggregates remain          → 5(1)(e
 - [ ] 3 checkboxes individually required, pre-ticked = off (Art. 7(2); rec. 32)
 - [ ] Consent log: timestamp + version + boxes (+ optional email)
 - [ ] Opt-out mailbox wired to donor-side-key lookup procedure
-- [ ] Public project page + registry entry (substitute notice) live before recruitment
 - [ ] Danish version published (Art. 12(1) plain language; DK audience)
 - [ ] DPIA + Art. 30 record reference the same retention date as §7

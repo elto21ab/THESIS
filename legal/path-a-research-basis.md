@@ -1,4 +1,4 @@
-# Option 2: Notice Exemption (PRIMARY STRATEGY)
+# Path A: Research Basis / Notice Exemption (PRIMARY)
 
 Process OTHERs' data w/o consent or individual notice, under university research regime.
 
@@ -23,22 +23,22 @@ Two independent limbs; claim both + "in particular for research" phrase = legisl
 - No profiling, no quotes, no per-individual results; corpus destroyed on schedule
 - Likert-only surveys → no free-form bleed
 
-## Rights channel (substitute for notice)
-- Public project page + uni research-registry entry: purpose, data categories (chat logs incl. partners + mentioned persons), §10/9(2)(j) basis, retention/destruction, contact
-- Opt-out/erasure mailbox + documented procedure (locate via donor-side key → delete → confirm)
-- Voluntary donor link-sharing allowed, NEVER required (requiring it would undermine the effort argument + reintroduce recruitment friction)
+## Rights channel (no public page — held as reserve concession)
+- Opt-out/erasure mailbox + documented procedure (locate via donor-side key → delete → confirm); donors are the only outreach channel
+- Public page/registry: NOT used — donor names can't appear (would be new processing + membership leak), reach ≈ 0, and it arms the "a channel exists" counter-argument. Hold in pocket: if DPO asks for transparency measures, offer then
+- Voluntary donor link-sharing allowed, NEVER required
 - NOT a donor-name list — that list is itself personal data + membership-inference leak
-- Framing: "individual notice impossible by platform design; public notice + erasure channel = maximal operable substitute; Art. 89 safeguards protect those notice can never reach"
+- Framing: "individual notice impossible by platform design; erasure channel = operable rights route; Art. 89 safeguards protect those notice can never reach"
 
 ## Safeguards offered (Art. 89(1) / 32) — the price for no-notice/no-consent
 - Header-masking: names → SUBJECT/OTHER labels (our preferred, default level)
-- Pseudonymized storage, encryption, access control (2 students + 2 supervisors), uCloud (GDPR-compliant, DPA Art. 28)
+- Pseudonymized storage, encryption, access control (2 students + supervisor(s)), uCloud (GDPR-compliant, DPA Art. 28)
 - DPIA (Art. 35) + DPO consultation (35(2)); Art. 30 record
 - Retention + destruction schedule; research-only use commitment (§10 "solely scientific study"; no demos/startup/portfolio use)
 - No raw corpus publication (preemptive concession)
 
 ## Content fidelity = red line
-No semantic edits to OTHER msgs (no paraphrase/decoys) — imitation validity depends on unmodified conversational signal. We trade maximal procedural hygiene for zero content modification. If DPO demands deeper redaction anyway → see option1-anonymization.md ladder R1–R5 as fallback concessions, each w/ fidelity-cost argument.
+No semantic edits to OTHER msgs (no paraphrase/decoys) — imitation validity depends on unmodified conversational signal. We trade maximal procedural hygiene for zero content modification. If DPO demands deeper redaction anyway → see path-c-anonymisation-fallback.md ladder R1–R5 as fallback concessions, each w/ fidelity-cost argument.
 
 ## Art. 14(5)(a) — supplementary only
 Where donors demonstrably informed contacts themselves, (a) also applies; log it. Never load-bearing.
@@ -55,5 +55,5 @@ funded conference, accepted poster, peer-reviewed abstract, intent to publish.
 
 ## If DPO rejects
 1. Ask which safeguard would make 14(5)(b) sufficient (forces negotiation, not gates)
-2. Escalate ladder from option1 (R1 consistent pseudonyms → ... → R5 distilled context)
+2. Escalate ladder from path-c-anonymisation-fallback (R1 consistent pseudonyms → ... → R5 distilled context)
 3. Still refused → written reasoning; re-scope as supervisor's own research subproject w/ thesis as contribution

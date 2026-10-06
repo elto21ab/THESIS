@@ -21,7 +21,7 @@ Research project: "LLMs as proxy survey participants". You donate chat exports f
 
 ## 2. What we collect
 
-- **Chat export files** you choose to upload (Facebook/Instagram JSON, WhatsApp txt), including media (images, voice messages) at low export quality. You decide which conversations to include — exclude anything you don't want processed. Media is stored and protected under the same safeguards as the text (§6).
+- **Chat export files** you choose to upload (Facebook/Instagram JSON, WhatsApp txt). Voice messages are transcribed locally on uCloud and the raw audio is deleted at ingestion; **no images or video are retained**. You decide which conversations to include — exclude anything you don't want processed.
 - **Survey responses.**
 - **Contact email** for project communication.
 
@@ -39,7 +39,7 @@ Your chats unavoidably contain data about your **conversation partners** and **p
 
 **(b) Other persons in your chats** (conversation partners + mentioned persons): **not covered by your consent** — you cannot consent on their behalf, and we don't ask you to. Their data is processed under the **university research regime**: Art. 6(1)(e) (public-interest research) and Art. 9(2)(j) GDPR + §10 databeskyttelsesloven (research processing of special-category data — consent not required by law).
 
-Individual notice to each of them is **exempt under Art. 14(5)(b) GDPR**: we have no channel to reach them (platforms expose no API; you are the only contact), individual outreach would be disproportionate to the research value, and pre-notification would seriously impair the research (it breaks the corpus↔survey timing and biases the sample). **Substitute transparency:** this document, the public project page, and the university research-registry entry describe the processing; they retain full rights anyway — §8.
+Individual notice to each of them is **exempt under Art. 14(5)(b) GDPR**: we have no channel to reach them (platforms expose no API; you are the only contact), individual outreach would be disproportionate to the research value, and pre-notification would seriously impair the research (it breaks the corpus↔survey timing and biases the sample). **Transparency:** no individual notice channel exists; this document describes the processing, and those persons retain full rights — §8.
 
 ## 5. Telling your conversation partners — voluntary, never required
 
@@ -48,12 +48,12 @@ You **may** tell your contacts about the project; you are **not required** to, a
 ## 6. Storage, security, access
 
 - **Processor:** uCloud (DeiC, Denmark) under a data-processing agreement (Art. 28 GDPR). **No transfer outside the EU/EEA.**
-- **Safeguards** (Art. 89(1), 32, 25 GDPR): names replaced by SUBJECT/OTHER labels in the working corpus; pseudonymized storage; encryption (in transit + at rest); access limited to the 3 named team members (2 students) + 2 supervisors.
+- **Safeguards** (Art. 89(1), 32, 25 GDPR): names replaced by SUBJECT/OTHER labels in the working corpus; pseudonymized storage; encryption (in transit + at rest); access limited to the named project team (2 students + supervisor(s)).
 - The project is covered by a **data-protection impact assessment (DPIA, Art. 35)** reviewed with the DPO (Art. 35(2)) and an internal record (Art. 30).
 
 ## 7. Retention & destruction
 
-Your corpus is kept until **[12 months after thesis assessment — exact date per DPIA]**, then destroyed including backups, with written confirmation on request. Only **non-identifiable aggregate results** (e.g. group-level statistics) remain in the thesis and academic dissemination. Early erasure available anytime — §9.
+Your corpus is kept until **29 February 2027 (thesis assessment deadline)**, then destroyed including backups, with written confirmation on request. Only **non-identifiable aggregate results** (e.g. group-level statistics) remain in the thesis and academic dissemination. Early erasure available anytime — §9.
 
 ## 8. Your rights — and theirs
 

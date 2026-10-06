@@ -37,12 +37,14 @@ Betænkning 1565 has **no black-letter thesis rule** — Datatilsynet's test is 
 - Co-authored paper + supervisor-funded travel → de facto integration into your research agenda
 - Funded conference invite + accepted poster + peer-reviewed abstract = external peer validation
 - [Recital 157](https://gdpr-info.eu/recitals/no-157/) "knowledge society" contribution
-- Controllership formalized: you sign DPIA, Art. 30 record, uCloud project, named access → purposes/means determined at university level ([Art. 4(7)](https://gdpr-info.eu/art-4-gdpr/))
+- Controllership formalized: you sign DPIA, Art. 30 record, named access → purposes/means determined at university level ([Art. 4(7)](https://gdpr-info.eu/art-4-gdpr/)); uCloud ownership transfer = reserve action if DPO challenges the means prong
 
 ### Necessity & proportionality (already defended in DPO email correspondence)
 
-- Per-OTHER data surface ≈ 0.1% of corpus (conservatively assuming 500 OTHERs per donor ⇒ SUBJECT ≈ 50%, OTHERs ≈ 0.1% each if incl. complementing SUBJECT-side); OTHERs are never the unit of analysis — their messages exist only as retrieval context, two steps removed from any output
-- No profiling, no quotes, no per-individual results; destroy-on-schedule → per-person harm ≈ 0
+**Do NOT lead with data-volume.** "Per-OTHER surface ≈ 0.1%" is misleading: 0.1% is *per person*, but ×10²–10³ OTHERs/donor ⇒ OTHER data is ~half the corpus. Leading with volume invites the Art. 5(1)(c) minimization attack and the "how many people, how many donors?" follow-up. **Harm args use *use*, not volume.**
+- OTHERs are **never the unit of analysis** — msgs exist only as retrieval context for imitating the SUBJECT, two steps removed from any output
+- No profiling, no quotes, no per-individual results; destroy-on-schedule → per-person impact ≈ 0 (use-limited, transient)
+- Retain 0.1% only as a *reserve* answer if directly asked; reframe to use-limited exposure immediately
 - Effort side: consent-all = infeasible + scales badly w/ donor count (14(5)(b) effort/
   impairment limbs grow w/ n donors); documented recruitment friction = the exhibit
 - Proportionality = effort-to-notify vs impact-of-not-notifying → falls clearly our way;
@@ -72,7 +74,7 @@ Rec: **posture 2** — the only one that is both an honest re-consultation and k
 | Tier | Content | When |
 |---|---|---|
 | T1 — always | the premise change: univ=controller, we=processors; basis chain (6(1)(e)/9(2)(j)/§10/14(5)(b)); 89(1) safeguards; DPIA exists | opening — is the argument |
-| T2 — on direct Q | necessity evidence (Occhipinti 0.509→0.351, Park); 0.1% surface; consent-all infeasibility + 14(5)(b) effort; recruitment-friction exhibit | only if she questions necessity (already in emails) |
+| T2 — on direct Q | necessity evidence — **use-based, not volume** (OTHERs not unit of analysis, no profiling/quotes); Occhipinti 0.509→0.351, Park; consent-all infeasibility + 14(5)(b) effort; recruitment-friction exhibit | only if she questions necessity (already in emails) |
 | T3 — reserve (never volunteer) | PII-detection / NER / vector / DP / txt2vec method detail | only if forced to Path C or she demands the anonymisation story — then deploy as fallback concession, with measured utility |
 
 Rule: T1 always, T2 answered, T3 held. Note (our DPO-confidence insight): she lacks the toolkit to price DP/vector re-identification — do not hand her that card unasked.
@@ -94,10 +96,10 @@ happens at ingestion — anonymisation must happen on data donor's computers (co
 
 ## What we need from u
 
-**Confirm path + posture.** A needs u as project responsible (DPIA co-owner, Art. 30 record, uCloud, named access) + posture pick (rec: statement); C needs the anonymisation decision only.
+**Confirm path + posture.** A needs u as project responsible (DPIA co-owner, Art. 30 record, named access) + posture pick (rec: statement); C needs the anonymisation decision only.
 
 ## Exhibits (in this folder)
-- `option2-notice-exemption.md` — full legal chain + 14(5)(b) evidence package (path A)
-- `option1-anonymization.md` — anonymisation standard, redaction ladder, DP strategy (path C)
-- `dpia-draft.md`, `dpo-flowchart.md`, `clause-legal-map.md` — DPIA, process diagram, clause map
+- `path-a-research-basis.md` — full legal chain + 14(5)(b) evidence package (path A)
+- `path-c-anonymisation-fallback.md` — anonymisation standard, redaction ladder, DP strategy (path C)
+- `dpia-draft-superseded.md`, `dpo-flowchart.md`, `clause-legal-map.md` — DPIA, process diagram, clause map
 - Documented recruitment friction (dated, quantified) = the 14(5)(b) "disproportionate effort" exhibit

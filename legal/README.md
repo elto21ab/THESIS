@@ -3,12 +3,12 @@
 ## Problem
 Corpus per donor = SUBJECT (donor, consents) + OTHER (chat partners, unreachable) + mentioned persons. OTHER data = the legal problem. LM retrieval pipeline needs full corpus on uCloud.
 
-## The 2 real options (DPO's own framing, corrected)
+## Paths (aligned w/ supervisor-brief)
 
-| # | Option | Legal path | Signal kept | Status |
-|---|--------|-----------|-------------|--------|
-| 2 | **Notice exemption** (PRIMARY) | 6(1)(e) + 9(2)(j)/§10 + 14(5)(b) + 89(1) safeguards | 100% | argue first |
-| 1 | **Anonymization** (FALLBACK) | Rec. 26 "reasonably likely means" + dossier + ladder R0–R5 | 60–100% | concede rung-by-rung if pushed |
+| Path | Legal path | Signal kept | Status |
+|------|-----------|-------------|--------|
+| **A — research basis** (primary) | 6(1)(e) + 9(2)(j)/§10 + 14(5)(b) + 89(1) safeguards | 100% | argue |
+| **C — anonymisation** (fallback) | Rec. 26 "reasonably likely means" → outside GDPR | reduced (unmeasured) | if A rejected |
 
 ## Legal basis (one breath)
 University = controller (supervisor project responsible) → Art. 6(1)(e) → Art. 9(2)(j)/DBL §10 → SUBJECT consent → OTHERs: no consent (research regime), no individual notice (14(5)(b)) → objection = ongoing erasure (Art. 21/17) → Art. 89(1) safeguards.
@@ -21,9 +21,10 @@ University = controller (supervisor project responsible) → Art. 6(1)(e) → Ar
 
 ## Files
 - `supervisor-brief.md` — read first; the A/B/C decision doc; bring to supervisor meeting
-- `option2-notice-exemption.md` — path A full legal chain + 14(5)(b) evidence package + forarbejde finding
-- `option1-anonymization.md` — path C + fallback redaction ladder + DP/DPO strategy
+- `path-a-research-basis.md` — path A full legal chain + 14(5)(b) evidence package + forarbejde finding
+- `path-c-anonymisation-fallback.md` — path C + fallback redaction ladder + DP/DPO strategy
 - `dpo-flowchart.md` — meeting decision tree + legal map
-- `donor-consent-tandc.md` — donor-facing consent form/T&C (upload site)
-- `dpia-draft.md` — DPIA (Art. 35) draft — internal; supervisor sign-off, DPO consult recorded
+- `donor-consent-t&c.md` — donor-facing consent form/T&C (upload site)
+- `dpia.md` — DPIA (Art. 35), minimal English — the live document; supervisor sign-off, DPO consult recorded
+- `dpia-draft-superseded.md` — earlier full draft; salvage §1.6 (peer-validation evidence) if needed
 - `clause-legal-map.md` — clause → provision reference (internal, flowchart)

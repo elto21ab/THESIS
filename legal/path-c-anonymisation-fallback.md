@@ -1,6 +1,6 @@
-# Option 1: Anonymization (FALLBACK / concession ladder)
+# Path C: Anonymisation (FALLBACK / concession ladder)
 
-Exit GDPR scope by making OTHER data non-identifiable (Rec. 26). DPO demanded this as their "Option 1" — but w/ an overbroad standard. Primary strategy is option2; this file = fallback if DPO insists on redaction, or source of concession rungs.
+Exit GDPR scope by making OTHER data non-identifiable (Rec. 26). DPO demanded this as their "anonymise-all" option — but w/ an overbroad standard. Primary strategy is path A; this file = fallback if DPO insists on redaction, or source of concession rungs.
 
 ## Legal standard — counter DPO's absolutism
 DPO letter: "any information that could directly or indirectly identify... any other contextual details."
@@ -17,7 +17,7 @@ DPO letter: "any information that could directly or indirectly identify... any o
 - Vec2Text rebuttal: purpose-built inverter, 2 models, train-data leakage, accuracy collapses >32 tokens → inversion output unverifiable = plausible deniability
 
 ## Redaction ladder (rung-by-rung concessions w/ fidelity cost)
-- R0: header-mask names → SUBJECT/OTHER (our default, already in option2)
+- R0: header-mask names → SUBJECT/OTHER (our default, already in path A)
 - R1: consistent pseudonyms for identifiers (keeps coreference; keeps intra-corpus linkability)
 - R2: chunk-varying pseudonyms (kills cross-corpus linkability)
 - R3: decoy injection on PII-flagged msgs (RR plausible deniability)
