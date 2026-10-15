@@ -1,0 +1,43 @@
+# retrieval/config.server.yaml — prod: vLLM on CUDA (UCloud).
+# Complete file on purpose: there are no profiles and no hidden defaults, so switching environment
+# is `--config config.server.yaml` and nothing else. Same client code as local; only the models
+# (and their prompt style) differ.
+bundle:
+  max_senders: 2
+chunk:
+  name: day
+  target: 512
+  min: 256
+  max: 1024
+  overlap: 0.40
+  tz: Europe/Copenhagen
+  day_start_hour: 5
+  both_people: true
+embed:
+  backend: openai
+  model: jina-embeddings-v5-text-small
+  base_url: http://127.0.0.1:8000/v1
+  batch: 64
+  max_length: 2048
+  prompt: jina
+rerank:
+  enabled: true
+  model: jina-reranker-v3.5
+  base_url: http://127.0.0.1:8000
+  path: /v1/rerank
+  pool: 50                 # candidates the reranker sees (then merge to k)
+  prompt: none
+retrieve:
+  k: 8
+  budget: 40000
+  min_threads: 2
+  max_chars: 1200
+  max_region_chunks: 2     # adjacent overlapping chunks merged per hit; more become their own hit
+
+llm:                       # the generative model that is *being* the donor
+  model: Qwen3-4B-Instruct
+  base_url: http://127.0.0.1:8090/v1
+  api_key: sk-local
+  temperature: 0.7
+  max_turns: 6             # model turns before we give up
+  max_calls: 8             # tool calls across the whole run

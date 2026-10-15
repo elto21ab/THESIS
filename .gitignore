@@ -171,3 +171,5 @@ cython_debug/
 /ucloud_optimization/*
 # preprocess pipeline artefacts
 preprocess/out/
+# retrieval artefacts
+retrieval/out/

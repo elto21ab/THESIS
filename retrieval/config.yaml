@@ -1,0 +1,53 @@
+# retrieval/config.yaml — base settings. `--profile local|server` overlays config.<profile>.yaml.
+#
+# Precedence: CLI flag > profile file > this file > built-in default.
+# Build reads it; QUERY reads the index manifest (which was written from this config at build
+# time) and asserts they agree — the manifest is the fact, this is the intent.
+#
+# Not configurable on purpose:
+#   dim          — always the model's native size (MRL buys nothing: the forward pass is the cost)
+#   max_senders  — see FINDINGS-uploader.md U3 (belongs to upload); kept only as a cheap guard
+
+bundle:
+  max_senders: 2
+
+chunk:
+  name: day                # day | fixed
+  target: 512
+  min: 256
+  max: 1024
+  overlap: 0.40
+  tz: Europe/Copenhagen    # logical-day boundary only; timestamps stay UTC (U5)
+  day_start_hour: 5
+  both_people: true
+
+embed:
+  backend: openai          # openai (HTTP: vllm-metal | llama.cpp | vLLM) | stub | lexical
+  model: Qwen3-Embedding-0.6B
+  base_url: http://127.0.0.1:8091/v1
+  batch: 32                # low-priority knob: the server batches; matters only for local torch
+  max_length: 2048
+  prompt: qwen3            # jina | qwen3 | none  (see SPEC §3)
+
+rerank:
+  enabled: false
+  model: Qwen3-Reranker-0.6B
+  base_url: http://127.0.0.1:8092
+  path: /reranking         # vLLM/Jina API: /v1/rerank · llama.cpp: /reranking
+  pool: 50                 # candidates the reranker sees (then merge to k)
+  prompt: qwen3
+
+retrieve:
+  k: 8
+  budget: 40000            # push: token ceiling for the injected pack
+  min_threads: 2           # push: a persona grounded in one relationship is a bad persona
+  max_chars: 1200          # transport: per-hit text cap (get returns the rest)
+  max_region_chunks: 2     # overlapping neighbours merged per item; the rest become their own item
+
+llm:                       # the generative model that is *being* the donor
+  model: Qwen3-4B-Instruct
+  base_url: http://127.0.0.1:8090/v1
+  api_key: sk-local
+  temperature: 0.7
+  max_turns: 6             # model turns before we give up
+  max_calls: 8             # tool calls across the whole run
