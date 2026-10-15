@@ -173,3 +173,10 @@ cython_debug/
 preprocess/out/
 # retrieval artefacts
 retrieval/out/
+
+# legal: local only — never published
+legal/
+
+# macOS noise
+.DS_Store
+**/.DS_Store
