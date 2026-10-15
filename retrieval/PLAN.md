@@ -138,6 +138,17 @@ w/ new args → stop on budget/turns. `search`-only (no prefill) = pure pull; `p
 | bge-m3 Q8, llama.cpp Metal (via server) | ~290 | ~25 min |
 Batch plateaus (MPS saturated); cost scales with seq length. Conclusion: local = subsets only; full build on vLLM.
 
+### Local dev backend (llama.cpp) — context sizing gotcha (2026-10-13)
+`-c` is the **total** context, divided across `-np` slots: `-c 4096` (the old recipe) gave ~1024
+tok/slot with 4 slots, so any chunk above that made the server cancel the task and return **HTTP 500**
+mid-build — and a build only writes at the end, so ~6 min of embedding was lost. Working recipe for
+the full corpus (max chunk ≈ 2047 tok):
+
+```bash
+llama-server -m ~/.models/embed/bge-m3-q8_0.gguf --embedding --port 8091 -c 16384 -ub 4096 -np 4
+```
+TODO: shard/checkpoint the embed step so a long build survives a failure.
+
 ### Local dev backend (llama.cpp)
 ```bash
 llama-server -m ~/.models/embed/bge-m3-q8_0.gguf --embedding --port 8091 -c 4096 -ub 2048
@@ -169,6 +180,11 @@ Same-model local dev: pull `jinaai/jina-embeddings-v5-text-small-retrieval-GGUF`
 ### Open / next
 - **Push probe source**: fix the probe set (survey instrument questions, not generic) → drives `pack` defaults.
 - **Caller loop**: OpenAI tool-calling over the CLI (`search`/`get`), seen-set + budget + turn cap. Pure pull (no prefill) vs hybrid (`pack` prefill + live tools).
-- **Full-corpus index** on vLLM (only `*-sample200` dev indexes exist).
+- **Full-corpus index**: dev index built locally with llama.cpp + `bge-m3` Q8 (`out/vec-bge`, config
+  kept out of tree at build time) while the UCloud GPU path is arranged; prod index = `jina-embeddings-v5-text-small`
+  on UCloud vLLM (needs a live job + SSH tunnel). Local vLLM embeddings: **vllm-metal does serve
+  Qwen3-Embedding** via `pooling/backends/decoder/models/qwen3.py` (decoder pooling; the `encoder/models/`
+  dir I checked first only covers bge-m3/xlm-roberta — do not conclude support from one directory listing
+  again). Served id must match exactly: `mlx-community/Qwen3-Embedding-0.6B-8bit` (~45 s startup).
 - Chunker token counter: `openai` backend uses `len//4` (no local tokenizer) → boundaries differ from `jina`; fine for dev, not for comparing strategies across backends.
 - `get --window>0` reloads the bundle per call (~0.5 s, scans `bundle/<platform>/*.json`); cache partner→path if the loop hammers it.

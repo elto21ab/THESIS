@@ -142,6 +142,8 @@ def cmd_build(a: argparse.Namespace) -> None:
     chunks: list = []
     for t in threads:
         chunks.extend(chunker(t, chunk_cfg, count))
+    if a.max_chunks:                      # embed a slice only (5% smoke test, debug)
+        chunks = chunks[:a.max_chunks]
     vectors = None if kind == "lexical" else embedder.embed([c.text for c in chunks])
 
     donor_id = a.donor_id or report.get("donor_id") or report.get("subject_id")
@@ -358,6 +360,8 @@ def main() -> None:
     b.add_argument("--partner", help="only this partner — debug")
     b.add_argument("--limit", type=int, default=0, help="first N threads (debug)")
     b.add_argument("--sample", type=int, default=0, help="N smallest threads (debug)")
+    b.add_argument("--max-chunks", type=int, default=0, dest="max_chunks",
+                   help="embed only the first N chunks (cheap smoke test)")
     b.set_defaults(func=cmd_build)
 
     pu = sub.add_parser("push", help="probes → one budgeted context block (the default injection)")

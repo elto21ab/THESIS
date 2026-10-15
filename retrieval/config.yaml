@@ -23,7 +23,7 @@ chunk:
 
 embed:
   backend: openai          # openai (HTTP: vllm-metal | llama.cpp | vLLM) | stub | lexical
-  model: Qwen3-Embedding-0.6B
+  model: mlx-community/Qwen3-Embedding-0.6B-8bit   # must match the id the server reports
   base_url: http://127.0.0.1:8091/v1
   batch: 32                # low-priority knob: the server batches; matters only for local torch
   max_length: 2048
