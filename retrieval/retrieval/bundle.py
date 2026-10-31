@@ -181,9 +181,16 @@ def prompt_of(m: Msg) -> str:
     return f"[{stamp}] {m.sender}: {m.text}"
 
 
-def thread_header(platform: str, partner: str, participants: list[str], day: str) -> str:
-    who = "+".join(participants) if participants else partner
-    return f"# {platform} {partner} · {day} · {who}"
+def thread_header(platform: str, partner: str) -> str:
+    """The one line above a chunk: which channel, which conversation.
+
+    Nothing else belongs here. The date is on the chunk's first message (`chunk.make_chunk` puts it
+    back), the participants are `S` and the partner by construction — a thread with three speakers is
+    dropped before it is chunked — and the shorthand `fb`/`ig`/`wa`, `S`, `O<n>` is declared once in
+    the study's system prompt. `· 2013-06-26 · SUBJECT+OTHER-050` cost 34 characters on 4,646 chunks
+    to repeat three things the reader already had.
+    """
+    return f"# {platform} {partner}"
 
 
 def logical_day(ts_ms: int, tz: str, start_hour: int) -> str:

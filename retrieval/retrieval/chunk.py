@@ -18,9 +18,10 @@ Count = Callable[[str], int]
 # Bump when the rendered format or the id inputs change — it invalidates every id.
 # v2: audio renders as `AUDIO#k` (was the raw filename); id drops ts0/ts1 (they were decorative:
 # a hash only sees its own inputs, so they could never detect a re-sorted bundle).
-# v3: the text comes from the bundle (`messages[].as_prompt`), so this string must match the
-# `render_version` in `report.json` — the id would otherwise name a format that is not the one in
-# the index, and a stale index would look valid.
+# v3: the text comes from the bundle (`messages[].as_prompt`) and the header is `# <platform>
+# <partner>`. This string names the format of a *chunk's* text — header plus messages — so bump it
+# when either changes, and keep it equal to `report.json.render_version`; otherwise the id names a
+# format the index does not contain, and a stale index looks valid.
 RENDER_VERSION = "v3"
 
 
@@ -76,7 +77,7 @@ class Chunk:
 def make_chunk(thread: Thread, seq: int, i0: int, i1: int,
                lines: list[str], toks: list[int], cfg: ChunkCfg) -> Chunk:
     day = logical_day(thread.messages[i0].ts, cfg.tz, cfg.day_start_hour)
-    header = thread_header(thread.platform, thread.partner, thread.participants, day)
+    header = thread_header(thread.platform, thread.partner)
     text = header + "\n"
     offsets: list[int] = []
     for k, ln in enumerate(lines[i0:i1]):
