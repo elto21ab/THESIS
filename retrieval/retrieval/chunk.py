@@ -11,14 +11,17 @@ import hashlib
 from dataclasses import asdict, dataclass
 from typing import Callable
 
-from .bundle import Thread, logical_day, render_msg, thread_header
+from .bundle import Thread, logical_day, prompt_of, restamp, thread_header
 
 Count = Callable[[str], int]
 
-# Bump when the rendered line format or the id inputs change — it invalidates every id.
+# Bump when the rendered format or the id inputs change — it invalidates every id.
 # v2: audio renders as `AUDIO#k` (was the raw filename); id drops ts0/ts1 (they were decorative:
 # a hash only sees its own inputs, so they could never detect a re-sorted bundle).
-RENDER_VERSION = "v2"
+# v3: the text comes from the bundle (`messages[].as_prompt`), so this string must match the
+# `render_version` in `report.json` — the id would otherwise name a format that is not the one in
+# the index, and a stale index would look valid.
+RENDER_VERSION = "v3"
 
 
 def chunk_id(platform: str, partner: str, i0: int, i1: int) -> str:
@@ -76,9 +79,11 @@ def make_chunk(thread: Thread, seq: int, i0: int, i1: int,
     header = thread_header(thread.platform, thread.partner, thread.participants, day)
     text = header + "\n"
     offsets: list[int] = []
-    for ln in lines[i0:i1]:
+    for k, ln in enumerate(lines[i0:i1]):
         offsets.append(len(text))
-        text += ln + "\n"
+        # The chunk's first message gets its date back: a chunk is shown, embedded and cited on its
+        # own, so it cannot rely on the message above it, which is not in the chunk.
+        text += (restamp(ln, thread.messages[i0].ts) if k == 0 else ln) + "\n"
     return Chunk(
         id=chunk_id(thread.platform, thread.partner, i0, i1),
         platform=thread.platform, partner=thread.partner, seq=seq,
@@ -89,10 +94,13 @@ def make_chunk(thread: Thread, seq: int, i0: int, i1: int,
 
 
 def prepare(thread: Thread, count: Count, cfg: ChunkCfg) -> tuple[list[str], list[int], list[str], list[str]]:
-    """Render a thread once: lines, per-line tokens, per-msg sender, logical day."""
+    """Read a thread once: the rendered text of each message, its tokens, its sender, its day.
+
+    The text is the bundle's, not ours — one message, one block (its own text may hold newlines).
+    """
     lines, toks, senders, days = [], [], [], []
     for m in thread.messages:
-        line = render_msg(m)
+        line = prompt_of(m)
         lines.append(line)
         toks.append(count(line))
         senders.append(m.sender)

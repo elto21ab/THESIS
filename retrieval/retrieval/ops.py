@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 
-from .bundle import Msg, render_msg, thread_for
+from .bundle import Msg, prompt_of, thread_for
 from .index import Index
 from .search import Hit
 
@@ -39,7 +39,7 @@ def get(index: Index, chunk_id: str, *, window: int = 0,
         raise ValueError(f"thread not found in bundle: {c.platform}/{c.partner}")
     lo, hi = max(0, c.i0 - window), min(len(t.messages), c.i1 + window)
     return [{"i": i, "sender": t.messages[i].sender, "ts": t.messages[i].ts,
-             "text": render_msg(t.messages[i])} for i in range(lo, hi)]
+             "text": prompt_of(t.messages[i])} for i in range(lo, hi)]
 
 
 # ── push ──────────────────────────────────────────────────────────────────────
@@ -303,4 +303,4 @@ class RefRegistry:
 
 
 def window_lines(msgs: Sequence[Msg]) -> list[str]:
-    return [render_msg(m) for m in msgs]
+    return [prompt_of(m) for m in msgs]

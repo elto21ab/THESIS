@@ -1,17 +1,20 @@
-"""Bundle in, prompt lines out.
+"""Bundle in, prompt text out.
 
 `load_bundle` reads a thesis-deid donation bundle into `Thread`/`Msg` objects, defensively: the
 uploader leaks group threads (see FINDINGS-uploader.md), so validation keys on **actual senders**,
 never on the bundle's own `participants`/`partner` metadata.
 
-`render_msg` produces the one prompt-line format (`[ts] SENDER: text <attached: …> <react: …>
-<call: …> <link: …>`), mirroring thesis-deid `minimal.ts`. Never-parsed media collapse to a
-**kind mask** (`PHOTO`/`VIDEO`/`FILE`); audio keeps a mask plus its index (SPEC §5) so the STT
-backfill can land in the same slot later. Bursts render as `xN`.
+**This side no longer renders.** Since `RENDER_VERSION` v3 the bundle carries each message as the
+model reads it, in `messages[].as_prompt`, written by the one renderer in `thesis-deid`
+(`src/core/standard/minimal.ts`). Keeping a second implementation here is what let the two drift:
+this repo was still producing v2 text for a v3 bundle, so the corpus was indexed in a format the
+report no longer described. A bundle from before that field exists still loads — the text falls back
+to `[ts] sender: text` with no markers — and `load_bundle` says so in `report["legacy_render"]`.
 """
 from __future__ import annotations
 
 import json
+import re
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
@@ -32,6 +35,8 @@ class Msg:
     ts: int  # ms epoch, UTC
     sender: str
     text: str
+    #: The message as the model reads it — stamp, label, text, markers. Absent in a pre-v3 bundle.
+    as_prompt: str = ""
     urls: list[str] = field(default_factory=list)
     reactions: list[tuple[str, str]] = field(default_factory=list)  # (emoji, actor)
     media: list[Media] = field(default_factory=list)
@@ -68,6 +73,7 @@ def _parse_msg(d: dict) -> Msg:
         ts=int(d.get("ts_ms") or 0),
         sender=str(d.get("sender") or ""),
         text=str(d.get("text") or ""),
+        as_prompt=str(d.get("as_prompt") or ""),
         urls=[str(u) for u in d.get("urls") or []],
         reactions=[(str(r.get("emoji", "")), str(r.get("actor", "")))
                    for r in d.get("reactions") or []],
@@ -119,6 +125,15 @@ def load_bundle(root: str | Path, *, max_senders: int = 2,
             threads.append(t)
     rp = root / "report.json"
     report = json.loads(rp.read_text()) if rp.exists() else {}
+    # Which rendering this bundle was built with, and whether we had to fall back for it.
+    report["render_version"] = report.get("render_version")
+    legacy = sum(1 for t in threads for m in t.messages if not m.as_prompt)
+    if legacy:
+        report["legacy_render"] = {
+            "messages": legacy,
+            "note": "no as_prompt in the bundle: chunk text falls back to `[ts] sender: text` and "
+                    "carries no markers. Re-export to get the rendered format.",
+        }
     return threads, rejects, report
 
 
@@ -136,40 +151,34 @@ def thread_for(root: str | Path, platform: str, partner: str) -> Thread | None:
     return None
 
 
-# ── render ────────────────────────────────────────────────────────────────────
-_COLLAPSE = {"photos": "PHOTO", "videos": "VIDEO"}
+# ── derived from the bundle, not rendered here ───────────────────────────────
+_SHORT_STAMP = re.compile(r"^\[\d{2}:\d{2}\]")
 
 
-def _attach_label(m: Media, i: int) -> str:
-    if m.kind == "audio" and m.name:
-        return f"AUDIO#{i}"  # mask + slot for the future transcript; the name lives in the bundle
-    if m.missing or not m.name:
-        return m.name or "FILE"
-    return _COLLAPSE.get(m.kind, "FILE")
+def restamp(line: str, ts: int) -> str:
+    """Put the date on a line that only carries a clock.
 
+    The renderer prints `HH:MM` when the message above shares its day, and the full date when the day
+    changes — so a message that begins a chunk is rendered short, because the renderer was reading the
+    whole thread and could not know where the chunk would start. A chunk must be self-contained, so
+    the first message of every chunk gets its date back here: `[14:02] O1: …` → `[2022-09-05 14:02]
+    O1: …`. Only the bracket is touched; the body is the renderer's.
+    """
+    if not _SHORT_STAMP.match(line):
+        return line
+    stamp = datetime.fromtimestamp(ts / 1000, timezone.utc).strftime("%Y-%m-%d %H:%M")
+    return f"[{stamp}]{line[7:]}"
+def prompt_of(m: Msg) -> str:
+    """The text the model reads for one message.
 
-def render_msg(m: Msg) -> str:
-    ts = datetime.fromtimestamp(m.ts / 1000, timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
-    line = f"[{ts}] {m.sender}: {m.text}"
-    if m.media:
-        order: list[str] = []
-        count: dict[str, int] = {}
-        for i, x in enumerate(m.media, 1):
-            label = _attach_label(x, i)
-            if label not in count:
-                order.append(label)
-                count[label] = 0
-            count[label] += 1
-        line += " " + " ".join(
-            f"<attached: {x}{'' if count[x] == 1 else f' x{count[x]}'}>" for x in order)
-    for emoji, actor in m.reactions:
-        line += f" <react: {emoji} by {actor}>"
-    if m.call_s is not None:
-        kind = f"{m.call_media} " if m.call_media in ("video", "voice") else ""
-        line += f" <call: {kind}call {m.call_s}s{' missed' if m.call_missed else ''}>"
-    for u in m.urls:
-        line += f" <link: {u}>"
-    return line
+    `as_prompt` when the bundle carries it. A bundle built before v3 has none, and re-deriving the
+    full format here would put the second renderer back; the fallback is the plainest thing that is
+    still true — a timestamp and who said it.
+    """
+    if m.as_prompt:
+        return m.as_prompt
+    stamp = datetime.fromtimestamp(m.ts / 1000, timezone.utc).strftime("%Y-%m-%d %H:%M")
+    return f"[{stamp}] {m.sender}: {m.text}"
 
 
 def thread_header(platform: str, partner: str, participants: list[str], day: str) -> str:

@@ -15,12 +15,15 @@ estimated token count (exact per-message tokens aren't stored; the estimate uses
 """
 from __future__ import annotations
 
+
+
 import re
 from dataclasses import dataclass
 from typing import Iterable
 
 import numpy as np
 
+from .bundle import restamp
 from .chunk import Chunk
 from .index import Index, read_blob
 from .models import Embedder
@@ -59,7 +62,21 @@ class Hit:
     @property
     def text(self) -> str:
         head = min(self.members, key=lambda c: c.i0).header  # i0's day, if the union spans two
-        return head + "\n" + "\n".join(self.lines[i] for i in sorted(self.lines))
+        return head + "\n" + "\n".join(self._line(i) for i in sorted(self.lines))
+
+    def _line(self, i: int) -> str:
+        """One message's text, dated again when it is a member's own first message.
+
+        A chunk's first message arrives dated (`chunk.make_chunk` puts it back), so the seam between
+        two merged chunks is anchored too — except where the pair overlaps: the seam is then the first
+        message the second chunk adds, which the renderer left as `HH:MM`. It follows the dated line
+        above it, so it reads as the same day; only a merge that crosses midnight can disagree with the
+        header, and the pair carries the earlier day's header. Stated rather than papered over.
+        """
+        member = next((c for c in self.members if c.i0 <= i < c.i1), None)
+        if member is not None and i == member.i0:
+            return restamp(self.lines[i], member.ts0)
+        return self.lines[i]
 
     def add(self, c: Chunk, score: float) -> None:
         self.members.append(c)
