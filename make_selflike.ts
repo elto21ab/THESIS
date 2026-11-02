@@ -17,6 +17,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { renderMessage, type PromptMessage } from '/Users/e/Documents/thesis/_active/thesis-deid/src/core/standard/minimal.ts';
+import { repairMojibake, stripDirectionMarks } from '/Users/e/Documents/thesis/_active/thesis-deid/src/core/standard/format.ts';
 
 const DONOR = 'Elias Salvador Smidt Torjani';
 const args = process.argv.slice(2);
@@ -93,8 +94,10 @@ for (const row of onlyMe) {
   const lines = [`# ${row.platform} ${row.thread}`, ''];
   for (const m of row.messages) {
     const ts = Number(m.timestamp_ms ?? m.timestamp ?? 0);
-    const sender = String(m.sender_name ?? m.senderName ?? '').trim() || '(no sender)';
-    const text = String(m.content ?? m.text ?? '');
+    // The export ships its strings double-encoded (UTF-8 read as Latin-1): `hvornÃ¥r` is `hvornår`.
+    // The reader repairs this; a view built straight from the export has to ask the same function.
+    const sender = repairMojibake(String(m.sender_name ?? m.senderName ?? '').trim())[0] || '(no sender)';
+    const text = repairMojibake(stripDirectionMarks(String(m.content ?? m.text ?? '')))[0];
     const media: PromptMessage['media'] = [];
     for (const [field, kind] of [['photos', 'photos'], ['videos', 'videos'], ['audio_files', 'audio'], ['files', 'file'], ['gifs', 'gif'], ['sticker', 'sticker']] as const) {
       const items = Array.isArray(m[field]) ? m[field] : m[field] ? [m[field]] : [];
@@ -108,8 +111,8 @@ for (const row of onlyMe) {
           text,
           urls: [],
           media,
-          reactions: (m.reactions ?? []).map((r: any) => ({ emoji: String(r.reaction ?? ''), actor: String(r.actor ?? '') })),
-          share: m.share ? { url: m.share.link, title: m.share.share_text, owner: m.share.original_content_owner } : undefined,
+          reactions: (m.reactions ?? []).map((r: any) => ({ emoji: repairMojibake(String(r.reaction ?? ''))[0], actor: repairMojibake(String(r.actor ?? ''))[0] })),
+          share: m.share ? { url: m.share.link, title: repairMojibake(String(m.share.share_text ?? ''))[0], owner: m.share.original_content_owner } : undefined,
           unsent: Boolean(m.is_unsent ?? m.isUnsent),
         },
         (raw) => raw,

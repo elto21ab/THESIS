@@ -38,8 +38,10 @@ def get(index: Index, chunk_id: str, *, window: int = 0,
     if t is None:
         raise ValueError(f"thread not found in bundle: {c.platform}/{c.partner}")
     lo, hi = max(0, c.i0 - window), min(len(t.messages), c.i1 + window)
-    return [{"i": i, "sender": t.messages[i].sender, "ts": t.messages[i].ts,
-             "text": prompt_of(t.messages[i])} for i in range(lo, hi)]
+    # Two keys, not four: `text` already begins with the stamp and the speaker, and `i` is the only
+    # thing the caller needs that the text does not carry. `sender` and `ts` were duplication the
+    # caller never read, and every byte here is prompt.
+    return [{"i": i, "text": prompt_of(t.messages[i])} for i in range(lo, hi)]
 
 
 # ── push ──────────────────────────────────────────────────────────────────────
