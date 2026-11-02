@@ -139,8 +139,9 @@ def _dispatch(index: Index, name: str, args: dict, reg: RefRegistry, embedder, r
                      if (hit.platform, hit.partner, m["i"]) not in seen]  # skip shown messages
             for m in fresh:
                 seen.add((hit.platform, hit.partner, m["i"]))
-            return {"id": hit.chunk.id, "window": window, "msgs": fresh}, sum(
-                len(m["text"]) for m in fresh) // 4
+            # No `id` in the payload: 16 hex characters are 4+ tokens and the model has no use for
+            # them; the run log keeps the id for the human reading the transcript afterwards.
+            return {"window": window, "msgs": fresh}, sum(len(m["text"]) for m in fresh) // 4
         texts, _ = render_hits([hit], seen=seen, mark=False)
         out = hit_payload(hit, max_chars=0, rank=args.get("ref"), text=texts[0])
         mark_shown([(hit, out["text"])], seen)
