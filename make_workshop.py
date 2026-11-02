@@ -90,21 +90,37 @@ def level_rows(bundle_msg: dict, raw_msg: dict | None) -> dict[str, str]:
     return {"L1 raw": l1, "L2 entry": l2, "L3 text": l3, "L4 chunk": ""}
 
 
-def corpus_gradient(threads: list[dict]) -> list[tuple[str, int, int]]:
-    """chars and tokens for the whole corpus at each level, so the ladder has a price tag."""
-    json_chars = sum(len(json.dumps(m, ensure_ascii=False)) for t in threads for m in t["messages"])
-    l3 = sum(len(m["as_prompt"]) for t in threads for m in t["messages"])
-    l4 = sum(len(re.sub(r"^\[[^\]]*\]\s*", "", m["as_prompt"])) for t in threads for m in t["messages"])
-    json_tokens = sum(tokens(json.dumps(m, ensure_ascii=False)) for t in threads for m in t["messages"])
-    return [
-        ("L1 · raw export message", json_chars, json_tokens),
-        ("L2 · standardised entry", json_chars, json_tokens),
-        ("L3 · rendered text", l3, tokens("x" * 0) + sum(tokens(m["as_prompt"]) for t in threads for m in t["messages"])),
-        ("L4 · lean text, no stamp", l4, sum(tokens(re.sub(r"^\[[^\]]*\]\s*", "", m["as_prompt"])) for t in threads for m in t["messages"])),
-    ]
+def corpus_gradient(threads: list[dict], readable: Path) -> list[tuple[str, int, int]]:
+    """Chars and tokens for the corpus at each level, so the ladder has a price tag.
+
+    L1 is the *export's* object (bigger than the entry: `is_geoblocked_for_viewer` and friends), L2 the
+    entry without the rendered string, L3 with it, L4 with the stamp stripped. Facebook and Instagram
+    only — WhatsApp's export is already text, so it has no L1 to compare against.
+    """
+    counts = {"l1": [0, 0], "l2": [0, 0], "l3": [0, 0], "l4": [0, 0]}
+    for platform in ("fb", "ig"):
+        for path in sorted((readable / platform).glob("*.json")):
+            for m in json.loads(path.read_text()).get("messages", []):
+                blob = json.dumps(m, ensure_ascii=False)
+                counts["l1"][0] += len(blob)
+                counts["l1"][1] += tokens(blob)
+    for t in threads:
+        if t["platform"] not in ("fb", "ig"):
+            continue
+        for m in t["messages"]:
+            entry = json.dumps({k: v for k, v in m.items() if k != "as_prompt"}, ensure_ascii=False)
+            lean = re.sub(r"^\[[^\]]*\]\s*", "", m["as_prompt"])
+            counts["l2"][0] += len(entry)
+            counts["l2"][1] += tokens(entry)
+            counts["l3"][0] += len(m["as_prompt"])
+            counts["l3"][1] += tokens(m["as_prompt"])
+            counts["l4"][0] += len(lean)
+            counts["l4"][1] += tokens(lean)
+    labels = [("L1 · raw export message", "l1"), ("L2 · standardised entry", "l2"),
+              ("L3 · rendered text", "l3"), ("L4 · lean text, no stamp", "l4")]
+    return [(label, counts[key][0], counts[key][1]) for label, key in labels]
 
 
-# ── chunking ─────────────────────────────────────────────────────────────────
 def chunker():
     sys.path.insert(0, str(Path(__file__).parent / "retrieval"))
     from retrieval.bundle import load_bundle
@@ -194,6 +210,18 @@ pre { background: #f6f6f6; border-radius: 1.5mm; padding: 2mm 2.5mm; margin: 0; 
 .flow { display: flex; align-items: stretch; gap: 0; }
 .flow .step { flex: 1; border: 1px solid #b9b9b9; border-radius: 2mm; padding: 2.5mm; font-size: 10px; }
 .flow .sep { align-self: center; padding: 0 1.5mm; color: #999; font-size: 15px; }
+.board { font-size: 9px; }
+.rowlbl { font-size: 9px; color: #666; margin: 1mm 0 0.4mm; }
+.strip { display: flex; gap: 0.6mm; }
+.m { border: 1px solid #ccc; border-radius: 1mm; padding: 0.6mm 1mm; white-space: nowrap; overflow: hidden;
+     text-overflow: ellipsis; max-width: 100%; font-family: "SF Mono", Menlo, monospace; background: #fff; }
+.m.in { background: #e6efff; border-color: #9bb7e6; }
+.m.ov { background: #ffd6d6; border-color: #d99; }
+.m.hit { background: #d8f2d0; border-color: #7a7; }
+.m.miss { background: #f2f2f2; color: #999; }
+.m.merged { background: #d8f2d0; border-color: #7a7; white-space: normal; }
+.m.ctx { background: #f6f6f6; color: #555; }
+.m.v { background: #eef; border-color: #99c; }
 .page { break-after: page; }
 .page:last-child { break-after: auto; }
 td.ok { color: #111; }
@@ -211,8 +239,7 @@ h2 { font-size: 12px; margin: 0 0 1.5mm; text-transform: uppercase; letter-spaci
 .legend { font-size: 10px; color: #444; margin: 1mm 0 2mm; }
 .sw { display: inline-block; width: 9px; height: 9px; border-radius: 1mm; vertical-align: middle; }
 .line { font-family: "SF Mono", Menlo, monospace; font-size: 10px; white-space: pre-wrap; padding: 0.5mm 1.2mm; }
-.c0 { background: #e6efff; }
-.c1 { background: #ffeccf; }
+.c0 { background: #eef2f8; }
 .ov { background: #ffd6d6; }
 .cut { border-top: 1.8px dashed #c00; margin: 1mm 0 0.6mm; position: relative; }
 .cut span { background: #c00; color: #fff; font-size: 8px; padding: 0 1.2mm; border-radius: 0 0 1.5mm 1.5mm; }
@@ -223,6 +250,22 @@ def panel(title: str, body: str, cls: str = "") -> str:
     return f'<div class="panel {cls}"><h2>{title}</h2>{body}</div>'
 
 
+MARK = {
+    "who": "background:#ffe9a8",
+    "time": "background:#cfe6ff",
+    "react": "background:#ffd9ec",
+    "att": "background:#d8f2d0",
+    "text": "",
+}
+
+
+def hl(text: str, value: str, kind: str) -> str:
+    """Wrap one value in a coloured mark, inside already-escaped text."""
+    if not value:
+        return text
+    return text.replace(esc(value), f'<mark style="{MARK[kind]}">{esc(value)}</mark>', 1)
+
+
 def page1(report: dict, threads: list[dict], readable: Path) -> str:
     vol = report["volume"]
     rows = "".join(
@@ -231,7 +274,7 @@ def page1(report: dict, threads: list[dict], readable: Path) -> str:
         f"<td>{d['prompt']['tokens_M']:.2f}M</td><td>{d['audio']['files']}</td></tr>"
         for p, d in report["platforms"].items()
     )
-    grad = corpus_gradient(threads)
+    grad = corpus_gradient(threads, readable)
     grad_rows = "".join(
         f"<tr><td>{name}</td><td>{chars/1e6:.2f}M</td><td>{tok/1e6:.2f}M</td>"
         f"<td>{tok/grad[0][2]*100:.0f}%</td></tr>" for name, chars, tok in grad
@@ -250,25 +293,66 @@ def page1(report: dict, threads: list[dict], readable: Path) -> str:
     span = next((s for s in spans if s[0] <= demo["messages"].index(rich) < s[1]), spans[0])
     chunky = [f"# fb {FB}"] + [m["as_prompt"] for m in demo["messages"][span[0]:span[1]]]
     l4 = "\n".join(chunky)
+    who = (raw or {}).get("sender_name", "")
+    rx = (rich["reactions"] or [{}])[0]
+    media0 = (rich["media"] or [{}])[0]
+    raw_uri = next((p.get("uri", "") for p in (raw or {}).get("photos", [])), "") if raw else ""
+    cells = []
+    # L1 — the export's own object, as a field table so the eye can follow one value across levels
+    l1_rows = "".join(
+        f"<tr><td>{k}</td><td>{hl(esc(json.dumps(v, ensure_ascii=False)), json.dumps(v, ensure_ascii=False).strip('"'), kind)}</td></tr>"
+        for k, v, kind in [
+            ("sender_name", who, "who"),
+            ("timestamp_ms", (raw or {}).get("timestamp_ms", ""), "time"),
+            ("content", (raw or {}).get("content", ""), "text"),
+            ("reactions", (raw or {}).get("reactions", []), "react"),
+            ("photos[].uri", raw_uri, "att"),
+        ] if v not in ("", None, [])
+    )
+    l2_rows = "".join(
+        f"<tr><td>{k}</td><td>{hl(esc(json.dumps(v, ensure_ascii=False)), json.dumps(v, ensure_ascii=False).strip('"'), kind)}</td></tr>"
+        for k, v, kind in [
+            ("sender", rich["sender"], "who"),
+            ("ts_ms", rich["ts_ms"], "time"),
+            ("text", rich.get("text", ""), "text"),
+            ("reactions", rich["reactions"], "react"),
+            ("media", rich["media"], "att"),
+        ] if v not in ("", None, [])
+    )
+    l3_html = esc(l3)
+    l3_html = hl(l3_html, f"{rich['sender']}:", "who")
+    l3_html = hl(l3_html, f"[{iso(rich['ts_ms'])}]", "time")
+    if rx.get("emoji"):
+        l3_html = hl(l3_html, f"<react: {rx['emoji']}", "react")
+    if media0.get("name"):
+        l3_html = hl(l3_html, "<attached:", "att")
+    l4_html = esc(l4)
+    l4_html = hl(l4_html, "<attached:", "att")
     ladder = f"""
-      <table>
-        <tr><th style="width:15%">level</th><th>what it is</th><th style="width:44%">this message</th></tr>
-        <tr><td><b>L1 · raw</b></td><td>the export's own JSON object, one file per part</td>
-            <td><pre>{esc(l1)[:1400]}</pre></td></tr>
-        <tr><td><b>L2 · entry</b></td><td>the standardised message: labels instead of names, markers as fields</td>
-            <td><pre>{esc(l2)[:1400]}</pre></td></tr>
-        <tr><td><b>L3 · text</b></td><td>the one string the model reads (<code>as_prompt</code>)</td>
-            <td><pre>{esc(l3)}</pre></td></tr>
-        <tr><td><b>L4 · chunk</b></td><td>L3 lines under a header, with the span it covers
-            (<code>#{span[2]}</code>, messages {span[0]}..{span[1]-1}, ~{tokens(l4)} tokens)</td>
-            <td><pre>{esc(l4)[:1400]}</pre></td></tr>
-      </table>"""
+      <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-top:2mm">
+        <div class="panel"><h2>L1 · the export's object</h2>
+          <table>{l1_rows}</table>
+          <p class="note">Names, epoch milliseconds, a typed file reference.</p></div>
+        <div class="panel"><h2>L2 · the standardised entry</h2>
+          <table>{l2_rows}</table>
+          <p class="note">Same facts, named for a consumer: <code>S</code>/<code>O4</code>, a marker per
+          reaction, <code>media[]</code> with a kind.</p></div>
+        <div class="panel"><h2>L3 · the rendered text</h2>
+          <pre style="font-size:10.5px">{l3_html}</pre>
+          <p class="note">One string. The date prints once a day, the label is short, and every field
+          above became a marker in place.</p></div>
+        <div class="panel"><h2>L4 · inside its chunk</h2>
+          <pre style="font-size:9.4px">{l4_html[:900]}</pre>
+          <p class="note">Chunk <code>#{span[2]}</code>, messages {span[0]}..{span[1]-1}, ~{tokens(l4)} tokens,
+          header <code># fb {FB}</code>.</p></div>
+      </div>"""
 
     return f"""
 <div class="page">
   <h1>Data → Answers <small>· the corridor and its options · one donor, {vol['conversations']} conversations,
   {vol['messages_K']:.1f}k messages, {vol['audio']['hours']:.1f} h of voice · renderer v3</small></h1>
-  <div class="grid two" style="margin-top:3mm">
+  {ladder}
+  <div class="grid two" style="margin-top:4mm">
     {panel("TL0 · what the browser does before anything leaves the machine", f'''
       <table>
         <tr><th>channel</th><th>conversations</th><th>messages</th><th>text</th><th>text tokens</th><th>prompt tokens</th><th>voice notes</th></tr>
@@ -280,127 +364,196 @@ def page1(report: dict, threads: list[dict], readable: Path) -> str:
       <code>S</code> / <code>O&lt;n&gt;</code>; the mapping never leaves the browser.</p>''')}
     {panel("the price of each level, on identical content", f'''
       <table><tr><th>level</th><th>chars</th><th>tokens</th><th>vs L1</th></tr>{grad_rows}</table>
-      <p class="note">L1 and L2 are the same JSON object — L2 is what a consumer loads; the difference is what it
-      <i>names</i>. The ladder from L1 to L4 is {grad[0][2]/grad[3][2]:.1f}× on the same words. That factor is the
-      whole argument for the register question: every level below L1 is a decision about what to throw away.</p>''')}
-  </div>
-  <div class="grid" style="margin-top:4mm">
-    {panel("one message, four levels — a call with a reaction on it", ladder, "wide")}
+      <p class="note">L1 and L2 are the same bytes — L2 is what a consumer loads; the difference is what it
+      <i>names</i> and how it types what it keeps. The ladder from L1 to L4 is {grad[0][2]/grad[3][2]:.1f}× on the same
+      words, and every step below L1 is a decision about what to throw away. Colour marks one value travelling down:
+      <mark style="background:#ffe9a8">sender</mark>,
+      <mark style="background:#cfe6ff">time</mark>,
+      <mark style="background:#ffd9ec">reaction</mark>,
+      <mark style="background:#d8f2d0">attachment</mark>.</p>''')}
   </div>
 </div>"""
 
 
 def page2(report: dict, threads: list[dict], chunks: list[dict], bundle: Path) -> str:
-    flow = """
-    <div class="flow">
-      <div class="step"><b>thread</b><br>one conversation, chronological<br><span class="k">629–649 of them</span></div>
-      <div class="sep">→</div>
-      <div class="step"><b>chunk</b><br>day group or token window, 40% overlap<br><span class="k">~9k chunks</span></div>
-      <div class="sep">→</div>
-      <div class="step"><b>embed</b><br>one vector per chunk, cosine<br><span class="k">exact, no ANN</span></div>
-      <div class="sep">→</div>
-      <div class="step"><b>retrieve</b><br>top-k per query or per probe<br><span class="k">vector + lexical</span></div>
-      <div class="sep">→</div>
-      <div class="step"><b>rerank</b><br>cross-encoder on unmerged chunks<br><span class="k">opt-in</span></div>
-      <div class="sep">→</div>
-      <div class="step"><b>merge</b><br>overlapping neighbours → one item<br><span class="k">never twice</span></div>
-      <div class="sep">→</div>
-      <div class="step"><b>prompt</b><br>header + lines, under the glossary<br><span class="k">the only text the model sees</span></div>
-    </div>"""
-    rows = "".join(
+    """Three consecutive chunks, drawn as blocks, through retrieve → rerank → merge → pull."""
+    demo = thread_of(threads, "fb", FB)
+    load_bundle, CHUNKERS, ChunkCfg = chunker()
+    lib, _, _ = load_bundle(bundle)
+    thread = next(t for t in lib if t.platform == "fb" and t.partner == FB)
+    fixed = CHUNKERS["fixed"](thread, ChunkCfg(target=512), tokens)[2:5]   # three neighbours, with overlap
+    span = (min(c.i0 for c in fixed), max(c.i1 for c in fixed))
+
+    def cell(i: int, tone: str) -> str:
+        line = re.sub(r"^\[[^\]]*\]\s*", "", demo["messages"][i]["as_prompt"])
+        short = (line[:34] + "…") if len(line) > 34 else (line or "(empty)")
+        return f'<div class="m {tone}">{i} · {esc(short)}</div>'
+
+    def strip(lo: int, hi: int, tones: dict[int, str]) -> str:
+        return "".join(cell(i, tones.get(i, "")) for i in range(lo, hi))
+
+    # which messages each chunk covers; a message in two chunks gets the overlap tone
+    cover = {}
+    for c in fixed:
+        for i in range(c.i0, c.i1):
+            cover.setdefault(i, []).append(c.seq)
+    overlap = {i for i, seqs in cover.items() if len(seqs) > 1}
+    c1, c2, c3 = fixed
+    rows = []
+    for c, label in zip(fixed, ("C1", "C2", "C3")):
+        tones = {i: ("ov" if i in overlap else "in") for i in range(c.i0, c.i1)}
+        rows.append(f'<div class="rowlbl">{label} · messages {c.i0}..{c.i1-1} · {c.n_msgs} msgs · ~{c.n_tokens} tok · id {c.id[:8]}…</div>'
+                    f'<div class="strip">{strip(c.i0, c.i1, tones)}</div>')
+    shared = sorted(overlap)
+    rows.append(f'<div class="rowlbl">stored twice, shown once — messages {shared[0]}..{shared[-1]} '
+                f'({len(shared)} of them)</div><div class="strip">' + strip(span[0], span[1], {i: "ov" for i in overlap}) + "</div>")
+
+    table = "".join(
         f"<tr><td>{c['name']}</td><td>{c['chunks']:,}</td><td>{c['tokens']/1e6:.2f}M</td>"
         f"<td>{c['median']}</td><td>{c['min']}</td><td>{c['max']}</td></tr>" for c in chunks)
 
-    # where the cuts fall in the FB conversation
-    spans = spans_of(bundle, "fb", FB)[:8]
-    demo = thread_of(threads, "fb", FB)
-    marks = "".join(
-        f'<tr><td>#{s[2]}</td><td>{s[0]}..{s[1]-1}</td><td>{s[1]-s[0]}</td>'
-        f'<td>~{sum(tokens(m["as_prompt"]) for m in demo["messages"][s[0]:s[1]])}</td></tr>' for s in spans)
-
     return f"""
 <div class="page">
-  <h1>Chunking and retrieval <small>· the same thread, from text to a prompt</small></h1>
-  <div class="grid" style="margin-top:3mm; grid-template-columns: 1fr;">
-    {panel("the corridor", flow)}
+  <h1>From rendered messages to a prompt <small>· three neighbouring chunks of fb {FB}, drawn as blocks</small></h1>
+
+  <div class="panel" style="margin-top:3mm">
+    <h2>1 · chunking — the same messages, three windows</h2>
+    <div class="board">{''.join(rows)}</div>
+    <p class="note">Fixed window, target 512, overlap 40%: each chunk repeats the tail of the one before it, which is why
+    the shaded messages are stored (and embedded) twice. The day chunker overlaps only where it has to split a long day;
+    this strategy overlaps everywhere on purpose — a query that lands on a boundary still finds its region.</p>
   </div>
+
   <div class="grid two" style="margin-top:4mm">
-    {panel("chunking strategies, on this corpus", f'''
-      <table><tr><th>strategy</th><th>chunks</th><th>indexed tokens</th><th>median msgs</th><th>min</th><th>max</th></tr>{rows}</table>
-      <p class="note"><b>Day</b>: one logical day per chunk (05:00 → 05:00 local), a day over <code>max</code> is split by the
-      fixed window. <b>Fixed</b>: a token window that snaps boundaries to messages. Overlap is 40% of <code>target</code>:
-      neighbours repeat a third of their messages, which is why indexed tokens exceed the prompt total — and why
-      deduplication has to exist at all.</p>''')}
-    {panel(f"where the cuts fall — fb {FB}, first chunks", f'''
-      <table><tr><th>chunk</th><th>messages</th><th>msgs</th><th>~tokens</th></tr>{marks}</table>
-      <p class="note">Ids are <code>blake2b(version|platform|partner|i0|i1)</code>: span-addressed, so a transcript arriving
-      later re-embeds the same span instead of orphaning it. The model never sees them — it cites <code>ref</code> integers,
-      which the tool resolves.</p>''')}
+    <div class="panel"><h2>2 · index — one vector per chunk</h2>
+      <div class="board">
+        <div class="strip">{[f'<div class="m v">vec C{c.seq}</div>' for c in fixed][0]}</div>
+      </div>
+      <p class="note">Cosine over every vector, exact, no ANN. The lexical index sits beside it for names, numbers and
+      dates, where an embedding blurs what a regex keeps.</p>
+    </div>
+    <div class="panel"><h2>3 · retrieve → rerank</h2>
+      <div class="board">
+        <div class="strip"><div class="m hit">C2 · hit</div><div class="m hit">C3 · hit</div><div class="m miss">C1</div></div>
+      </div>
+      <p class="note">A query returns candidates by score. The reranker (opt-in) scores them as they are — unmerged,
+      because that is its native unit — and may reorder them.</p>
+    </div>
   </div>
+
   <div class="grid two" style="margin-top:4mm">
-    {panel("what deduplication means here", '''
-      <p class="note">Two neighbouring chunks that both rank are <b>paired into one item</b>, not shown twice and not dropped:
-      the union span is what the model reads, and the repeated messages are counted once by message index, never by text.
-      Merging happens <i>after</i> reranking — the cross-encoder judges unmerged chunks, which is its native unit, and
-      merging then frees slots so the fill continues down the ranked list.</p>''')}
-    {panel("what the model is given", '''
-      <p class="note">Header (<code># fb O4</code>) and the rendered lines. Nothing else: no JSON, no ids, no metadata it cannot
-      read. The glossary above the chunks explains <code>S</code>, <code>O4</code> and every marker once, so a line never
-      spends tokens explaining itself.</p>''')}
+    <div class="panel"><h2>4 · merge — two neighbours become one region</h2>
+      <div class="board"><div class="strip"><div class="m merged">C2 ∪ C3 · messages {c2.i0}..{c3.i1-1} · overlap counted once</div></div></div>
+      <p class="note">Shown once, cited once. The overlap messages are deduplicated by message index — never by matching
+      text, which would collapse two identical-looking messages that really are two.</p>
+    </div>
+    <div class="panel"><h2>5 · pull — the model asks for more</h2>
+      <div class="board"><div class="strip">
+        <div class="m ctx">−2</div><div class="m ctx">−1</div><div class="m hit">region</div><div class="m ctx">+1</div><div class="m ctx">+2</div>
+      </div></div>
+      <p class="note"><code>get(ref, window=2)</code> returns that region plus two messages either side, already rendered.
+      Reading around a hit beats searching again, and a repeated message is never shown twice in one run.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:4mm">
+    <h2>the three strategies, measured on this corpus</h2>
+    <table><tr><th>strategy</th><th>chunks</th><th>indexed tokens</th><th>median msgs</th><th>min</th><th>max</th></tr>{table}</table>
   </div>
 </div>"""
 
 
+QUIRKS = {
+    "facebook": [
+        "text arrives double-encoded (`hvornÃ¥r`) and is repaired on the way in",
+        "platform lines are written as messages: *connected on Messenger*, *opened this conversation by playing UNO*",
+        "`is_unsent` says the sender deleted it; the words are gone, the row is kept",
+        "a partner whose account is gone arrives as `Facebook user`, and sometimes as an empty name",
+        "calls are prose (“You missed a call from Emma”) plus a duration; some rows are milliseconds",
+        "one conversation may be split across 25 export parts and appears twice (DYI + E2EE dump)",
+    ],
+    "instagram": [
+        "same tree as Facebook below the wrapper folder, same reader",
+        "calls are event lines (“Audio call ended, 90s”), so direction is often unknowable",
+        "a sticker can be the reaction, and arrives as a `.jpg` with an empty emoji",
+        "stories and posts share as a link plus the caption Meta captured",
+        "`call_duration` is milliseconds more often than Facebook's: an hour is the cut",
+    ],
+    "whatsapp": [
+        "already text: `[DD/MM/YYYY, HH.MM.SS] Sender: text`, three dialects, continuation lines",
+        "no reactions and no edits — they are not exported at all",
+        "media is named inline: `<attached: 00000025-PHOTO-….jpg>`, and the bytes sit beside the chat",
+        "notices arrive as messages with a sender attached: banners, *waiting for this message*, deletions",
+        "calls are five shapes (`Missed voice call`, `Voice call. 16 min`, `Silenced voice call. Focus mode`)",
+        "one export per conversation, so a donor's ten chats are ten files",
+    ],
+}
+
+
 def page3(rows: list[tuple[str, dict[str, str]]]) -> str:
-    body = "".join(
-        f"<tr><td><b>{esc(label)}</b></td>" + "".join(
-            f'<td class="{"ok" if cells[p] != "—" else "no"}">' + (f"<code>{esc(cells[p][:150])}</code>" if cells[p] != "—" else "—") + "</td>"
-            for p in ("fb", "ig", "wa")) + "</tr>"
-        for label, cells in rows)
+    quirks = "".join(
+        f'<div class="panel"><h2>{name}</h2><ul style="margin:0;padding-left:4mm">'
+        + "".join(f"<li>{esc(item)}</li>" for item in items) + "</ul></div>"
+        for name, items in QUIRKS.items())
+    half = (len(rows) + 1) // 2
+    def one(chunk):
+        return "".join(
+            f'<tr><td style="width:22%"><b>{esc(label)}</b></td><td>'
+            + (f"<code>{esc(cells['fb'])}</code>" if cells["fb"] != "—" else
+               f"<code>{esc(next((cells[p] for p in ('ig','wa') if cells[p] != '—'), '—'))}</code>")
+            + "</td></tr>" for label, cells in chunk)
     return f"""
 <div class="page">
-  <h1>Edge cases <small>· one real example per case, at the rendered level · <code>—</code> means the platform cannot produce it</small></h1>
-  <div class="grid" style="margin-top:3mm; grid-template-columns: 1fr">
-    {panel("", f'''
-      <table>
-        <tr><th style="width:17%">case</th><th style="width:28%">facebook</th><th style="width:28%">instagram</th><th style="width:27%">whatsapp</th></tr>
-        {body}
-      </table>''')}
+  <h1>Platforms, and the edge cases <small>· the three exports are not the same file, and the rendered text is where that stops mattering</small></h1>
+  <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top:3mm">{quirks}</div>
+  <div class="grid two" style="margin-top:4mm">
+    <div class="panel"><h2>edge cases · 1 of 2</h2><table>{one(rows[:half])}</table></div>
+    <div class="panel"><h2>edge cases · 2 of 2</h2><table>{one(rows[half:])}</table></div>
   </div>
+  <p class="note">One example per case, taken from whichever channel has it, at the level the model reads. `—` only
+  appears where no channel in this corpus produced the case: a sticker reaction's five instances all sit in a group
+  conversation, which is dropped before any thread is built.</p>
 </div>"""
 
 
 def page4(report: dict, threads: list[dict], bundle: Path) -> str:
-    cols = []
+    """Two pages, one conversation each, with the fixed window's overlap drawn.
+
+    The day chunker overlaps only where it splits a long day, so its cuts are mostly clean; the fixed
+    window is the strategy whose 40% overlap is always there, which is what this sheet is for.
+    """
+    load_bundle, CHUNKERS, ChunkCfg = chunker()
+    lib, _, _ = load_bundle(bundle)
+    pages = []
     for platform, partner in (("fb", FB), ("wa", WA)):
         demo = thread_of(threads, platform, partner)
-        spans = spans_of(bundle, platform, partner)
-        # the stretch with the most chunks, capped so it fits a page
-        start, end = spans[0][0], min(spans[0][0] + 62, len(demo["messages"]))
-        if len(spans) > 6:
-            start = spans[1][0]
-            end = min(start + 62, len(demo["messages"]))
-        blocks = []
-        for i in range(start, end):
-            chunk_ids = [s for s in spans if s[0] <= i < s[1]]
-            cls = "ov" if len(chunk_ids) > 1 else f"c{chunk_ids[0][2] % 2 if chunk_ids else 0}"
-            cut = next((s for s in spans if s[0] == i), None)
-            if cut and i > start:
-                blocks.append(f'<div class="cut"><span>cut · chunk #{cut[2]} starts here</span></div>')
-            blocks.append(f'<div class="line {cls}">{esc(demo["messages"][i]["as_prompt"])}</div>')
-        cols.append(panel(
-            f"{platform} · {partner} · {len(demo['messages']):,} messages · {demo['first'][:8]} → {demo['last'][:8]}",
-            "".join(blocks)))
-    return f"""
+        thread = next(t for t in lib if t.platform == platform and t.partner == partner)
+        chunks = CHUNKERS["fixed"](thread, ChunkCfg(target=512), tokens)
+        start_at = chunks[1].i0 if len(chunks) > 3 else 0
+        cover = {}
+        for c in chunks:
+            for i in range(c.i0, c.i1):
+                cover.setdefault(i, []).append(c)
+        blocks, shown = [], 0
+        for i in range(start_at, len(demo["messages"])):
+            if shown > 74:
+                break
+            here = cover.get(i, [])
+            tone = "ov" if len(here) > 1 else "c0"
+            if here and here[0].i0 == i and i > start_at:
+                blocks.append(f'<div class="cut"><span>chunk #{here[0].seq} · {here[0].n_msgs} msgs · ~{here[0].n_tokens} tok</span></div>')
+            blocks.append(f'<div class="line {tone}">{esc(demo["messages"][i]["as_prompt"])}</div>')
+            shown += 1
+        pages.append(f"""
 <div class="page">
-  <h1>Two conversations, as the study chunks them
-    <small>· shaded bands are chunks, red bands are the 40% overlap where two chunks share messages, dashed lines are cuts</small></h1>
-  <p class="legend"><span class="sw c0"></span> chunk even &nbsp;
-     <span class="sw c1"></span> chunk odd &nbsp;
-     <span class="sw ov"></span> overlap — shown twice in the index, once to the model &nbsp;
-     <span style="border-top:1.6px dashed #c00;display:inline-block;width:18px;vertical-align:middle"></span> a cut</p>
-  <div class="cols">{''.join(cols)}</div>
-</div>"""
+  <h1>{platform} · {partner} <small>· {len(demo['messages']):,} messages · {demo['first'][:8]} → {demo['last'][:8]} ·
+  fixed window, target 512 tokens, 40% overlap</small></h1>
+  <p class="legend"><span class="sw c0"></span> chunk &nbsp;
+     <span class="sw ov"></span> overlap — in two chunks, stored and embedded twice, shown once &nbsp;
+     <span style="border-top:1.8px dashed #c00;display:inline-block;width:18px;vertical-align:middle"></span> a cut, with the chunk that starts there</p>
+  {''.join(blocks)}
+</div>""")
+    return "".join(pages)
 
 
 def build(bundle: Path, readable: Path, out: Path) -> tuple[Path, Path]:
