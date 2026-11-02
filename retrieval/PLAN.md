@@ -97,6 +97,14 @@ Two cheap things worth building when the eval harness comes up:
    systematically worse, or whether day-straddling chunks underperform. It is a table that would say
    whether `target` / `overlap` / `day_start_hour` are tuned to the corpus or merely plausible.
 
+**Classifying the text, not just the metadata.** A chunk record is already a dict serialized to
+JSON, so a `tags: string[]` field costs nothing to add and the id keeps the tags attached across
+re-embeds (the span is the identity, the text may change under it). Rules first — `has_call`,
+`has_share`, `has_voice`, `has_photo`, `mostlies_empty`, `both_people`, `day_straddles` — and then a
+classifier over `text` when there is something to train it on. The point is the join: tags × recall@k
+× answer quality is the table that says which *kinds of text* this pipeline serves, which metadata
+alone cannot answer.
+
 Not yet: citations by id in the model's answer. Sixteen hex characters are 4+ tokens and mean nothing
 to a reader; cite `fb OTHER-024 · 2014-02-12` and keep the id in the log.
 
