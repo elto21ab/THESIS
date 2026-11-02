@@ -93,10 +93,23 @@ def write_readable(bundle: Path, rows: dict[int, list[dict]], source: dict[int, 
                     lines.append({"_ts_ms": m["ts_ms"], "_missing_in_export": True, "_bundle": m})
                     continue
                 lines.append({**picked, "_src": source.get(m["ts_ms"], "")})
-            name = path.name.replace(".json", ".jsonl")
-            with (dest / name).open("w", encoding="utf-8") as fh:
-                for line in lines:
-                    fh.write(json.dumps(line, ensure_ascii=False) + "\n")
+            # The export's own envelope: one object per conversation, `participants` and `messages`,
+            # each message the export's own JSON with `_src` added. Not one object per line — the
+            # point of this folder is that it is the export, only merged.
+            # The export's own participant names, taken from the messages: the bundle's list is
+            # labels, and this folder exists precisely to show the names behind them.
+            names = sorted({
+                (line.get("sender_name") or line.get("senderName") or "").strip()
+                for line in lines
+                if (line.get("sender_name") or line.get("senderName") or "").strip()
+            })
+            envelope = {
+                "participants": names,
+                "_note": "the export's own messages, all parts merged and sorted; _src names the part",
+                "messages": lines,
+            }
+            with (dest / path.name).open("w", encoding="utf-8") as fh:
+                json.dump(envelope, fh, ensure_ascii=False, indent=1)
             table.append((path.stem, len(lines), data.get("first", ""), data.get("last", ""), missing))
         with (dest / "index.md").open("w", encoding="utf-8") as fh:
             fh.write(f"# {platform} — {len(table)} conversations\n\n")
@@ -105,7 +118,7 @@ def write_readable(bundle: Path, rows: dict[int, list[dict]], source: dict[int, 
                      "`_src` names the export part the message came from.\n\n")
             fh.write("| file | messages | first | last | not found in export |\n| --- | --- | --- | --- | --- |\n")
             for row in table:
-                fh.write(f"| `{row[0]}.jsonl` | {row[1]} | {row[2]} | {row[3]} | {row[4]} |\n")
+                fh.write(f"| `{row[0]}.json` | {row[1]} | {row[2]} | {row[3]} | {row[4]} |\n")
         log.append(f"{platform}: {len(table)} files")
     log += write_readable_wa(bundle, out)
     return log
