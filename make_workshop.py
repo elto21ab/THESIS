@@ -238,6 +238,8 @@ h2 { font-size: 12px; margin: 0 0 1.5mm; text-transform: uppercase; letter-spaci
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
 .panel { border: 1px solid #b9b9b9; border-radius: 2.5mm; padding: 3mm; }
 .legend { font-size: 10px; color: #444; margin: 1mm 0 2mm; }
+.page { break-after: page; page-break-after: always; }
+.page + .page { break-before: page; page-break-before: always; }
 .twocol { columns: 2; column-gap: 6mm; }
 .twocol .line { break-inside: avoid; }
 .sw { display: inline-block; width: 9px; height: 9px; border-radius: 1mm; vertical-align: middle; }
@@ -577,7 +579,7 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
                 cover.setdefault(i, []).append(c)
         blocks, shown = [], 0
         for i in range(start_at, len(demo["messages"])):
-            if shown > 120:
+            if shown > 200:
                 break
             here = cover.get(i, [])
             tone = "ov" if len(here) > 1 else "c0"
