@@ -237,6 +237,8 @@ h2 { font-size: 12px; margin: 0 0 1.5mm; text-transform: uppercase; letter-spaci
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
 .panel { border: 1px solid #b9b9b9; border-radius: 2.5mm; padding: 3mm; }
 .legend { font-size: 10px; color: #444; margin: 1mm 0 2mm; }
+.twocol { columns: 2; column-gap: 6mm; }
+.twocol .line { break-inside: avoid; }
 .sw { display: inline-block; width: 9px; height: 9px; border-radius: 1mm; vertical-align: middle; }
 .line { font-family: "SF Mono", Menlo, monospace; font-size: 10px; white-space: pre-wrap; padding: 0.5mm 1.2mm; }
 .c0 { background: #eef2f8; }
@@ -257,6 +259,21 @@ MARK = {
     "att": "background:#d8f2d0",
     "text": "",
 }
+
+
+ANNOTATE = [
+    (re.compile(r"\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}\]|\[[0-9]{2}:[0-9]{2}\]"), "time"),
+    (re.compile(r"\b(?:S|O[0-9]+):"), "who"),
+    (re.compile(r"&lt;react:[^&]*?&gt;"), "react"),
+    (re.compile(r"&lt;attached:[^&]*?&gt;|&lt;voice[^&]*?&gt;"), "att"),
+]
+
+
+def annotate(escaped: str) -> str:
+    """Colour the four things that travel down the ladder, on escaped HTML."""
+    for pattern, kind in ANNOTATE:
+        escaped = pattern.sub(lambda m: f'<mark style="{MARK[kind]}">{m.group(0)}</mark>', escaped, count=1 if kind == "time" else 0)
+    return escaped
 
 
 def hl(text: str, value: str, kind: str) -> str:
@@ -319,15 +336,8 @@ def page1(report: dict, threads: list[dict], readable: Path) -> str:
             ("media", rich["media"], "att"),
         ] if v not in ("", None, [])
     )
-    l3_html = esc(l3)
-    l3_html = hl(l3_html, f"{rich['sender']}:", "who")
-    l3_html = hl(l3_html, f"[{iso(rich['ts_ms'])}]", "time")
-    if rx.get("emoji"):
-        l3_html = hl(l3_html, f"<react: {rx['emoji']}", "react")
-    if media0.get("name"):
-        l3_html = hl(l3_html, "<attached:", "att")
-    l4_html = esc(l4)
-    l4_html = hl(l4_html, "<attached:", "att")
+    l3_html = annotate(esc(l3))
+    l4_html = annotate(esc(l4))
     ladder = f"""
       <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-top:2mm">
         <div class="panel"><h2>L1 · the export's object</h2>
@@ -463,6 +473,25 @@ def page2(report: dict, threads: list[dict], chunks: list[dict], bundle: Path) -
 </div>"""
 
 
+POLICY = {
+    "call, answered": "kept as a record; the prose is not repeated",
+    "call, missed": "kept; direction from the sender",
+    "call, event": "kept, flagged as bookkeeping",
+    "voice note": "bytes travel; transcript slot empty until STT",
+    "photo / video burst": "referenced and counted, bytes stay behind",
+    "file · sticker · gif": "referenced, counted, never fetched",
+    "shared post": "link + title + owner, nothing fetched",
+    "shared profile (no url)": "owner is the whole record",
+    "reaction, with time": "when it landed is information the message lacks",
+    "reaction, sticker": "kept, its actor with it",
+    "deleted by sender": "kept and flagged; counted in report",
+    "export left it empty": "kept, marked, counted — never guessed",
+    "platform notice": "kept and flagged; duplicates dropped",
+    "message deleted (notice)": "kept and flagged",
+    "multiline body": "kept literal; never split on",
+    "link in the text only": "no marker: already readable",
+}
+
 QUIRKS = {
     "facebook": [
         "text arrives double-encoded (`hvornÃ¥r`) and is repaired on the way in",
@@ -497,11 +526,13 @@ def page3(rows: list[tuple[str, dict[str, str]]]) -> str:
         for name, items in QUIRKS.items())
     half = (len(rows) + 1) // 2
     def one(chunk):
-        return "".join(
-            f'<tr><td style="width:22%"><b>{esc(label)}</b></td><td>'
-            + (f"<code>{esc(cells['fb'])}</code>" if cells["fb"] != "—" else
-               f"<code>{esc(next((cells[p] for p in ('ig','wa') if cells[p] != '—'), '—'))}</code>")
-            + "</td></tr>" for label, cells in chunk)
+        out = []
+        for label, cells in chunk:
+            example = cells["fb"] if cells["fb"] != "—" else next((cells[p] for p in ("ig", "wa") if cells[p] != "—"), "—")
+            out.append(f'<tr><td style="width:24%"><b>{esc(label)}</b><br>'
+                       f'<span class="note">{esc(POLICY.get(label, ""))}</span></td>'
+                       f'<td><code>{esc(example)}</code></td></tr>')
+        return "".join(out)
     return f"""
 <div class="page">
   <h1>Platforms, and the edge cases <small>· the three exports are not the same file, and the rendered text is where that stops mattering</small></h1>
@@ -536,7 +567,7 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
                 cover.setdefault(i, []).append(c)
         blocks, shown = [], 0
         for i in range(start_at, len(demo["messages"])):
-            if shown > 74:
+            if shown > 108:
                 break
             here = cover.get(i, [])
             tone = "ov" if len(here) > 1 else "c0"
@@ -551,7 +582,7 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
   <p class="legend"><span class="sw c0"></span> chunk &nbsp;
      <span class="sw ov"></span> overlap — in two chunks, stored and embedded twice, shown once &nbsp;
      <span style="border-top:1.8px dashed #c00;display:inline-block;width:18px;vertical-align:middle"></span> a cut, with the chunk that starts there</p>
-  {''.join(blocks)}
+  <div class="twocol">{''.join(blocks)}</div>
 </div>""")
     return "".join(pages)
 
