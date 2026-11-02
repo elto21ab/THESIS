@@ -185,18 +185,33 @@ def chunk_day(thread: Thread, cfg: ChunkCfg, count: Count) -> list[Chunk]:
             merged = True
             break
 
-    chunks: list[Chunk] = []
-    seq = 0
+    # Spans first, chunks second: a day larger than `max` is handed to the fixed window, and the
+    # window's last slice can be a stub — 2 messages, 14 tokens, a chunk of its own. Those are folded
+    # into a neighbour before anything is built, so no output chunk is smaller than `min` unless the
+    # whole conversation is.
+    spans: list[tuple[int, int]] = []
     for g in groups:
         if size(g) <= cfg.max:
-            chunks.append(make_chunk(thread, seq, g[0], g[-1] + 1, lines, toks, cfg))
-            seq += 1
+            spans.append((g[0], g[-1] + 1))
             continue
         sub = Thread(thread.id, thread.platform, thread.partner, thread.participants,
                      thread.messages[g[0]:g[-1] + 1], thread.sources)
         for c in chunk_fixed(sub, cfg, count):
-            chunks.append(make_chunk(thread, seq, g[0] + c.i0, g[0] + c.i1, lines, toks, cfg))
-            seq += 1
+            spans.append((g[0] + c.i0, g[0] + c.i1))
+
+    changed = True
+    while changed and len(spans) > 1:
+        changed = False
+        for k, (a, b) in enumerate(spans):
+            if sum(toks[a:b]) >= cfg.min:
+                continue
+            lo = k - 1 if k > 0 else k + 1
+            first, second = sorted((k, lo))
+            spans[first:second + 1] = [(spans[first][0], spans[second][1])]
+            changed = True
+            break
+
+    chunks = [make_chunk(thread, seq, a, b, lines, toks, cfg) for seq, (a, b) in enumerate(spans)]
     return drop_empty(chunks)
 
 
