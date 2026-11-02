@@ -577,16 +577,24 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
         for c in chunks:
             for i in range(c.i0, c.i1):
                 cover.setdefault(i, []).append(c)
-        blocks, shown = [], 0
+        # Fill just under two pages. The height is estimated from the wrapped monospace line:
+        # A3 portrait is 1191×1684 CSS px, margins 9 mm, two columns with a 6 mm gap, so a line holds
+        # ~91 characters at 10 px and costs ~13 px plus padding. Measured against the PDF's page
+        # count afterwards; the sheet is 2 pages per chat when this is right.
+        page_px, budget_pages = 1684 - 2 * 34, 2
+        char_per_line, line_px = 91, 16.5
+        blocks, used = [], 0.0
         for i in range(start_at, len(demo["messages"])):
-            if shown > 200:
+            line = demo["messages"][i]["as_prompt"]
+            cost = max(1, -(-len(line) // char_per_line)) * line_px + 4
+            if used + cost > page_px * budget_pages * 2 * 0.90:
                 break
+            used += cost
             here = cover.get(i, [])
             tone = "ov" if len(here) > 1 else "c0"
             if here and here[0].i0 == i and i > start_at:
                 blocks.append(f'<div class="cut"><span>chunk #{here[0].seq} · {here[0].n_msgs} msgs · ~{here[0].n_tokens} tok</span></div>')
             blocks.append(f'<div class="line {tone}">{esc(demo["messages"][i]["as_prompt"])}</div>')
-            shown += 1
         pages.append(f"""
 <div class="page">
   <h1>{platform} · {partner} <small>· {len(demo['messages']):,} messages · {demo['first'][:8]} → {demo['last'][:8]} ·
