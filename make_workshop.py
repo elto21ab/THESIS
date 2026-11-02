@@ -577,19 +577,10 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
         for c in chunks:
             for i in range(c.i0, c.i1):
                 cover.setdefault(i, []).append(c)
-        # Fill just under two pages. The height is estimated from the wrapped monospace line:
-        # A3 portrait is 1191×1684 CSS px, margins 9 mm, two columns with a 6 mm gap, so a line holds
-        # ~91 characters at 10 px and costs ~13 px plus padding. Measured against the PDF's page
-        # count afterwards; the sheet is 2 pages per chat when this is right.
-        page_px, budget_pages = 1684 - 2 * 34, 2
-        char_per_line, line_px = 91, 16.5
-        blocks, used = [], 0.0
-        for i in range(start_at, len(demo["messages"])):
-            line = demo["messages"][i]["as_prompt"]
-            cost = max(1, -(-len(line) // char_per_line)) * line_px + 4
-            if used + cost > page_px * budget_pages * 2 * 0.90:
-                break
-            used += cost
+        # 300 messages per chat, fixed: enough to cross several chunk boundaries and several
+        # overlaps, and deliberately more than two pages so the sheet runs long rather than short.
+        blocks = []
+        for i in range(start_at, min(start_at + 300, len(demo["messages"]))):
             here = cover.get(i, [])
             tone = "ov" if len(here) > 1 else "c0"
             if here and here[0].i0 == i and i > start_at:
