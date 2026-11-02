@@ -31,6 +31,10 @@ from pathlib import Path
 
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 FB, WA = "OTHER-004", "OTHER-572"          # the two conversations greenlit for the print
+# How many messages each portrait sheet carries. Fixed, not fitted: fb's lines are longer than wa's,
+# so the same number does not fill the same space, and a number that runs long is easier to trim by
+# hand than a page that runs short.
+CHAT_MSGS = {("fb", FB): 290, ("wa", WA): 270}
 
 
 def iso(ms: int | None, fmt: str = "%Y-%m-%d %H:%M") -> str:
@@ -577,10 +581,9 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
         for c in chunks:
             for i in range(c.i0, c.i1):
                 cover.setdefault(i, []).append(c)
-        # 300 messages per chat, fixed: enough to cross several chunk boundaries and several
-        # overlaps, and deliberately more than two pages so the sheet runs long rather than short.
         blocks = []
-        for i in range(start_at, min(start_at + 300, len(demo["messages"]))):
+        limit = CHAT_MSGS.get((platform, partner), 290)
+        for i in range(start_at, min(start_at + limit, len(demo["messages"]))):
             here = cover.get(i, [])
             tone = "ov" if len(here) > 1 else "c0"
             if here and here[0].i0 == i and i > start_at:
