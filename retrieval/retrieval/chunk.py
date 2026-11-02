@@ -148,7 +148,7 @@ def chunk_fixed(thread: Thread, cfg: ChunkCfg, count: Count) -> list[Chunk]:
         chunks.append(make_chunk(thread, seq, k, end, lines, toks, cfg))
         seq += 1
         start = end
-    return chunks
+    return drop_empty(chunks)
 
 
 # ── day: group by logical day, then mend the edges ────────────────────────────
@@ -197,7 +197,21 @@ def chunk_day(thread: Thread, cfg: ChunkCfg, count: Count) -> list[Chunk]:
         for c in chunk_fixed(sub, cfg, count):
             chunks.append(make_chunk(thread, seq, g[0] + c.i0, g[0] + c.i1, lines, toks, cfg))
             seq += 1
-    return chunks
+    return drop_empty(chunks)
+
+
+def has_content(chunk: "Chunk") -> bool:
+    """A chunk with nothing in it but markers is not worth embedding.
+
+    `<no content>` means the export carried a sender and a time and no message; a window of those
+    embeds to noise, matches nothing, and takes a slot from a chunk that says something. Only chunks
+    where *every* message is empty are dropped — one real message in the window keeps the rest.
+    """
+    return any(not line.rstrip().endswith(("<no content>", "<unsent>")) for line in chunk.msg_lines())
+
+
+def drop_empty(chunks: list["Chunk"]) -> list["Chunk"]:
+    return [c for c in chunks if has_content(c)]
 
 
 CHUNKERS = {"fixed": chunk_fixed, "day": chunk_day}
