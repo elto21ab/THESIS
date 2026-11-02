@@ -65,6 +65,41 @@ embed query w/ Jina query-prompt → cosine top-k → filter (since/until on log
 ## Eval (deferred)
 Synthetic: hold out msg → its text = query → must retrieve host chunk; `recall@k`/`MRR`/span-precision. ~20 handwritten survey-style probes. Same `retrieve()`, swap chunker → metrics table.
 
+## Chunking: the tail of a big day *(shelved option)*
+
+A day larger than `max` is handed to `chunk_fixed`, whose last window can be a stub — two messages,
+fourteen tokens, a chunk of its own. Today such a span is folded into its neighbour before the chunk
+is built (implemented, `chunk_day`), which is cheap and leaves no chunk under `min` except in
+conversations that are themselves smaller than `min` (132 of those on the donor corpus: nothing to
+merge with).
+
+The better version, if it ever matters: **plan the windows before slicing.** Compute
+`ceil(total / target)` windows inside the day and distribute the messages evenly over them, so no
+window is under `min` and none is a tail. That removes the need for the fold, needs no cross-day
+merging, and also balances the middle windows. ~20 lines inside `chunk_fixed`; it changes every
+oversized day's boundaries, so it is a re-index, not a patch.
+
+Rejected for now: absorbing the stub into the next day's first chunk. It moves messages across the
+day boundary the chunker exists to keep, and then the chunk's `day`, its header, and any `since`/
+`until` filter disagree with its text.
+
+## Introspection: ids, and what to correlate with performance *(not started)*
+
+Two cheap things worth building when the eval harness comes up:
+
+1. **Log ids, not text.** Every run should record `(ref, ids[], i0..i1, thread, day)` — ~60 bytes per
+   hit — so a result can be reopened exactly as the model saw it, and an eval re-scored without
+   re-running retrieval. The hex id is also the only stable name for a span across re-embeds.
+2. **Feature the chunks and join with the metrics.** Per chunk we already have `n_msgs`, `n_tokens`,
+   `day`, both-people or not, `i0..i1`, and which markers it carries (call, share, voice, photo,
+   `<no content>`). Joined with recall@k or per-probe answer quality, that answers "which kinds of
+   chunk does this corpus retrieve well?" — e.g. whether call-heavy or photo-heavy chunks are
+   systematically worse, or whether day-straddling chunks underperform. It is a table that would say
+   whether `target` / `overlap` / `day_start_hour` are tuned to the corpus or merely plausible.
+
+Not yet: citations by id in the model's answer. Sixteen hex characters are 4+ tokens and mean nothing
+to a reader; cite `fb OTHER-024 · 2014-02-12` and keep the id in the log.
+
 ## Deferred / shelved
 reranker (jina-v3.5) · eval harness (built; needs real probe queries) · vLLM client · semantic chunker · MRL dim truncation · cross-platform identity · STT integration · query-vector cache (prod HTTP embed ~20 ms, so unneeded for now).
 
