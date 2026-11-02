@@ -212,7 +212,7 @@ pre { background: #f6f6f6; border-radius: 1.5mm; padding: 2mm 2.5mm; margin: 0; 
 .flow .sep { align-self: center; padding: 0 1.5mm; color: #999; font-size: 15px; }
 .board { font-size: 9px; }
 .rowlbl { font-size: 9px; color: #666; margin: 1mm 0 0.4mm; }
-.strip { display: flex; gap: 0.6mm; }
+.strip { display: flex; gap: 0.6mm; flex-wrap: wrap; }
 .m { border: 1px solid #ccc; border-radius: 1mm; padding: 0.6mm 1mm; white-space: nowrap; overflow: hidden;
      text-overflow: ellipsis; max-width: 100%; font-family: "SF Mono", Menlo, monospace; background: #fff; }
 .m.in { background: #e6efff; border-color: #9bb7e6; }
@@ -222,7 +222,8 @@ pre { background: #f6f6f6; border-radius: 1.5mm; padding: 2mm 2.5mm; margin: 0; 
 .m.merged { background: #d8f2d0; border-color: #7a7; white-space: normal; }
 .m.ctx { background: #f6f6f6; color: #555; }
 .m.v { background: #eef; border-color: #99c; }
-.page { break-after: page; }
+.page { break-after: page; page-break-after: always; }
+.page + .page { break-before: page; page-break-before: always; margin-top: 6mm; }
 .page:last-child { break-after: auto; }
 td.ok { color: #111; }
 td.no { color: #bbb; }
@@ -313,7 +314,16 @@ def page1(report: dict, threads: list[dict], readable: Path) -> str:
     who = (raw or {}).get("sender_name", "")
     rx = (rich["reactions"] or [{}])[0]
     media0 = (rich["media"] or [{}])[0]
-    raw_uri = next((p.get("uri", "") for p in (raw or {}).get("photos", [])), "") if raw else ""
+    # Whichever attachment field the export used — `photos`, `videos`, `audio_files`, `files`,
+    # `gifs`, `sticker` — the ladder should show it, or L1 looks like it had no attachment at all.
+    raw_uri = ""
+    for field in ("photos", "videos", "audio_files", "files", "gifs", "sticker"):
+        items = (raw or {}).get(field) or []
+        items = items if isinstance(items, list) else [items]
+        hit = next((i.get("uri", "") for i in items if isinstance(i, dict) and i.get("uri")), "")
+        if hit:
+            raw_uri = f"{field}: {hit.split('/')[-1]}"
+            break
     cells = []
     # L1 — the export's own object, as a field table so the eye can follow one value across levels
     l1_rows = "".join(
@@ -324,7 +334,7 @@ def page1(report: dict, threads: list[dict], readable: Path) -> str:
             ("content", (raw or {}).get("content", ""), "text"),
             ("reactions", (raw or {}).get("reactions", []), "react"),
             ("photos[].uri", raw_uri, "att"),
-        ] if v not in ("", None, [])
+        ] if (k == "content" or v not in ("", None, []))
     )
     l2_rows = "".join(
         f"<tr><td>{k}</td><td>{hl(esc(json.dumps(v, ensure_ascii=False)), json.dumps(v, ensure_ascii=False).strip('"'), kind)}</td></tr>"
@@ -334,7 +344,7 @@ def page1(report: dict, threads: list[dict], readable: Path) -> str:
             ("text", rich.get("text", ""), "text"),
             ("reactions", rich["reactions"], "react"),
             ("media", rich["media"], "att"),
-        ] if v not in ("", None, [])
+        ] if (k == "text" or v not in ("", None, []))
     )
     l3_html = annotate(esc(l3))
     l4_html = annotate(esc(l4))
@@ -567,7 +577,7 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
                 cover.setdefault(i, []).append(c)
         blocks, shown = [], 0
         for i in range(start_at, len(demo["messages"])):
-            if shown > 108:
+            if shown > 120:
                 break
             here = cover.get(i, [])
             tone = "ov" if len(here) > 1 else "c0"
