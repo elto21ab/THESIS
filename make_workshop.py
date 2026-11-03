@@ -35,6 +35,9 @@ FB, WA = "OTHER-004", "OTHER-572"          # the two conversations greenlit for 
 # so the same number does not fill the same space, and a number that runs long is easier to trim by
 # hand than a page that runs short.
 CHAT_MSGS = {("fb", FB): 290, ("wa", WA): 270}
+# Where each sheet starts: fb from the top of the conversation, wa from three quarters of the way
+# through it, so the two pages are not showing the same fortnight of the same thesis year.
+CHAT_START = {("fb", FB): ("chunk", 1), ("wa", WA): ("fraction", 0.75)}
 
 
 def iso(ms: int | None, fmt: str = "%Y-%m-%d %H:%M") -> str:
@@ -576,7 +579,11 @@ def page4(report: dict, threads: list[dict], bundle: Path) -> str:
         demo = thread_of(threads, platform, partner)
         thread = next(t for t in lib if t.platform == platform and t.partner == partner)
         chunks = CHUNKERS["fixed"](thread, ChunkCfg(target=512), tokens)
-        start_at = chunks[1].i0 if len(chunks) > 3 else 0
+        how, at = CHAT_START.get((platform, partner), ("chunk", 1))
+        if how == "fraction" and len(chunks) > 3:
+            start_at = chunks[max(0, int(len(chunks) * at))].i0
+        else:
+            start_at = chunks[min(at, len(chunks) - 1)].i0 if len(chunks) > at else 0
         cover = {}
         for c in chunks:
             for i in range(c.i0, c.i1):
