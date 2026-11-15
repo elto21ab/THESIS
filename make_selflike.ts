@@ -80,12 +80,17 @@ mkdirSync(outRoot, { recursive: true });
 const index: string[] = [
   '# Conversations where the only named participant is the donor',
   '',
-  'One file per conversation, flat, named by platform · how many messages · whether an unnamed',
-  'participant was there. Rendered with the same function the model reads, with the export’s own',
-  'names as labels.',
+  'One file per conversation, flat, named by platform · how many messages · how many senders · the',
+  'export folder. Rendered with the same function the model reads, with the export’s own names as',
+  'labels.',
   '',
-  '| file | messages | unnamed participant | what it looks like |',
-  '| --- | --- | --- | --- |',
+  'The `senders` column is counted from the messages, not from `participants`: Meta’s metadata can',
+  'name only the donor while the messages carry a room. `reader` is what the reader then does — a',
+  'thread with more than two named senders is dropped as a group, which is why the “nobody else”',
+  'threads here are not in the bundle.',
+  '',
+  '| file | messages | senders | unnamed | reader | what it looks like |',
+  '| --- | --- | --- | --- | --- | --- |',
 ];
 
 for (const row of onlyMe) {
@@ -121,12 +126,29 @@ for (const row of onlyMe) {
     );
     previous = ts;
   }
+  // Counted from the messages, because that is where the truth is: `participants` named only the donor
+  // while three people talked (`inbox/justyou_1437078516411345`, 35 messages, dropped as a group).
+  const senders = new Set(
+    row.messages.map((m) => repairMojibake(String(m.sender_name ?? m.senderName ?? '').trim())[0]).filter(Boolean),
+  );
   const isEmpty = (line: string) => line.includes('<no content>');
   const empties = lines.filter(isEmpty).length;
   const shape = empties === 0 ? 'all real' : empties === row.messages.length ? 'every message empty' : `${empties} of ${row.messages.length} empty`;
-  const name = `${row.platform} · ${row.messages.length} msgs · ${row.unnamed ? 'unnamed partner' : 'nobody else'}.txt`;
+  // Two threads of the same length and the same partner-shape rendered to the same filename, and the
+  // second silently overwrote the first — 17 rows in the index, 16 files on disk. The export folder
+  // is the identity; keep its tail, which is the part that differs.
+  const tail = row.file.split('/').filter(Boolean).slice(-1)[0].slice(0, 22);
+  const name = `${row.platform} · ${row.messages.length} msgs · ${senders.size} senders · ${tail}.txt`;
   writeFileSync(join(outRoot, name), lines.join('\n') + '\n');
-  index.push(`| \`${name}\` | ${row.messages.length} | ${row.unnamed ? 'yes' : 'no'} | ${shape} |`);
+  const verdict =
+    senders.size > 2
+      ? `dropped · group (${senders.size} senders)`
+      : row.unnamed
+        ? 'kept · partner unnamed'
+        : senders.size === 2
+          ? 'kept · one named partner'
+          : 'kept · note to self';
+  index.push(`| \`${name}\` | ${row.messages.length} | ${senders.size} | ${row.unnamed ? 'yes' : 'no'} | ${verdict} | ${shape} |`);
 }
 
 writeFileSync(join(outRoot, 'index.md'), index.join('\n') + '\n');
