@@ -221,6 +221,13 @@ Same-model local dev: pull `jinaai/jina-embeddings-v5-text-small-retrieval-GGUF`
   `Chunk.ts1`/day combined with cosine. Discuss once MVP is stable. Recorded 2026-09-19.
 
 ### Open / next
+- **Profile/condense layer — undecided, and unwritten until now (2026-11-15)**: does the "who is this
+  person" summary sit *above* retrieval as a system-prompt profile, or does the model read raw chunks
+  only and infer? Three shapes: profile-first (cheap, stable, cacheable; our summary, so retrieval
+  cannot contradict it, and it costs context every request) · raw chunks only (faithful,
+  self-correcting, but early turns are generic and the model spends them discovering the obvious) ·
+  both (profile as scaffolding, chunks retrieved against the instrument item). The deciding evidence
+  is answer quality per probe under each — which needs the probe set below, so the two are one item.
 - **Push probe source**: fix the probe set (survey instrument questions, not generic) → drives `pack` defaults.
 - **Caller loop**: OpenAI tool-calling over the CLI (`search`/`get`), seen-set + budget + turn cap. Pure pull (no prefill) vs hybrid (`pack` prefill + live tools).
 - **Full-corpus index**: dev index built locally with llama.cpp + `bge-m3` Q8 (`out/vec-bge`, config
