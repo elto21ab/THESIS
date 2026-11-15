@@ -1,10 +1,10 @@
-"""The tool surface: push (`pack`), pull (`get`), payloads, and refs for the model.
+"""The tool surface: push (`push`), pull (`get`), payloads, and refs for the model.
 
 State (seen messages, running token budget, turn count) lives in the caller's loop, not here, so the
 same functions back an in-process loop and a one-shot CLI call. Refs are the exception that needs
 per-run state — `RefRegistry` is that state, owned by the loop.
 
-Message identity inside a pack is `(platform, partner, message index)`: exact, no text matching, and
+Message identity inside a push block is `(platform, partner, message index)`: exact, no text matching, and
 it is what lets overlapping regions be merged once instead of presented twice.
 """
 from __future__ import annotations
@@ -52,7 +52,7 @@ class Pack:
     stats: dict
 
 
-def pack(probes: Sequence[str], hits_for: Callable[[str, int], list[Hit]], *,
+def push(probes: Sequence[str], hits_for: Callable[[str, int], list[Hit]], *,
          k: int = 4, budget_tokens: int = 40_000, min_threads: int = 2,
          dedupe: bool = True) -> Pack:
     """Default injection: for each probe take its hits (already k-limited, filtered and merged by
@@ -219,7 +219,7 @@ def chunk_payload(c, *, max_chars: int = DEFAULT_MAX_CHARS, text: str | None = N
 
 def hits_payload(hits: Iterable[Hit], *, max_chars: int = DEFAULT_MAX_CHARS,
                  dedupe: bool = True) -> list[dict]:
-    """Same rendered shape as a pack: a message already shown by an earlier hit is folded to one
+    """Same rendered shape as a push block: a message already shown by an earlier hit is folded to one
     marker, so adjacent regions (which share their overlap by construction) cost one copy."""
     hits = list(hits)
     texts, _ = render_hits(hits, dedupe=dedupe)

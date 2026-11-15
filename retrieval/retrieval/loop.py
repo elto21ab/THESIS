@@ -1,6 +1,6 @@
 """The agent loop: model + tools + state. Caller-side scaffolding, deliberately small.
 
-    push   pack() once before the first model call — the default context injection
+    push   push() once before the first model call — the default context injection
     pull   `search` / `get` exposed as tools; the `get.ref` enum is rebuilt after every search
     state  RefRegistry (ref → hit), a message-level seen-set (dedupe across turns), a running
            injected-token budget, a tool-call cap and a turn cap
@@ -20,7 +20,7 @@ from typing import Any
 
 from .index import Index
 from .models import Embedder, Reranker
-from .ops import (MsgKey, RefRegistry, get, get_tool_schema, hit_payload, mark_shown, pack,
+from .ops import (MsgKey, RefRegistry, get, get_tool_schema, hit_payload, mark_shown, push,
                   render_hits, search_tool_schema)
 from .search import search_any
 
@@ -62,8 +62,8 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
     injected = 0
     calls: list[dict] = []
 
-    if push:  # prefill: one pack covering the survey probes
-        p = pack([question], lambda q, n: search_any(
+    if push:  # prefill: one push block covering the survey probes
+        p = push([question], lambda q, n: search_any(
             index, q, embedder, k=n, reranker=reranker,
             max_region_chunks=ret["max_region_chunks"]),
             k=ret["k"], budget_tokens=ret["budget"], min_threads=ret["min_threads"])

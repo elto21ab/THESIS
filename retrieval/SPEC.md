@@ -20,7 +20,7 @@ flowchart TD
   B --> L
   IX --> RQ
   subgraph Q["QUERY — per survey question"]
-    RQ{"retrieve()"} -->|"push (default ctx)"| PK["pack<br/>N probes → dedup → token budget"]
+    RQ{"retrieve()"} -->|"push (default ctx)"| PK["push<br/>N probes → dedup → token budget"]
     RQ -->|"pull (model-driven)"| TL["tools<br/>search · get"]
   end
   PK --> CTX["injected context"]
@@ -43,7 +43,7 @@ whether the result is injected up-front (push) or inspected in a loop (pull).
 | embed | `Chunk[]` | `vectors.npy` | index-time embedding = `Document:` side |
 | index | chunks+vectors | dir | `chunks.jsonl` · `vectors.npy` · `manifest.json` |
 | retrieve | query+filters | ranked regions | candidates → [rerank] → **pair** overlapping neighbours → top-k |
-| pack (push) | probes | budgeted chunks | dedup by chunk id; budget soft |
+| push | probes | budgeted chunks | dedup by chunk id; budget soft |
 | search/get (pull) | model args | tool JSON | same retrieve; `get` also expands ± messages |
 
 Index artifacts: `chunks.jsonl` (one `Chunk` per line — id, platform, partner, seq, i0/i1, ts0/ts1,
@@ -61,7 +61,7 @@ matrix is one `@` with the query vector) · `manifest.json`.
 | `index.py` | `Index` load/save; the lexical blob (`lexical.bin` + `offsets.npy`) |
 | `search.py` | filters + overlap rule (shared) · `search_vector` · `search_lexical` · `search_any` dispatch |
 | `models.py` | HTTP clients: embeddings + reranking; prompt styles |
-| `ops.py` | push `pack` · pull `get` · payloads · refs + tool schemas |
+| `ops.py` | push `push` · pull `get` · payloads · refs + tool schemas |
 | `cli.py` | argparse + output rendering only |
 | `smoke.py` | the test (query → expected pairs) |
 | `__main__.py` | `python -m retrieval` |
@@ -192,6 +192,7 @@ maintaining any such index.
 **Two modes, one retrieval.** `push` = inject context up-front (knows the survey probes ahead of
 time). `pull` = the model queries in a loop (`search` to find, `get` to fetch/expand). Today these
 are three CLI verbs (`pack` / `search` / `get`); TODO 7b renames them to the mode vocabulary:
+*(done 2026-11-15: the verbs are `push` / `pull search` / `pull get`, and the function is `push` too.)*
 `push` and `pull {'search'|'get'}` — same code path, no functional change.
 
 | mode | op | args | returns |
@@ -341,7 +342,7 @@ filename, it's one `jq` away in the bundle — the prompt never needs it.
 
 | responsibility | detail |
 |---|---|
-| prompt | persona system message (the donor) + the survey question; `--push` prepends one `pack` |
+| prompt | persona system message (the donor) + the survey question; `--push` prepends one push block |
 | tools | `search`, plus `get` whose `ref` enum is **rebuilt every turn** from the refs handed out |
 | state | `RefRegistry` (ref → item), message-level seen-set, injected-token budget, turn/tool caps |
 | dedupe | the seen-set is shared across turns; a message is never shown twice — "seen" means *shown*, so truncation cannot strand unread messages |

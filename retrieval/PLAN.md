@@ -221,9 +221,13 @@ Same-model local dev: pull `jinaai/jina-embeddings-v5-text-small-retrieval-GGUF`
   `Chunk.ts1`/day combined with cosine. Discuss once MVP is stable. Recorded 2026-09-19.
 
 ### Open / next
-- **Profile/condense layer — undecided, and unwritten until now (2026-11-15)**: does the "who is this
-  person" summary sit *above* retrieval as a system-prompt profile, or does the model read raw chunks
-  only and infer? Three shapes: profile-first (cheap, stable, cacheable; our summary, so retrieval
+- **Profile/condense layer — UNSOURCED, do not build on it (flagged 2026-11-15)**: no record of this
+  exists in either repo — not in `SPEC.md`, `PLAN.md`, `PROMPT_FORMAT.md`, `PROMPT_GLOSSARY.md`, the
+  workshop sheets or the code. It reached this file through a session summary of a verbal discussion
+  with the supervisor and cannot be traced further; the three shapes below were reconstructed by the
+  assistant to make sense of the phrase, not recorded from whoever said it. Replace with the real
+  terms or delete. The question it names: does the "who is this person" summary sit *above* retrieval
+  as a system-prompt profile, or does the model read raw chunks only and infer? Shapes: profile-first (cheap, stable, cacheable; our summary, so retrieval
   cannot contradict it, and it costs context every request) · raw chunks only (faithful,
   self-correcting, but early turns are generic and the model spends them discovering the obvious) ·
   both (profile as scaffolding, chunks retrieved against the instrument item). The deciding evidence

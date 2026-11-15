@@ -25,7 +25,7 @@ from .bundle import load_bundle
 from .chunk import CHUNKERS, ChunkCfg
 from .index import Index, load, save
 from .models import HttpReranker, get_embedder
-from .ops import chunk_payload, get, hit_payload, hits_payload, pack
+from .ops import chunk_payload, get, hit_payload, hits_payload, push
 from .search import search_any
 from .loop import run as run_loop
 from .smoke import load_cases, run as run_smoke
@@ -245,7 +245,7 @@ def cmd_push(a: argparse.Namespace) -> None:
                           since=a.since, until=a.until,
                       max_region_chunks=cfg["retrieve"]["max_region_chunks"])
 
-    p = pack(probes, hits_for, k=a.k or cfg["retrieve"]["k"],
+    p = push(probes, hits_for, k=a.k or cfg["retrieve"]["k"],
              budget_tokens=a.budget or cfg["retrieve"]["budget"],
              min_threads=a.min_threads or cfg["retrieve"]["min_threads"],
              dedupe=not a.no_dedupe)
@@ -371,7 +371,7 @@ def main() -> None:
     pu.add_argument("--probes-file", dest="probes_file", help="one probe per line, # = comment")
     pu.add_argument("--budget", type=int, help="token ceiling (default from config)")
     pu.add_argument("--min-threads", type=int, dest="min_threads",
-                    help="distinct partners required in the pack (default from config)")
+                    help="distinct partners required in the push block (default from config)")
     pu.add_argument("--no-dedupe", dest="no_dedupe", action="store_true",
                     help="keep repeated overlap messages instead of folding them out")
     pu.set_defaults(func=cmd_push)
@@ -402,7 +402,7 @@ def main() -> None:
     common(lp)
     lp.add_argument("--question", help="the survey question")
     lp.add_argument("--question-file", dest="question_file", help="…or read it from a file")
-    lp.add_argument("--push", action="store_true", help="inject a pack before the first call")
+    lp.add_argument("--push", action="store_true", help="inject a push block before the first call")
     lp.add_argument("--no-pull", dest="no_pull", action="store_true", help="push-only (no tools)")
     lp.add_argument("-k", "--k", type=int, help="hits per search (default from config)")
     lp.add_argument("--model", help="override llm.model")
