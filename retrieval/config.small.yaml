@@ -1,0 +1,53 @@
+# retrieval/config.small.yaml — the pipeline check: 0.8B chat, 0.6B embedder, 0.6B reranker, one box.
+#
+# `--config config.small.yaml`. Whole file, not an overlay (see _cfg in cli.py).
+#
+# Why these three: they are the smallest models that can still *exercise the code paths* — a chat
+# model that emits tool calls, an embedder whose vectors are dense enough that retrieval is not
+# noise, and a cross-encoder that can reorder. Nothing here is meant to produce a good answer; the
+# question is whether the corridor from bundle → chunk → ref → tool call → answer leaks.
+#
+# Reranker: bge-reranker-v2-m3, **not** Qwen3-Reranker-0.6B. Measured on 127.0.0.1:8081, Qwen3's
+# scores come back inverted through llama.cpp's `--reranking` ("car insurance" 2.86 vs "yoga class
+# tomorrow" 0.72 for the query "yoga"), because that model is a generative scorer, not a pooled
+# cross-encoder. bge orders correctly (2.10 / -3.75 / -11.02 for the same three documents) and is
+# the honest way to test the rerank path today.
+
+bundle:
+  max_senders: 2
+chunk:
+  name: day
+  target: 512
+  min: 256
+  max: 1024
+  overlap: 0.4
+  tz: Europe/Copenhagen
+  day_start_hour: 5
+  both_people: true
+embed:
+  backend: openai
+  model: Qwen3-Embedding-0.6B
+  base_url: http://127.0.0.1:8081/v1
+  batch: 16
+  max_length: 1024
+  prompt: qwen3
+rerank:
+  enabled: true
+  model: rerank-bge-v2-m3-0.6B
+  base_url: http://127.0.0.1:8081
+  path: /v1/rerank
+  pool: 30
+  prompt: none
+retrieve:
+  k: 6
+  budget: 12000
+  min_threads: 2
+  max_chars: 4000
+  max_region_chunks: 2
+llm:
+  model: Qwen3.5-0.8B
+  base_url: http://127.0.0.1:8081/v1
+  api_key: sk-local
+  temperature: 0.7
+  max_turns: 6
+  max_calls: 8
