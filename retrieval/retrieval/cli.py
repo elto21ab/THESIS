@@ -300,7 +300,7 @@ def cmd_loop(a: argparse.Namespace) -> None:
     cfg = {**cfg, "llm": llm}
     question = a.question or Path(a.question_file).read_text().strip()
     res = run_loop(idx, question, cfg=cfg, embedder=_embedder(idx, cfg),
-                   reranker=_reranker(cfg, enabled=a.rerank), push=a.push,
+                   reranker=_reranker(cfg, enabled=a.rerank), prefill=a.push,
                    pull=not a.no_pull, k=a.k, dry_run=a.dry_run)
     if a.dry_run:
         req = res.calls[0]["dry_run"]

@@ -20,8 +20,8 @@ from typing import Any
 
 from .index import Index
 from .models import Embedder, Reranker
-from .ops import (MsgKey, RefRegistry, get, get_tool_schema, hit_payload, mark_shown, push,
-                  render_hits, search_tool_schema)
+from .ops import (MsgKey, RefRegistry, get, get_tool_schema, hit_payload, mark_shown,
+                  push as push_block, render_hits, search_tool_schema)
 from .search import search_any
 
 SYSTEM = """You answer a survey as {donor}, grounding every claim in messages retrieved from
@@ -48,7 +48,7 @@ def _post(base_url: str, api_key: str, payload: dict, *, timeout: float = 600.0)
 
 
 def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = None,
-        reranker: Reranker | None = None, push: bool = False, pull: bool = True,
+        reranker: Reranker | None = None, prefill: bool = False, pull: bool = True,
         k: int | None = None, dry_run: bool = False) -> LoopResult:
     llm = cfg["llm"]
     ret = cfg["retrieve"]
@@ -62,8 +62,8 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
     injected = 0
     calls: list[dict] = []
 
-    if push:  # prefill: one push block covering the survey probes
-        p = push([question], lambda q, n: search_any(
+    if prefill:  # one push block covering the survey probes, before the first model turn
+        p = push_block([question], lambda q, n: search_any(
             index, q, embedder, k=n, reranker=reranker,
             max_region_chunks=ret["max_region_chunks"]),
             k=ret["k"], budget_tokens=ret["budget"], min_threads=ret["min_threads"])
