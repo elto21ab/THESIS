@@ -232,6 +232,11 @@ Same-model local dev: pull `jinaai/jina-embeddings-v5-text-small-retrieval-GGUF`
   self-correcting, but early turns are generic and the model spends them discovering the obvious) ·
   both (profile as scaffolding, chunks retrieved against the instrument item). The deciding evidence
   is answer quality per probe under each — which needs the probe set below, so the two are one item.
+- **Preprocessing that moved here (2026-11-17)**: `prep/` now owns the reference renderer
+  (`render.py`, normative; `minimal.ts` must match it), a parity test over the whole corpus, a re-merge
+  of the parts a donation keeps (`merge.py`, joined on `(ts_ms, sha1(text))` because names are masked
+  away), and `transcripts.py`, which attaches an STT pass's `{stored_name: text}` map to
+  `media[].transcript` — the join key is the stored media name, so nothing else has to be stable.
 - **Push probe source**: fix the probe set (survey instrument questions, not generic) → drives `pack` defaults.
 - **Caller loop**: OpenAI tool-calling over the CLI (`search`/`get`), seen-set + budget + turn cap. Pure pull (no prefill) vs hybrid (`pack` prefill + live tools).
 - **Full-corpus index**: dev index built locally with llama.cpp + `bge-m3` Q8 (`out/vec-bge`, config
