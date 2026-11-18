@@ -16,6 +16,7 @@ from typing import Callable, Iterable, Sequence
 
 from .bundle import Msg, prompt_of, thread_for
 from .index import Index
+from .tokens import DEFAULT_RATIO, count as _count
 from .search import Hit
 
 DEFAULT_MAX_CHARS = 1200
@@ -54,7 +55,7 @@ class Pack:
 
 def push(probes: Sequence[str], hits_for: Callable[[str, int], list[Hit]], *,
          k: int = 4, budget_tokens: int = 40_000, min_threads: int = 2,
-         dedupe: bool = True) -> Pack:
+         dedupe: bool = True, ratio: float = DEFAULT_RATIO) -> Pack:
     """Default injection: for each probe take its hits (already k-limited, filtered and merged by
     the retriever), keep those that contribute at least one *new* message, stop at the token
     budget. The budget is soft — the best hit is always kept, because a survey question that
@@ -72,12 +73,12 @@ def push(probes: Sequence[str], hits_for: Callable[[str, int], list[Hit]], *,
         for h in hits_for(q, k):
             if not _new_keys(h, seen):
                 continue                      # fully covered by what we already have
-            if out and used + h.n_tokens > budget_tokens:
+            if out and used + _count(h.text, ratio) > budget_tokens:
                 truncated = True
                 break
             out.append(h)
             seen |= _keys(h)
-            used += h.n_tokens
+            used += _count(h.text, ratio)
             n += 1
         per_probe.append(n)
         if truncated:
@@ -89,12 +90,12 @@ def push(probes: Sequence[str], hits_for: Callable[[str, int], list[Hit]], *,
             for h in hits_for(q, k * 4):
                 if not _new_keys(h, seen):
                     continue
-                if used + h.n_tokens > budget_tokens:
+                if used + _count(h.text, ratio) > budget_tokens:
                     truncated = True
                     break
                 out.append(h)
                 seen |= _keys(h)
-                used += h.n_tokens
+                used += _count(h.text, ratio)
                 threads.add((h.platform, h.partner))
                 if len(threads) >= min_threads:
                     break
@@ -162,7 +163,7 @@ def render_hits(hits: Sequence[Hit], *, dedupe: bool = True,
             kept.append(f"<… {dropped} msgs shown above …>")
         texts.append(head + "\n" + "\n".join(kept))
     return texts, {"lines_deduped": folded, "chars_saved": folded_chars,
-                   "tokens_saved_est": folded_chars // 4}
+                   "tokens_saved_est": _count("x" * folded_chars, 4.0)}
 
 
 # ── payloads (one shape for tool results and CLI output) ──────────────────────

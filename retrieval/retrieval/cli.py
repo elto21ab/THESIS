@@ -23,6 +23,7 @@ import yaml
 
 from .bundle import load_bundle
 from .chunk import CHUNKERS, ChunkCfg
+from .tokens import DEFAULT_RATIO, calibrate, count as tokens_count
 from .index import Index, load, save
 from .models import HttpReranker, get_embedder
 from .ops import chunk_payload, get, hit_payload, hits_payload, push
@@ -137,7 +138,12 @@ def cmd_build(a: argparse.Namespace) -> None:
     if a.sample:
         threads = sorted(threads, key=lambda t: len(t.messages))[:a.sample]
 
-    count = embedder.count if embedder else (lambda t: max(1, len(t) // 4))
+    # Token counting is calibrated against the model's own vocabulary, not assumed: 2.2 chars/token
+    # on this corpus, not 4. `tokens.calibrate` shells llama-tokenize once over a sample.
+    sample = [m.as_prompt for t in threads[:40] for m in t.messages[:5]]
+    gguf = a.embed_gguf or (str(cfg["embed"].get("gguf") or ""))
+    ratio = calibrate(sample, gguf) if gguf else DEFAULT_RATIO
+    count = lambda t: tokens_count(t, ratio)
     chunker = CHUNKERS[cc["name"]]
     chunks: list = []
     for t in threads:
@@ -158,6 +164,7 @@ def cmd_build(a: argparse.Namespace) -> None:
         "bundle": str(a.bundle), "kind": kind, "chunker": cc["name"], "donor": report.get("donor"),
         "donor_id": donor_id, "bundle_generated_at": report.get("generated_at"),
         "threads": len(threads), "rejected": len(rejects), "cfg": cfg,
+        "chars_per_token": round(ratio, 3),
         "embedder": None if kind == "lexical" else (cfg["embed"]["model"] if embedder else None),
         "embedder_cfg": None if kind == "lexical" else {
             "backend": cfg["embed"]["backend"], "model": cfg["embed"]["model"],
@@ -305,8 +312,7 @@ def cmd_loop(a: argparse.Namespace) -> None:
     if a.dry_run:
         req = res.calls[0]["dry_run"]
         print(json.dumps({"system": req["messages"][0]["content"],
-                          "user": req["messages"][-1]["content"],
-                          "tools": [t["function"]["name"] for t in req["tools"]]},
+                          "messages": req["messages"][1:]},
                          ensure_ascii=False, indent=2))
         return
     if a.pretty:
@@ -353,6 +359,8 @@ def main() -> None:
     common(b, index=False)
     b.add_argument("--bundle", default=DEFAULT_BUNDLE)
     b.add_argument("--out", required=True)
+    b.add_argument("--embed-gguf", dest="embed_gguf",
+                   help="gguf of the embedding model, for exact token counting (else embed.gguf)")
     b.add_argument("--kind", choices=["vector", "lexical"],
                    help="lexical: regex over chunk text, no model (default from config)")
     b.add_argument("--donor-id", dest="donor_id", help="identity stamped into the manifest")

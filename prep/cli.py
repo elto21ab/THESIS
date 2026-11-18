@@ -7,6 +7,7 @@ not mean asking somebody for their export again.
     render       write `as_prompt` again from the fields the bundle holds (a rebuild)
     merge        re-merge the parts a `--keep-all` bundle kept, on content rather than names
     transcripts  attach an STT pass's `{stored_name: text}` map to `media[].transcript`
+    audit-voice  copy every voice note with no transcript to one folder, with context, to listen to
 
 Nothing here reads the raw export: that is the point. A bundle is enough.
 """
@@ -37,7 +38,7 @@ def _threads(root):
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="prep", description=__doc__)
-    parser.add_argument("verb", choices=("parity", "render", "merge", "transcripts"))
+    parser.add_argument("verb", choices=("parity", "render", "merge", "transcripts", "audit-voice"))
     parser.add_argument("--bundle", required=True, help="a built donation bundle")
     parser.add_argument("--out", help="where `render` and `merge` write (default: print a summary)")
     parser.add_argument("--show", type=int, default=5, help="parity: how many mismatches to print")
@@ -63,6 +64,14 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"    cached:   {failure['expected']!r}")
                 print(f"    rendered: {failure['rendered']!r}")
         return 0 if ok else 1
+
+    if args.verb == "audit-voice":
+        from .audit import gather
+
+        if not args.out:
+            raise SystemExit("audit-voice: --out <dir> is required")
+        print(json.dumps(gather(args.bundle, args.out), indent=1))
+        return 0
 
     if args.verb == "transcripts":
         from .transcripts import apply as attach_transcripts
