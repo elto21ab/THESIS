@@ -37,3 +37,5 @@ llm:
   temperature: 0.7
   max_turns: 6
   max_calls: 8
+  tools: false
+  max_tokens: 700

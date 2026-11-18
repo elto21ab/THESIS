@@ -1,0 +1,47 @@
+# retrieval/config.tools.yaml — the same stack, driven through the tool wire format.
+#
+# functiongemma-270m-it: 270M, fine-tuned for function calls. It *does* emit calls (in its own
+# `call:name{…}` markup, which llama.cpp does not map to OpenAI `tool_calls`, so the harness reads
+# both). What it cannot do is answer: given a real transcript it degenerates into repeated sentences.
+# Keep it as the canary for the tool path, not as a model you read answers from.
+bundle:
+  max_senders: 2
+chunk:
+  name: day
+  target: 512
+  min: 256
+  max: 1024
+  overlap: 0.4
+  tz: Europe/Copenhagen
+  day_start_hour: 5
+  both_people: true
+embed:
+  backend: openai
+  model: Qwen3-Embedding-0.6B
+  base_url: http://127.0.0.1:8081/v1
+  batch: 16
+  max_length: 1024
+  prompt: qwen3
+  gguf: /Users/e/.models/embed/Qwen3-Embedding-0.6B-Q8_0.gguf
+rerank:
+  enabled: true
+  model: rerank-bge-v2-m3-0.6B
+  base_url: http://127.0.0.1:8081
+  path: /v1/rerank
+  pool: 30
+  prompt: none
+retrieve:
+  k: 6
+  budget: 12000
+  min_threads: 2
+  max_chars: 4000
+  max_region_chunks: 2
+llm:
+  model: functiongemma-270m-it
+  base_url: http://127.0.0.1:8081/v1
+  api_key: sk-local
+  temperature: 0.7
+  max_turns: 6
+  max_calls: 8
+  tools: true
+  max_tokens: 400

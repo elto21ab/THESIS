@@ -36,7 +36,7 @@ from typing import Any
 from .index import Index
 from .models import Embedder, Reranker
 from .ops import (MsgKey, RefRegistry, get, hit_payload, mark_shown, push as push_block,
-                  render_hits, window_lines)
+                  render_hits, search_tool_schema, window_lines)
 from .search import search_any
 from .tokens import DEFAULT_RATIO, count as _count
 
@@ -58,6 +58,32 @@ Rules that matter:
 The search words are yours to choose from the question — two or three words the donor would have
 typed, not the whole question.
 """
+
+#: FunctionGemma writes tool calls as text even when it is handed a schema:
+#: `<start_function_call>call:search{query:<escape>zumba<escape>}<end_function_call>`. llama.cpp does
+#: not map that back to OpenAI `tool_calls`, so the harness reads both wire formats — a model that
+#: speaks either can drive the same executor.
+FG_CALL = re.compile(r"call:([A-Za-z_][\w-]*)\{(.*?)\}", re.DOTALL)
+
+
+def fg_calls(text: str) -> list[tuple[str, dict]]:
+    """`call:search{query:<escape>zumba<escape>}` → [("search", {"query": "zumba"})]."""
+    out: list[tuple[str, dict]] = []
+    for name, body in FG_CALL.findall(text):
+        args: dict[str, Any] = {}
+        for m in re.finditer(r"([\w-]+):\s*(<escape>(.*?)<escape>|\{[^{}]*\}|[\w.±+-]+)",
+                             body, re.DOTALL):
+            key = m.group(1)
+            if m.group(3) is not None:
+                args[key] = m.group(3)
+            elif m.group(2).startswith("{"):
+                args[key] = m.group(2)
+            else:
+                value = m.group(2)
+                args[key] = int(value) if value.lstrip("-").isdigit() else value
+        out.append((name, args))
+    return out
+
 
 #: `search zumba`, `get 3 ±5`, `get 3`, `answer I usually …`. The last command in a message wins:
 #: models like to narrate ("Let me look… search zumba") and the narration is not the action.
@@ -145,6 +171,41 @@ def parse(text: str) -> tuple[str, Any] | None:
     return "get", (int(got.group(1)), int(got.group(2) or 0))
 
 
+FG_ANSWER = re.compile(r"call:answer\{text:\s*<escape>(.*?)<escape>", re.DOTALL)
+
+
+def fg_answer(text: str) -> str | None:
+    """The last `call:answer{text:<escape>…<escape>}` in the message, however badly it is closed."""
+    found = FG_ANSWER.findall(text)
+    return clean(found[-1]) if found else None
+
+
+def clean(text: str) -> str:
+    """Strip the model's own call markup out of an answer. A 270M model will paste it in."""
+    text = re.sub(r"</?(?:start|end)_function_(?:call|response)>", "", text)
+    text = re.sub(r"<escape>|</?escape>", "", text)
+    text = re.sub(r"call:\w+\{", "", text)
+    text = text.replace("text:", "", 1) if text.lstrip().startswith("text:") else text
+    text = re.sub(r"\}?\s*</?(?:start|end)_function_(?:call|response)>.*$", "", text, flags=re.DOTALL)
+    return text.strip(" ,}\n")
+
+
+def _schemas(reg: RefRegistry) -> list[dict]:
+    """`search` always, `get` only once there is a ref to name (its enum is the set of refs the model
+    was actually handed, so it cannot invent one), and `answer` — without it a tool-tuned model has
+    no way to *finish*, and a 270M one will happily `get 1..26` until the call cap stops it."""
+    out = [search_tool_schema()]
+    if len(reg):
+        out.append(reg.get_tool_schema())
+    out.append({"type": "function", "function": {
+        "name": "answer",
+        "description": "stop searching and answer the survey question",
+        "parameters": {"type": "object",
+                       "properties": {"text": {"type": "string", "description": "the answer"}},
+                       "required": ["text"]}}})
+    return out
+
+
 def _post(base_url: str, api_key: str, payload: dict, timeout: float = 300) -> dict:
     import requests
 
@@ -187,13 +248,34 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
 
     nudged = 0
     for turn in range(int(llm["max_turns"])):
-        payload = {"model": llm["model"], "messages": messages,
-                   "temperature": llm["temperature"], "max_tokens": int(llm.get("max_tokens") or 700)}
+        payload: dict[str, Any] = {"model": llm["model"], "messages": messages,
+                                   "temperature": llm["temperature"],
+                                   "max_tokens": int(llm.get("max_tokens") or 700)}
+        if llm.get("tools") and pull:
+            payload["tools"] = _schemas(state.refs)
+            payload["tool_choice"] = "auto"
         resp = _post(llm["base_url"], llm.get("api_key", "sk-local"), payload)
         content = (resp["choices"][0]["message"].get("content") or "").strip()
         messages.append({"role": "assistant", "content": content})
 
-        cmd = parse(content)
+        # Three wire formats, one executor: OpenAI tool_calls (llama.cpp / vLLM with --jinja),
+        # FunctionGemma's own `call:name{…}`, or a plain-text command line.
+        calls: list[tuple[str, dict]] = []
+        for call in (resp["choices"][0]["message"].get("tool_calls") or []):
+            fn = call.get("function") or {}
+            try:
+                args = json.loads(fn.get("arguments") or "{}")
+            except json.JSONDecodeError:
+                args = {}
+            calls.append((fn.get("name", ""), args if isinstance(args, dict) else {}))
+        if not calls:  # FunctionGemma: several calls, and it often restates the answer before it settles
+            calls = fg_calls(content)
+
+        if not calls:
+            tail = fg_answer(content)
+            if tail:
+                return LoopResult(tail, turn + 1, state.calls, state.injected, "answered")
+        cmd = None if calls else parse(content)
         # A small model asked a survey question will answer from imagination, or copy the example's
         # words. So the first search is not its job: the harness runs the question itself and hands
         # over the result. The model's first real decision is whether that was enough.
@@ -204,7 +286,7 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
                              + state.search(question)})
             continue
         if cmd is None or cmd[0] == "answer":
-            answer = content if cmd is None else (cmd[1] or "")
+            answer = clean(content) if cmd is None else (cmd[1] or "")
             if not answer.strip() and nudged < 2:
                 # "answer" with nothing after it is a formatting failure, not a finding.
                 nudged += 1
@@ -212,6 +294,34 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
                                  "Write the answer itself: `answer <a few sentences>`."})
                 continue
             return LoopResult(answer or content, turn + 1, state.calls, state.injected, "answered")
+
+        if calls:
+            if not pull:
+                messages.append({"role": "user", "content": "You cannot search in this mode. Answer."})
+                continue
+            if len(state.calls) >= int(llm["max_calls"]):
+                return LoopResult(content, turn + 1, state.calls, state.injected, "max_calls")
+            answers = [str(k.get("text") or "") for n, k in calls if n == "answer"]
+            if answers:
+                return LoopResult(clean(answers[-1]), turn + 1, state.calls, state.injected,
+                                  "answered")
+            observations = []
+            for name, kwargs in calls[:4]:
+                if name == "search":
+                    observations.append(state.search(str(kwargs.get("query", ""))))
+                elif name == "get":
+                    observations.append(state.get(int(kwargs.get("ref") or 0),
+                                                  int(kwargs.get("window") or 0)))
+                else:
+                    observations.append(f"unknown tool {name!r}. Use search or get.")
+            messages.append({"role": "user",
+                             "content": "Observation:\n" + "\n\n".join(observations)})
+            if turn + 1 >= int(llm["max_turns"]) - 1:
+                messages.append({"role": "user", "content":
+                                 "Enough searching. Call `answer` with a few sentences."})
+            if state.injected > ret["budget"]:
+                return LoopResult(content, turn + 1, state.calls, state.injected, "budget")
+            continue
 
         verb, arg = cmd
         if not pull:  # answer-only mode: a command is a mistake, say so once and take the prose
