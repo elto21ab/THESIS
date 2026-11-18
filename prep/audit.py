@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import shutil
+import subprocess
 from pathlib import Path
 
 PLATFORMS = ("fb", "ig", "wa")
@@ -52,6 +53,29 @@ def find(bundle: str | Path) -> list[dict]:
     return found
 
 
+def _playable(path: Path) -> str:
+    """Transcode Opus to m4a beside the original.
+
+    WhatsApp ships `.opus`, which QuickTime will not open — so the one folder that exists to be
+    listened to would be the one folder a person cannot play. ffmpeg when it is installed; the
+    original stays either way, because it is the file the bundle references.
+    """
+    if path.suffix.lower() not in {".opus", ".ogg", ".webm"}:
+        return str(path)
+    target = path.with_suffix(".m4a")
+    if target.exists():
+        return str(target)
+    try:
+        subprocess.run(
+            ["ffmpeg", "-y", "-loglevel", "error", "-i", str(path), "-c:a", "aac", "-b:a", "128k", str(target)],
+            check=True,
+            capture_output=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return str(path)  # nothing lost: the original is still there
+    return str(target)
+
+
 def _line(message: dict) -> str:
     return (message.get("as_prompt") or "").replace("\n", " ")[:90]
 
@@ -61,6 +85,16 @@ def gather(bundle: str | Path, out: str | Path) -> dict:
     root = Path(bundle)
     target = Path(out)
     (target / "audio").mkdir(parents=True, exist_ok=True)
+    # A person annotates these files (`__` clearly speech, `_` probably mumble). Copying over them
+    # again would either clobber that judgement or leave two copies of every note, so a folder that
+    # already holds annotated audio is left alone.
+    annotated = [p for p in (target / "audio").iterdir() if p.name.startswith("_")]
+    if annotated:
+        return {
+            "voice_notes": len(find(bundle)),
+            "skipped": f"{len(annotated)} annotated files already in {target / 'audio'} — move or clear them to re-copy",
+            "out": str(out),
+        }
     rows = find(bundle)
     copied = 0
     for row in rows:
@@ -73,6 +107,7 @@ def gather(bundle: str | Path, out: str | Path) -> dict:
             shutil.copy2(source, target / "audio" / name)
             row["file"] = f"audio/{name}"
             copied += 1
+            row["playable"] = _playable(target / "audio" / name)
 
     lines = [
         "# Voice notes without a transcript",
