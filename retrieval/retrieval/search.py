@@ -161,7 +161,7 @@ def compile_query(pattern: str) -> re.Pattern:
         return re.compile(re.escape(pattern), re.IGNORECASE)
 
 
-def search_lexical(index: Index, query: str, *, k: int = 8, max_matches: int = 20_000,
+def search_lexical(index: Index, query: str, *, k: int = 8, max_matches: int = 5_000,
                    platform: str | None = None, partner: str | None = None,
                    since: str | None = None, until: str | None = None,
                    max_region_chunks: int = 2) -> list[Hit]:
@@ -186,7 +186,9 @@ def search_lexical(index: Index, query: str, *, k: int = 8, max_matches: int = 2
 def search_any(index: Index, query: str, embedder: Embedder | None = None, *, k: int = 8,
                platform: str | None = None, partner: str | None = None,
                since: str | None = None, until: str | None = None,
-               max_region_chunks: int = 2, reranker=None, pool: int = 50) -> list[Hit]:
+               max_region_chunks: int = 2, reranker=None, pool: int = 50,
+               rerank_query: str | None = None, hybrid_tau: float | None = None,
+               min_rerank_score: float | None = None) -> list[Hit]:
     """The whole retrieval pipeline in one call — the only entry point any caller needs:
 
         candidates (vector | regex, filtered, pool)  →  [rerank]  →  merge_top(k)
@@ -195,8 +197,12 @@ def search_any(index: Index, query: str, embedder: Embedder | None = None, *, k:
     chunks, and merging then collapses near-duplicates so the k returned items stay comparable in
     size and free of repeated messages."""
     cands = candidates(index, query, embedder, pool=pool, platform=platform, partner=partner,
-                       since=since, until=until)
-    cands = rerank_candidates(cands, query, reranker)
+                       since=since, until=until, hybrid_tau=hybrid_tau)
+    # Why a *different* string goes to the cross-encoder: a bi-encoder had to compress the query and
+    # the chunk separately, so it is given the bare probe. A cross-encoder reads the pair together,
+    # so it can be told what the probe is *for* — the survey question, and what has already been
+    # established this run. More context at rerank time is the whole reason to run a second stage.
+    cands = rerank_candidates(cands, rerank_query or query, reranker, min_score=min_rerank_score)
     return merge_top(cands, k=k, max_region_chunks=max_region_chunks)
 
 
@@ -207,7 +213,8 @@ def _filters(platform, partner, since, until) -> dict:
 # ── stage 1: score candidates (no merging) ────────────────────────────────────
 def candidates(index: Index, query: str, embedder: Embedder | None = None, *, pool: int = 50,
                platform: str | None = None, partner: str | None = None,
-               since: str | None = None, until: str | None = None) -> list[tuple[float, Chunk]]:
+               since: str | None = None, until: str | None = None,
+               hybrid_tau: float | None = None) -> list[tuple[float, Chunk]]:
     """Ranked candidates, unmerged: everything that passes the filters, best first, capped at
     `pool`. This is what a reranker gets to see."""
     f = _filters(platform, partner, since, until)
@@ -218,18 +225,24 @@ def candidates(index: Index, query: str, embedder: Embedder | None = None, *, po
         # but the regex finds at rank 1 lands near the top of the fused list, without either retriever
         # having to be right about the other's job.
         lists: list[list[int]] = []
+        dense: list[int] = []
         if embedder is not None and index.vectors is not None:
             q = embedder.embed([query], is_query=True)[0]
             scores = index.vectors @ q
             dense = sorted((i for i, c in enumerate(index.chunks) if _keep(c, **f)),
                            key=lambda i: -scores[i])[:max(pool, 100)]
+            # Heuristic gate: fuse only when the dense side is unsure. The threshold is a *model*
+            # property (0.30 for Qwen3-Embedding-0.6B on this corpus: the chunk that contains
+            # "josephine" scores 0.259, everything unrelated 0.36), so it is config, not a constant.
+            if hybrid_tau is not None and dense and float(scores[dense[0]]) >= hybrid_tau:
+                return [(float(scores[i]), index.chunks[i]) for i in dense[:pool]]
             lists.append(dense)
         text, offs = (read_blob(index.root) if index.root else (None, None))
         if text is not None:
             rx = compile_query(query)
             counts: dict[int, int] = {}
             for n, m in enumerate(rx.finditer(text)):
-                if n >= 20_000:
+                if n >= 5_000:   # a guard against `.` on 7.9M chars, not a result cap
                     break
                 i = int(np.searchsorted(offs, m.start(), side="right") - 1)
                 counts[i] = counts.get(i, 0) + 1
@@ -270,7 +283,8 @@ def candidates(index: Index, query: str, embedder: Embedder | None = None, *, po
     return out[:pool]
 
 
-def rerank_candidates(cands: list[tuple[float, Chunk]], query: str, reranker) -> list[tuple[float, Chunk]]:
+def rerank_candidates(cands: list[tuple[float, Chunk]], query: str, reranker,
+                      *, min_score: float | None = None) -> list[tuple[float, Chunk]]:
     """Replace retrieval scores with cross-encoder scores (the reranker's own ranking)."""
     if not cands or reranker is None:
         return cands
@@ -278,4 +292,9 @@ def rerank_candidates(cands: list[tuple[float, Chunk]], query: str, reranker) ->
     by_idx = {i: s for i, s in res}
     out = [(by_idx.get(i, float("-inf")), c) for i, (_, c) in enumerate(cands)]
     out.sort(key=lambda t: -t[0])
+    if min_score is not None:
+        # Only meaningful per model: bge-reranker-v2-m3 scores on this pair set were 2.1 / -3.75 /
+        # -11.02, so a threshold has to be calibrated, never copied. Off by default.
+        kept = [(s, c) for s, c in out if s >= min_score]
+        return kept or out[:1]      # never return nothing when something was asked for
     return out

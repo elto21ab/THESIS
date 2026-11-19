@@ -31,6 +31,8 @@ retrieve:
   min_threads: 2
   max_chars: 4000
   max_region_chunks: 2
+  hybrid_tau: null
+  min_rerank_score: null
 llm:
   model: functiongemma-270m-it
   base_url: http://127.0.0.1:8081/v1
@@ -40,3 +42,4 @@ llm:
   max_calls: 8
   tools: true
   max_tokens: 400
+  context_limit: 24000

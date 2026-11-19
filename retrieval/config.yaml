@@ -27,10 +27,12 @@ rerank:
   prompt: qwen3
 retrieve:
   k: 6
-  budget: 40000
+  budget: 12000
   min_threads: 2
   max_chars: 1200
   max_region_chunks: 2
+  hybrid_tau: null
+  min_rerank_score: null
 llm:
   model: Qwen3-4B-Instruct
   base_url: http://127.0.0.1:8090/v1
@@ -38,3 +40,4 @@ llm:
   temperature: 0.7
   max_turns: 6
   max_calls: 8
+  context_limit: 24000

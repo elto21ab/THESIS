@@ -48,6 +48,9 @@ You have three commands. Write exactly one per message, on its own line:
   get <ref> [±N]      read region R3 again, or N messages around it: `get 3 ±5`
   answer <text>       stop searching and answer the question.
 
+You are {donor} — a person with a life, not an assistant. Never mention being a model, an AI, or a
+system; if the history is silent, say the history is silent, in the first person.
+
 Rules that matter:
 - Ground every claim in a message you actually read. If the history does not answer the question, say
   so with `answer` instead of inventing.
@@ -112,10 +115,25 @@ class State:
     injected: int = 0
     calls: list[dict] = field(default_factory=list)
     ratio: float = DEFAULT_RATIO
+    question: str = ""
+    shown: list[str] = field(default_factory=list)   # one line per region already read
+
+    def rerank_context(self, query: str) -> str:
+        """What the cross-encoder is told, beyond the probe: the survey question, then the regions
+        already on the table. A bi-encoder cannot use this (it must pre-compute), a cross-encoder can
+        — and a follow-up search reading "more like this, not like what we already have" is the
+        difference between a second stage that adds signal and one that re-orders the same six."""
+        parts = [f"Survey question: {self.question}", f"Searching for: {query}"]
+        if self.shown:
+            parts.append("Already read (prefer new evidence): " + "; ".join(self.shown[-5:]))
+        return "\n".join(parts)
 
     def search(self, query: str) -> str:
         hits = search_any(self.index, query, self.embedder, k=self.k, reranker=self.reranker,
-                          max_region_chunks=self.ret["max_region_chunks"])
+                          max_region_chunks=self.ret["max_region_chunks"],
+                          rerank_query=self.rerank_context(query),
+                          hybrid_tau=self.ret.get("hybrid_tau"),
+                          min_rerank_score=self.ret.get("min_rerank_score"))
         if not hits:
             return "no messages matched. Try fewer words, or a word the donor would have used."
         texts, _ = render_hits(hits, seen=self.seen, mark=False)
@@ -126,6 +144,7 @@ class State:
                     f"{len(hit.lines)} msgs")
             blocks.append(f"{head}\n{text}")
             mark_shown([(hit, text)], self.seen)
+            self.shown.append(f"R{ref} {hit.partner} {hit.chunk.day}")
             self.injected += _count(text, self.ratio)
         self.calls.append({"tool": "search", "args": {"query": query}, "result_bytes": len(text)})
         return "\n\n".join(blocks)
@@ -138,6 +157,7 @@ class State:
             texts, _ = render_hits([hit], seen=self.seen, mark=False)
             text = texts[0]
             mark_shown([(hit, text)], self.seen)
+            self.shown.append(f"R{ref} {hit.partner} {hit.chunk.day}")
             self.injected += _count(text, self.ratio)
             self.calls.append({"tool": "get", "args": {"ref": ref}, "result_bytes": len(text)})
             return text
@@ -224,7 +244,7 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
     messages: list[dict[str, Any]] = [{"role": "system", "content": SYSTEM.format(donor=donor)}]
 
     state = State(index=index, refs=RefRegistry(), seen=set(), ret=ret, k=k,
-                  embedder=embedder, reranker=reranker,
+                  embedder=embedder, reranker=reranker, question=question,
                   ratio=float(index.manifest.get("chars_per_token") or DEFAULT_RATIO))
 
     if prefill:  # one block covering the probes, before the model has said anything
@@ -337,6 +357,6 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
             observation = state.get(ref, window)
         messages.append({"role": "user", "content": f"Observation:\n{observation}"})
 
-        if state.injected > ret["budget"]:
-            return LoopResult(content, turn + 1, state.calls, state.injected, "budget")
+        if state.injected > int(llm.get("context_limit") or 40_000):
+            return LoopResult(content, turn + 1, state.calls, state.injected, "context_limit")
     return LoopResult("", int(llm["max_turns"]), state.calls, state.injected, "max_turns")
