@@ -19,7 +19,7 @@ from .index import Index
 from .tokens import DEFAULT_RATIO, count as _count
 from .search import Hit
 
-DEFAULT_MAX_CHARS = 1200
+DEFAULT_MAX_CHARS = 4000
 MsgKey = tuple[str, str, int]
 _LINE = re.compile(r"^\[(?P<ts>[^\]]+)\] (?P<sender>[^:]+):")
 

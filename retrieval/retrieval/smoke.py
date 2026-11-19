@@ -103,6 +103,9 @@ def derive(index: Index, cases: list[dict], *, embedder: Embedder | None = None,
     """
     out: list[dict] = []
     for case in cases:
+        # A previous derive's verdicts are not input: keeping them meant a case that had once been
+        # unreachable stayed unreachable for ever, even after the retriever learned to find it.
+        case = {k: v for k, v in case.items() if k not in ("reachable", "rank_max", "note")}
         needle = case.get("contains")
         if not needle:
             out.append(case)

@@ -181,7 +181,9 @@ def cmd_build(a: argparse.Namespace) -> None:
             "base_url": cfg["embed"]["base_url"], "batch": cfg["embed"]["batch"],
             "prompt": cfg["embed"]["prompt"], "max_length": cfg["embed"]["max_length"]},
     }
-    save(a.out, chunks, vectors, manifest, blob=(kind == "lexical"))
+    # hybrid = both files in one index: the dense matmul and the regex scan answer the same query,
+    # and their ranks are fused at query time. `kind` decides which paths exist, nothing else.
+    save(a.out, chunks, vectors, manifest, blob=kind in ("lexical", "hybrid"))
 
     tok = sorted(c.n_tokens for c in chunks)
     print(f"donor        : {donor_id or '?<unset>'}  (bundle {a.bundle})")
@@ -378,7 +380,7 @@ def main() -> None:
     b.add_argument("--out", required=True)
     b.add_argument("--embed-gguf", dest="embed_gguf",
                    help="gguf of the embedding model, for exact token counting (else embed.gguf)")
-    b.add_argument("--kind", choices=["vector", "lexical"],
+    b.add_argument("--kind", choices=["vector", "lexical", "hybrid"],
                    help="lexical: regex over chunk text, no model (default from config)")
     b.add_argument("--donor-id", dest="donor_id", help="identity stamped into the manifest")
     b.add_argument("--platform", help="only this platform (fb|ig|wa) — debug")

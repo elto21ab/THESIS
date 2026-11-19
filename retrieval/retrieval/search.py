@@ -211,6 +211,38 @@ def candidates(index: Index, query: str, embedder: Embedder | None = None, *, po
     """Ranked candidates, unmerged: everything that passes the filters, best first, capped at
     `pool`. This is what a reranker gets to see."""
     f = _filters(platform, partner, since, until)
+
+    if index.kind == "hybrid":
+        # Reciprocal rank fusion. Dense scores are cosines and lexical scores are match counts; they
+        # share no scale, so only their *order* is fused. A name that the embedder buries at rank 57
+        # but the regex finds at rank 1 lands near the top of the fused list, without either retriever
+        # having to be right about the other's job.
+        lists: list[list[int]] = []
+        if embedder is not None and index.vectors is not None:
+            q = embedder.embed([query], is_query=True)[0]
+            scores = index.vectors @ q
+            dense = sorted((i for i, c in enumerate(index.chunks) if _keep(c, **f)),
+                           key=lambda i: -scores[i])[:max(pool, 100)]
+            lists.append(dense)
+        text, offs = (read_blob(index.root) if index.root else (None, None))
+        if text is not None:
+            rx = compile_query(query)
+            counts: dict[int, int] = {}
+            for n, m in enumerate(rx.finditer(text)):
+                if n >= 20_000:
+                    break
+                i = int(np.searchsorted(offs, m.start(), side="right") - 1)
+                counts[i] = counts.get(i, 0) + 1
+            lexical = sorted((i for i in counts if _keep(index.chunks[i], **f)),
+                             key=lambda i: (-counts[i], i))[:max(pool, 100)]
+            lists.append(lexical)
+        fused: dict[int, float] = {}
+        for lst in lists:
+            for rank, i in enumerate(lst):
+                fused[i] = fused.get(i, 0.0) + 1.0 / (60 + rank)
+        ranked = sorted(fused.items(), key=lambda kv: -kv[1])[:pool]
+        return [(score, index.chunks[i]) for i, score in ranked]
+
     if index.kind == "lexical":
         out: list[tuple[float, Chunk]] = []
         text, offs = read_blob(index.root) if index.root else (None, None)

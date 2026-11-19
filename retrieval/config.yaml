@@ -14,7 +14,7 @@ embed:
   model: mlx-community/Qwen3-Embedding-0.6B-8bit
   base_url: http://127.0.0.1:8091/v1
   batch: 32
-  max_length: 2048
+  max_length: 1024
   prompt: qwen3
   gguf: /Users/e/.models/embed/Qwen3-Embedding-0.6B-Q8_0.gguf
   max_input_tokens: 8192
@@ -26,7 +26,7 @@ rerank:
   pool: 50
   prompt: qwen3
 retrieve:
-  k: 8
+  k: 6
   budget: 40000
   min_threads: 2
   max_chars: 1200
