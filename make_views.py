@@ -120,14 +120,14 @@ def write_readable(bundle: Path, rows: dict[int, list[dict]], source: dict[int, 
             for row in table:
                 fh.write(f"| `{row[0]}.json` | {row[1]} | {row[2]} | {row[3]} | {row[4]} |\n")
         log.append(f"{platform}: {len(table)} files")
-    log += write_readable_wa(bundle, out)
+
     return log
 
 
 WA_STAMP = re.compile(r"^[\u200e\u200f\u200b]*\[(\d{2})/(\d{2})/(\d{4}), (\d{2})\.(\d{2})\.(\d{2})\]")
 
 
-def write_readable_wa(bundle: Path, out: Path) -> list[str]:
+def write_readable_wa(bundle: Path, out: Path, export: Path) -> list[str]:
     """WhatsApp already exports one chat per folder as text, so this view stays text.
 
     The folder is named by the bundle's label — the archive's own name is `WhatsApp Chat - <person>`
@@ -146,7 +146,10 @@ def write_readable_wa(bundle: Path, out: Path) -> list[str]:
             stamps[m["ts_ms"]] = data["partner"]
     target = out / "1_export readable" / "wa"
     target.mkdir(parents=True, exist_ok=True)
-    chats = sorted(p for p in (out / "0_export unzipped" / "SoMe-chats" / "WA").iterdir() if p.is_dir())
+    # The export root the caller already passed in, not a path guessed from the output directory: a
+    # data folder numbered `00_` (or a donor whose export sits elsewhere) used to fail here with a
+    # FileNotFoundError that looked like a missing chat rather than a wrong assumption.
+    chats = sorted(p for p in (export / "WA").iterdir() if p.is_dir())
     table = []
     for chat in chats if chats else []:
         txt = next(iter(chat.glob("*.txt")), None)
@@ -277,6 +280,7 @@ def main() -> None:
     ap.add_argument("--chunks", default="", choices=["", "day", "fixed"], help="also write 4_chunks")
     args = ap.parse_args()
     log = [] if args.skip_readable else write_readable(args.bundle, *export_index(args.export), args.out)
+    log += [] if args.skip_readable else write_readable_wa(args.bundle, args.out, args.export)
     log += [] if args.skip_rendered else write_rendered(args.bundle, args.out)
     if args.chunks:
         log += write_chunks(args.bundle, args.out, args.chunks)

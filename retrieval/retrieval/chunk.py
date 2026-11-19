@@ -22,7 +22,9 @@ Count = Callable[[str], int]
 # <partner>`. This string names the format of a *chunk's* text — header plus messages — so bump it
 # when either changes, and keep it equal to `report.json.render_version`; otherwise the id names a
 # format the index does not contain, and a stale index looks valid.
-RENDER_VERSION = "v3"
+# v4: a voice note's rendered line carries its length, and its transcript once the STT pass has
+# attached one — so the prompt text changed for 876 messages and every id must move with it.
+RENDER_VERSION = "v4"
 
 
 def chunk_id(platform: str, partner: str, i0: int, i1: int) -> str:
