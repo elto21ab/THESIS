@@ -11,9 +11,16 @@ anything. The signature is deliberately *content*, never identity:
 
     key(message) = ts_ms, sha1(text)
 
-and two threads are one conversation when the Jaccard overlap of their key sets is at least
-`MIN_OVERLAP`, on the same platform. 0.5 is not a tuned number: a genuine second read of one
-conversation shares nearly everything, a different conversation shares nothing but a coincidence.
+and two threads are one conversation when **most of the smaller one is inside the larger** — the
+overlap coefficient, `|A ∩ B| / min(|A|, |B|)`, at least `MIN_OVERLAP`, on the same platform.
+
+Not Jaccard, and the difference is the whole point: one export often covers *part* of a conversation
+(the dump before a device change, the cutover after it), so the shared half is a subset, not a twin.
+Jaccard punishes the size difference and refused to merge exactly the pairs this exists to merge — 9
+shared messages out of 20-and-14 is 0.36 by Jaccard and 0.64 by containment.
+
+`MIN_SHARED` keeps the metric honest on tiny payloads: two two-message threads sharing one message
+score 0.5 by containment without being evidence of anything.
 """
 from __future__ import annotations
 
@@ -21,6 +28,21 @@ import hashlib
 from typing import Iterable
 
 MIN_OVERLAP = 0.5
+MIN_SHARED = 5
+
+
+def identity_signature(participants: list[str]) -> str:
+    """FNV-1a 64 over the lowercased, sorted names — the same function as `identitySignature` in
+    `thesis-deid/src/core/standard/format.ts`. Two reads of one conversation share it even when the
+    reads are disjoint in time, which is the case content overlap cannot see."""
+    names = sorted({name.strip().lower() for name in participants if name.strip()})
+    hash_ = 0xCBF29CE484222325
+    prime = 0x100000001B3
+    mask = 0xFFFFFFFFFFFFFFFF
+    for byte in "\n".join(names).encode("utf-8"):
+        hash_ ^= byte
+        hash_ = (hash_ * prime) & mask
+    return f"{hash_:016x}"
 
 
 def message_key(message: dict) -> tuple[int, str]:
@@ -36,10 +58,17 @@ def signature(payload: dict) -> frozenset[tuple[int, str]]:
 
 
 def overlaps(a: frozenset, b: frozenset) -> float:
-    """Jaccard. Cheap enough at this scale (a thread is thousands of keys, not millions)."""
+    """How much of the smaller conversation is present in the larger (the overlap coefficient).
+
+    Cheap at this scale: a thread is thousands of keys, and a platform has hundreds of threads, so the
+    comparison is set arithmetic over a few million hashes at worst.
+    """
     if not a or not b:
         return 0.0
-    return len(a & b) / len(a | b)
+    shared = len(a & b)
+    if shared < MIN_SHARED:
+        return 0.0
+    return shared / min(len(a), len(b))
 
 
 def merge_payloads(payloads: Iterable[tuple[str, dict]]) -> list[dict]:
@@ -51,16 +80,25 @@ def merge_payloads(payloads: Iterable[tuple[str, dict]]) -> list[dict]:
     groups: list[dict] = []
     for source, payload in payloads:
         keys = signature(payload)
+        # The fingerprint first: it is exact, and it is the only evidence left when a device switch
+        # left the two reads with no messages in common. Content overlap is the fallback for a bundle
+        # written before the field existed.
+        # Only an explicit fingerprint counts. Deriving one from `participants` would hash labels: every
+        # archived thread puts the donor at `S` and the partner at `P1`, so the derived signature is the
+        # same for all of them and a re-merge folds the platform into a single conversation.
+        sig = payload.get("identity_sig")
         for group in groups:
             if group["platform"] != payload.get("platform", group["platform"]):
                 continue
-            if overlaps(keys, group["keys"]) >= MIN_OVERLAP:
+            same_identity = bool(sig) and sig == group["sig"]
+            if same_identity or overlaps(keys, group["keys"]) >= MIN_OVERLAP:
                 _absorb(group, source, payload)
                 break
         else:
             groups.append(
                 {
                     "platform": payload.get("platform"),
+                    "sig": sig,
                     "participants": list(payload.get("participants") or []),
                     "sources": [source],
                     "messages": list(payload.get("messages") or []),
@@ -85,6 +123,7 @@ def merge_payloads(payloads: Iterable[tuple[str, dict]]) -> list[dict]:
         group["n_messages"] = len(kept)
     for group in groups:
         group.pop("keys", None)
+        group.pop("sig", None)
     return groups
 
 
