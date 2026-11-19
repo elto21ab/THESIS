@@ -31,7 +31,7 @@ import re
 from datetime import datetime, timezone
 from typing import Callable, Iterable, Optional
 
-RENDER_VERSION = "v4"
+RENDER_VERSION = "v5"
 
 SHARE_TITLE_MAX = 200
 
@@ -124,6 +124,10 @@ def markers_of(message: dict, label_of: Callable[[str], str]) -> str:
             transcript = ref.get("transcript")
             if transcript:
                 parts.append(f"<voice>{transcript}</voice>")
+            elif ref.get("stt") == "unintelligible":
+                # The engine listened and had nothing. Absence reads like a hole in the tool; this says
+                # the hole is in the recording.
+                parts.append("<voice unintelligible>")
             elif ref.get("duration") is not None:
                 parts.append(f"<voice {duration_text(ref['duration'])}>")
             else:

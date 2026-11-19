@@ -24,7 +24,8 @@ Count = Callable[[str], int]
 # format the index does not contain, and a stale index looks valid.
 # v4: a voice note's rendered line carries its length, and its transcript once the STT pass has
 # attached one — so the prompt text changed for 876 messages and every id must move with it.
-RENDER_VERSION = "v4"
+# v5: a note the engine listened to and rejected renders `<voice unintelligible>` instead of silence.
+RENDER_VERSION = "v5"
 
 
 def chunk_id(platform: str, partner: str, i0: int, i1: int) -> str:

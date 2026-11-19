@@ -22,19 +22,34 @@ from pathlib import Path
 PLATFORMS = ("fb", "ig", "wa")
 
 
-def attach(payload: dict, transcripts: dict[str, str], used: set[str]) -> int:
-    """Set `transcript` on every audio reference whose stored name has one. Returns how many."""
+def attach(payload: dict, transcripts: dict, used: set[str]) -> int:
+    """Set `transcript` (or `stt: unintelligible`) on every audio reference the map knows about.
+
+    Two shapes are accepted: a flat `{name: text}` map from an older STT run, and the verdict records
+    `prep/stt.py` writes (`{verdict, text, confidence}`). The second is preferred because a note the
+    engine *listened to and rejected* is a fact worth keeping — silence in the record reads as a bug,
+    and the renderer says `<voice unintelligible>` when it is told.
+    """
     attached = 0
     for message in payload.get("messages") or []:
         for ref in message.get("media") or []:
             if ref.get("kind") != "audio":
                 continue
-            text = transcripts.get(ref.get("name") or "")
-            if not text:
+            name = ref.get("name") or ""
+            entry = transcripts.get(name)
+            if isinstance(entry, str):
+                entry = {"verdict": "transcribed" if entry else "unintelligible", "text": entry}
+            if not isinstance(entry, dict):
                 continue
-            ref["transcript"] = text
-            used.add(ref["name"])
-            attached += 1
+            if entry.get("verdict") == "transcribed" and entry.get("text"):
+                ref["transcript"] = entry["text"]
+                if entry.get("confidence") is not None:
+                    ref["stt_confidence"] = round(float(entry["confidence"]), 3)
+                attached += 1
+            elif entry.get("verdict") == "unintelligible":
+                ref["stt"] = "unintelligible"
+                attached += 1
+            used.add(name)
     return attached
 
 

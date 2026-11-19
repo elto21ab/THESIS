@@ -6,7 +6,8 @@ not mean asking somebody for their export again.
     parity       compare the reference renderer against the bundle's cached `as_prompt` (a test)
     render       write `as_prompt` again from the fields the bundle holds (a rebuild)
     merge        re-merge the parts a `--keep-all` bundle kept, on content rather than names
-    transcripts  attach an STT pass's `{stored_name: text}` map to `media[].transcript`
+    stt          transcribe every voice note (FluidAudio ultra, padded retry) into verdict records
+    transcripts  attach those records to `media[].transcript` / `media[].stt`
     audit-voice  copy every voice note with no transcript to one folder, with context, to listen to
 
 Nothing here reads the raw export: that is the point. A bundle is enough.
@@ -38,11 +39,13 @@ def _threads(root):
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="prep", description=__doc__)
-    parser.add_argument("verb", choices=("parity", "render", "merge", "transcripts", "audit-voice"))
+    parser.add_argument("verb", choices=("parity", "render", "merge", "transcripts", "audit-voice", "stt"))
     parser.add_argument("--bundle", required=True, help="a built donation bundle")
     parser.add_argument("--out", help="where `render` and `merge` write (default: print a summary)")
     parser.add_argument("--show", type=int, default=5, help="parity: how many mismatches to print")
     parser.add_argument("--transcripts", help="transcripts: a {stored_name: text} JSON map from the STT pass")
+    parser.add_argument("--language", help="stt: language hint passed to the engine (omit for auto)")
+    parser.add_argument("--limit", type=int, help="stt: only the first N notes (a smoke run)")
     parser.add_argument("--json", action="store_true", help="machine-readable output")
     args = parser.parse_args(argv)
 
@@ -64,6 +67,14 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"    cached:   {failure['expected']!r}")
                 print(f"    rendered: {failure['rendered']!r}")
         return 0 if ok else 1
+
+    if args.verb == "stt":
+        from .stt import run as run_stt
+
+        if not args.out:
+            raise SystemExit("stt: --out <transcripts.json> is required")
+        print(json.dumps(run_stt(args.bundle, args.out, language=args.language, limit=args.limit), indent=1))
+        return 0
 
     if args.verb == "audit-voice":
         from .audit import gather
