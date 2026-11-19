@@ -29,7 +29,7 @@ from .models import HttpReranker, get_embedder
 from .ops import chunk_payload, get, hit_payload, hits_payload, push
 from .search import search_any
 from .loop import run as run_loop
-from .smoke import load_cases, run as run_smoke
+from .smoke import derive, load_cases, run as run_smoke
 
 DEFAULT_BUNDLE = "/Users/e/Downloads/donation-2026-09-19"
 DEFAULT_CONFIG = Path(__file__).resolve().parents[1] / "config.yaml"
@@ -150,6 +150,16 @@ def cmd_build(a: argparse.Namespace) -> None:
         chunks.extend(chunker(t, chunk_cfg, count))
     if a.max_chunks:                      # embed a slice only (5% smoke test, debug)
         chunks = chunks[:a.max_chunks]
+    # A single input longer than the server's physical batch (`-ub`) is a 500, not a slow request.
+    # The ceiling belongs to the *deployment*, so it is config, and the build says when a chunk will
+    # not fit rather than discovering it at request time.
+    ceiling = int(cfg["embed"].get("max_input_tokens") or 0)
+    if ceiling:
+        fat = [c for c in chunks if tokens_count(c.text, ratio) > ceiling]
+        if fat:
+            worst = max(tokens_count(c.text, ratio) for c in fat)
+            print(f"warn: {len(fat)} chunk(s) exceed embed.max_input_tokens={ceiling} "
+                  f"(largest {worst}): raise the server's -ub, or split the message")
     vectors = None if kind == "lexical" else embedder.embed([c.text for c in chunks])
 
     donor_id = a.donor_id or report.get("donor_id") or report.get("subject_id")
@@ -281,13 +291,20 @@ def cmd_smoke(a: argparse.Namespace) -> None:
     idx = load(_index_path(a))
     cfg = _cfg(a)
     reranker = _reranker(cfg, enabled=a.rerank)
-    results, summary = run_smoke(idx, load_cases(a.cases), k=a.k,
-                                embedder=_embedder(idx, cfg), reranker=reranker)
+    cases = load_cases(a.cases)
+    embedder = _embedder(idx, cfg)
+    if a.derive:
+        cases = derive(idx, cases, embedder=embedder, reranker=reranker)
+        Path(a.cases).write_text(json.dumps(cases, indent=2, ensure_ascii=False) + "\n")
+        print(f"derived {len(cases)} cases into {a.cases}")
+        return
+    results, summary = run_smoke(idx, cases, k=a.k, embedder=embedder, reranker=reranker)
     for r in results:
-        mark = f"ok  #{r.rank}" if r.ok else "FAIL"
+        mark = f"skip" if r.skipped else (f"ok  #{r.rank}" if r.ok else "FAIL")
         print(f"  {mark:8} {r.query!r}" + (f"   {r.detail}" if r.detail else ""))
     print(f"\nsummary  {_preamble(idx, a)}  rerank={summary['rerank']}  "
-          f"{summary['passed']}/{summary['n']} passed, {summary['top1']} at rank 1")
+          f"{summary['passed']}/{summary['n']} passed, {summary['top1']} at rank 1"
+          + (f", {summary['skipped']} skipped" if summary.get("skipped") else ""))
     if summary["passed"] != summary["n"]:
         raise SystemExit(1)
 
@@ -404,6 +421,8 @@ def main() -> None:
     m.add_argument("--cases", help="JSON list of {query, partner?, day?, contains?}")
     m.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None,
                    help="override config rerank.enabled")
+    m.add_argument("--derive", action="store_true",
+                   help="rewrite the case file: partner + rank_max from the index as it is now")
     m.set_defaults(func=cmd_smoke)
 
     lp = sub.add_parser("loop", help="ask the survey question once: model + tools + state")

@@ -17,6 +17,7 @@ embed:
   max_length: 2048
   prompt: qwen3
   gguf: /Users/e/.models/embed/Qwen3-Embedding-0.6B-Q8_0.gguf
+  max_input_tokens: 8192
 rerank:
   enabled: false
   model: Qwen3-Reranker-0.6B
