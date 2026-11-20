@@ -6,6 +6,7 @@ not mean asking somebody for their export again.
     parity       compare the reference renderer against the bundle's cached `as_prompt` (a test)
     render       write `as_prompt` again from the fields the bundle holds (a rebuild)
     merge        re-merge the parts a `--keep-all` bundle kept, on content rather than names
+    languages    what language each voice note is probably in, from the text around it
     stt          transcribe every voice note (FluidAudio ultra, padded retry) into verdict records
     transcripts  attach those records to `media[].transcript` / `media[].stt`
     audit-voice  copy every voice note with no transcript to one folder, with context, to listen to
@@ -39,8 +40,8 @@ def _threads(root):
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="prep", description=__doc__)
-    parser.add_argument("verb", choices=("parity", "render", "merge", "transcripts", "audit-voice", "stt"))
-    parser.add_argument("--bundle", required=True, help="a built donation bundle")
+    parser.add_argument("verb", choices=("parity", "render", "merge", "transcripts", "audit-voice", "stt", "languages", "config"))
+    parser.add_argument("--bundle", help="a built donation bundle (every verb except `config` needs it)")
     parser.add_argument("--out", help="where `render` and `merge` write (default: print a summary)")
     parser.add_argument("--show", type=int, default=5, help="parity: how many mismatches to print")
     parser.add_argument("--transcripts", help="transcripts: a {stored_name: text} JSON map from the STT pass")
@@ -48,6 +49,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--limit", type=int, help="stt: only the first N notes (a smoke run)")
     parser.add_argument("--json", action="store_true", help="machine-readable output")
     args = parser.parse_args(argv)
+    if args.verb != "config" and not args.bundle:
+        parser.error(f"{args.verb}: --bundle is required")
 
     if args.verb == "parity":
         from .parity import compare
@@ -67,6 +70,19 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"    cached:   {failure['expected']!r}")
                 print(f"    rendered: {failure['rendered']!r}")
         return 0 if ok else 1
+
+    if args.verb == "config":
+        from .config import CONFIG, chunk_version, render_version
+
+        # Both constants asserted against this file: the ids depend on them agreeing.
+        print(json.dumps({**CONFIG, "_checked": {"render": render_version(), "chunk": chunk_version()}}, indent=1))
+        return 0
+
+    if args.verb == "languages":
+        from .languages import run as run_languages
+
+        print(json.dumps(run_languages(args.bundle, args.out), indent=1))
+        return 0
 
     if args.verb == "stt":
         from .stt import run as run_stt

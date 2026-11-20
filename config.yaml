@@ -1,0 +1,48 @@
+# Every decision the *prep* stages make, in one place — the counterpart to `thesis-deid/config.yaml`.
+#
+# `retrieval/config.yaml` stays what it is: the engine and chunker settings for building an index. This
+# file covers the stages that turn a donation into a corpus (render, merge, STT, language), so a reader
+# can see what the pipeline decided without reading Python. `prep config` prints it with the values the
+# code would actually use, and fails if a key here is unknown — a typo in this file must not be silent.
+
+render:
+  # Chunk ids are keyed on this string; it must equal `RENDER_VERSION` in
+  # `thesis-deid/src/core/standard/minimal.ts` and in `retrieval/retrieval/chunk.py`. `prep parity`
+  # checks the first, `prep config` the second.
+  version: v5
+  # What a voice note reads as when speech-to-text listened and found nothing. Silence would read as a
+  # hole in the tool; the hole is in the recording.
+  unintelligible: "<voice unintelligible>"
+
+merge:
+  # Two reads of one conversation: the donor tool joins them by name, before masking. Afterwards the key
+  # is `identity_sig` (exact, name-free) and only then content overlap.
+  #   overlap = |A∩B| / min(|A|,|B|) — how much of the *smaller* thread appears in the larger.
+  #   Not Jaccard: one export often covers part of a conversation (a device switch splits it in time),
+  #   so the shared half is a subset, not a twin. 9 shared of 20-and-14 is 0.36 by Jaccard, 0.64 here.
+  min_overlap: 0.5
+  # Two two-message threads sharing one "hej" score 1.0 by the metric above and mean nothing.
+  min_shared_messages: 5
+
+stt:
+  # FluidAudio's multilingual Parakeet. `ultra` is a post-training of v3: same architecture, same speed,
+  # ~21% relative WER better on FLEURS. Measured on this corpus: 17 empty notes under v3, 10 under ultra,
+  # and the Danish text is visibly better ("Aflevere den herovre, hvis du vil." at 0.97 confidence where
+  # v3 returned nothing).
+  model_version: ultra
+  encoder_precision: int8
+  # The sliding window trims a one-second clip to nothing; padding moves the boundary and recovers it.
+  pad_seconds: 0.4
+  # Padding silence also invites invention ("patrón" and "And" on one-second clips, both at 0.42) — real
+  # speech measured 0.68–0.97 on the same set, so a retry is only believed above this line.
+  pad_retry_confidence: 0.6
+
+languages:
+  # A hint steers the decoder, so it needs a clear winner. Below this, the engine gets no hint and uses
+  # its multilingual default.
+  min_confidence: 0.85
+  # Fewer characters of surrounding text than this cannot separate Danish from Norwegian.
+  min_context_chars: 24
+  # A/B on 24 notes (12 Danish, 12 English) produced identical transcripts with and without a hint, so
+  # this exists for donors whose language differs from the corpus default — not as a quality lever.
+  vote: thread

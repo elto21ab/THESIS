@@ -27,8 +27,10 @@ from __future__ import annotations
 import hashlib
 from typing import Iterable
 
-MIN_OVERLAP = 0.5
-MIN_SHARED = 5
+from .config import CONFIG
+
+MIN_OVERLAP = CONFIG["merge"]["min_overlap"]
+MIN_SHARED = CONFIG["merge"]["min_shared_messages"]
 
 
 def identity_signature(participants: list[str]) -> str:

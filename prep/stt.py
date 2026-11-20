@@ -29,13 +29,15 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+from .config import CONFIG
+
 DEFAULT_CLI = Path.home() / ".local/share/FluidAudio/.build/release/fluidaudiocli"
-MODEL_VERSION = "ultra"
-ENCODER_PRECISION = "int8"
-PAD_SECONDS = 0.4
+MODEL_VERSION = CONFIG["stt"]["model_version"]
+ENCODER_PRECISION = CONFIG["stt"]["encoder_precision"]
+PAD_SECONDS = CONFIG["stt"]["pad_seconds"]
 # Below this, a padded retry is treated as invention rather than speech. Real speech measured 0.68–0.97,
 # hallucinations 0.42 — the gap is wide enough that the exact value is not load-bearing.
-PAD_RETRY_CONFIDENCE = 0.6
+PAD_RETRY_CONFIDENCE = CONFIG["stt"]["pad_retry_confidence"]
 
 PLATFORMS = ("fb", "ig", "wa")
 
