@@ -227,11 +227,14 @@ def cmd_search(a: argparse.Namespace) -> None:
     body = _preamble(idx, a) + "\n"
     for rank, h in enumerate(hits, 1):
         c = h.chunk
-        score = f"x{int(h.score)}" if lex else f"{h.score:+.3f}"
+        # What the number *is* matters: a cross-encoder logit, a reciprocal-rank-fusion sum, a match
+        # count and a cosine live on four different scales and were printed identically.
+        tag = ("ce" if a.rerank or (cfg["rerank"]["enabled"] and a.rerank is None) else
+               "rrf" if idx.kind == "hybrid" else "x" if lex else "cos")
+        score = f"{tag} {int(h.score)}" if tag == "x" else f"{tag} {h.score:+.3f}"
         txt = h.text[:max_chars].replace("\n", "\n  ")
         note = thread_note(idx.manifest, h.platform, h.partner) if a.thread_stats else ""
-        body += (f"#{rank} {score}  {h.platform}/{h.partner} msgs[{h.i0}:{h.i1}] "
-                 f"{h.n_tokens}tok(est) {c.day}  id={c.id}"
+        body += (f"#{rank} {score}  {h.platform}/{h.partner} msgs[{h.i0}:{h.i1}]  id={c.id}"
                  + (f"  merged×{len(h.members)}" if len(h.members) > 1 else "")
                  + (f"  thread: {note}" if note else "") + "\n")
         body += "  " + txt + "\n\n"
