@@ -272,15 +272,22 @@ def write_chunks(bundle: Path, out: Path, chunker: str = "day") -> list[str]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--export", type=Path, required=True)
+    ap.add_argument("--export", type=Path, help="the export tree (only needed with --readable)")
     ap.add_argument("--bundle", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--skip-readable", action="store_true")
+    # `1_export readable` is the export re-assembled with real names — useful locally, impossible on a
+    # server, which never receives the 38 GB export tree. So it is opt-in: a donor's data should never
+    # fail a run because a view that cannot exist there was requested by default.
+    ap.add_argument("--readable", action="store_true", help="also write 1_export readable (needs the export tree)")
+    ap.add_argument("--skip-readable", action="store_true", help="(kept for old invocations; readable is off by default)")
     ap.add_argument("--skip-rendered", action="store_true")
     ap.add_argument("--chunks", default="", choices=["", "day", "fixed"], help="also write 4_chunks")
     args = ap.parse_args()
-    log = [] if args.skip_readable else write_readable(args.bundle, *export_index(args.export), args.out)
-    log += [] if args.skip_readable else write_readable_wa(args.bundle, args.out, args.export)
+    if args.readable and not args.export:
+        ap.error("--readable needs --export: the readable view is the export re-assembled")
+    want_readable = args.readable and not args.skip_readable
+    log = [] if not want_readable else write_readable(args.bundle, *export_index(args.export), args.out)
+    log += [] if not want_readable else write_readable_wa(args.bundle, args.out, args.export)
     log += [] if args.skip_rendered else write_rendered(args.bundle, args.out)
     if args.chunks:
         log += write_chunks(args.bundle, args.out, args.chunks)
