@@ -215,8 +215,11 @@ def cmd_search(a: argparse.Namespace) -> None:
     hits = search_any(idx, a.text, _embedder(idx, cfg), k=a.k or cfg["retrieve"]["k"],
                       platform=a.platform, partner=a.partner, since=a.since, until=a.until,
                       max_region_chunks=cfg["retrieve"]["max_region_chunks"],
-                      reranker=_reranker(cfg, enabled=a.rerank), pool=cfg["rerank"]["pool"],
-                      mode=getattr(a, "mode", "auto"))
+                      # A regex hit is exact; a cross-encoder would demote it by semantics.
+                      reranker=None if getattr(a, "mode", "dense") == "regex"
+                      else _reranker(cfg, enabled=a.rerank),
+                      pool=cfg["rerank"]["pool"],
+                      mode=getattr(a, "mode", "dense"))
     max_chars = cfg["retrieve"]["max_chars"]
     if not a.pretty:
         return _emit({"donor": donor, "kind": idx.kind, "query": a.text,
@@ -224,16 +227,19 @@ def cmd_search(a: argparse.Namespace) -> None:
                       "hits": [{**hp, **({"thread": thread_note(idx.manifest, hp["platform"], hp["partner"])}
                                          if a.thread_stats else {})}
                                for hp in hits_payload(hits, max_chars=max_chars)]}, a)
-    lex = idx.kind == "lexical"
+    lex = getattr(a, "mode", "dense") == "regex" or (
+        idx.kind == "lexical" and getattr(a, "mode", "dense") == "dense")
     body = _preamble(idx, a) + "\n"
     for rank, h in enumerate(hits, 1):
         c = h.chunk
         # What the number *is* matters: a cross-encoder logit, a reciprocal-rank-fusion sum, a match
         # count and a cosine live on four different scales and were printed identically.
-        tag = ("ce" if a.rerank or (cfg["rerank"]["enabled"] and a.rerank is None) else
-               "rrf" if idx.kind == "hybrid" else "x" if lex else "cos")
+        mode = getattr(a, "mode", "dense")
+        tag = ("x" if mode == "regex" else
+               "rrf" if mode == "auto" else
+               "ce" if (a.rerank or (cfg["rerank"]["enabled"] and a.rerank is None)) else "cos")
         score = f"{tag} {int(h.score)}" if tag == "x" else f"{tag} {h.score:+.3f}"
-        if len(h.scores) > 1:
+        if len(h.scores) > 1 and mode != "regex":
             score += " (" + " ".join(f"{k} {v:+.3f}" for k, v in h.scores.items() if k != tag) + ")"
         txt = h.text[:max_chars].replace("\n", "\n  ")
         note = thread_note(idx.manifest, h.platform, h.partner) if a.thread_stats else ""
@@ -425,8 +431,8 @@ def main() -> None:
     common(s)
     filters(s)
     s.add_argument("text")
-    s.add_argument("--mode", choices=["auto", "dense", "lexical"], default="auto",
-                   help="which first stage to trust: dense, regex, or fuse what the index has")
+    s.add_argument("--mode", choices=["dense", "regex", "auto"], default="dense",
+                   help="first stage: dense+CE (default) | regex | auto = fuse both (experimental)")
     s.add_argument("--thread-stats", dest="thread_stats", action="store_true",
                    help="add the conversation's size and span to each hit")
     s.set_defaults(func=cmd_search)

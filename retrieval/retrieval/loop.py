@@ -45,7 +45,7 @@ SYSTEM = """You answer a survey as {donor}, using only messages from {donor}'s o
 You have three commands. Write exactly one per message, on its own line:
 
   search <words>      search by meaning. Returns numbered regions R1, R2, … with the messages.
-  grep <pattern>      find a literal word, name, number or date. Regex, no interpretation.
+  regex <pattern>     find a literal word, name, number or date. Regex, no interpretation.
   get <ref> [±N]      read region R3 again, or N messages around it: `get 3 ±5`
   answer <text>       stop searching and answer the question.
 
@@ -221,7 +221,7 @@ def _schemas(reg: RefRegistry) -> list[dict]:
     no way to *finish*, and a 270M one will happily `get 1..26` until the call cap stops it."""
     out = [search_tool_schema(),
            {"type": "function", "function": {
-               "name": "grep",
+               "name": "regex",
                "description": "find a literal string — a name, a number, a date, a quoted phrase",
                "parameters": {"type": "object",
                               "properties": {"pattern": {"type": "string"}},
@@ -340,8 +340,8 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
             for name, kwargs in calls[:4]:
                 if name == "search":
                     observations.append(state.search(str(kwargs.get("query", "")), "dense"))
-                elif name == "grep":
-                    observations.append(state.search(str(kwargs.get("pattern", "")), "lexical"))
+                elif name in ("regex", "grep"):
+                    observations.append(state.search(str(kwargs.get("pattern", "")), "regex"))
                 elif name == "get":
                     observations.append(state.get(int(kwargs.get("ref") or 0),
                                                   int(kwargs.get("window") or 0)))

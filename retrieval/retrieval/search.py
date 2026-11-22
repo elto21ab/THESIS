@@ -195,7 +195,7 @@ def search_any(index: Index, query: str, embedder: Embedder | None = None, *, k:
                since: str | None = None, until: str | None = None,
                max_region_chunks: int = 2, reranker=None, pool: int = 50,
                rerank_query: str | None = None, hybrid_tau: float | None = None,
-               min_rerank_score: float | None = None, mode: str = "auto") -> list[Hit]:
+               min_rerank_score: float | None = None, mode: str = "dense") -> list[Hit]:
     """The whole retrieval pipeline in one call — the only entry point any caller needs:
 
         candidates (vector | regex, filtered, pool)  →  [rerank]  →  merge_top(k)
@@ -232,6 +232,8 @@ def candidates(index: Index, query: str, embedder: Embedder | None = None, *, po
     # `auto` fuses only for indexes that have both and callers that did not say which they wanted.
     # The artefact decides, not the label: an index with a blob can answer lexically even if it was
     # built as a vector index, and vice versa. `kind` in the manifest is a description.
+    if mode == "regex":
+        mode = "lexical"
     if mode != "auto":
         kind = mode
     else:
