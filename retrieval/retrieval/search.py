@@ -17,6 +17,7 @@ from __future__ import annotations
 
 
 
+import math
 import re
 from dataclasses import dataclass, field
 from typing import Iterable
@@ -168,6 +169,54 @@ def compile_query(pattern: str) -> re.Pattern:
         return re.compile(re.escape(pattern), re.IGNORECASE)
 
 
+#: Document frequency per chunk text, computed once per index and kept for the process. BM25 needs
+#: df to know that "spicy" is rare and "og" is not; without it, a common word outranks a rare one.
+_DF: dict[str, tuple[dict[str, int], float]] = {}
+
+
+def _df(index: Index) -> tuple[dict[str, int], float]:
+    key = str(index.root or id(index))
+    if key not in _DF:
+        df: dict[str, int] = {}
+        total = 0
+        for c in index.chunks:
+            total += max(1, c.n_tokens)
+            for tok in set(re.findall(r"[\wæøåäöüß]+", c.text.lower())):
+                df[tok] = df.get(tok, 0) + 1
+        _DF[key] = (df, total / max(1, len(index.chunks)))
+    return _DF[key]
+
+
+def bm25(index: Index, terms: list[str], chunks: list[Chunk], *, k1: float = 1.2,
+         b: float = 0.75) -> list[tuple[float, Chunk]]:
+    """BM25 over an already-filtered candidate set, with df from the whole corpus.
+
+    The regex decides *membership*; BM25 decides *order*. For a single literal token this collapses
+    to length-normalised term frequency (which density already approximated); it starts to matter
+    once the pattern contains several words — "corona test" then prefers the chunk that mentions both
+    often and is not merely long.
+    """
+    df, avg_len = _df(index)
+    n = max(1, len(index.chunks))
+    scored: list[tuple[float, Chunk]] = []
+    for c in chunks:
+        toks = re.findall(r"[\wæøåäöüß]+", c.text.lower())
+        tf: dict[str, int] = {}
+        for t in toks:
+            if t in terms:
+                tf[t] = tf.get(t, 0) + 1
+        if not tf:
+            continue
+        length = max(1, c.n_tokens)
+        score = 0.0
+        for t, f in tf.items():
+            idf = math.log(1 + (n - df.get(t, 0) + 0.5) / (df.get(t, 0) + 0.5))
+            score += idf * (f * (k1 + 1)) / (f + k1 * (1 - b + b * length / avg_len))
+        scored.append((score, c))
+    scored.sort(key=lambda t: (-t[0], -t[1].ts1))
+    return scored
+
+
 def search_lexical(index: Index, query: str, *, k: int = 8, max_matches: int = 5_000,
                    platform: str | None = None, partner: str | None = None,
                    since: str | None = None, until: str | None = None,
@@ -288,6 +337,13 @@ def candidates(index: Index, query: str, embedder: Embedder | None = None, *, po
                 break
             i = int(np.searchsorted(offs, m.start(), side="right") - 1)
             counts[i] = counts.get(i, 0) + 1
+        matched = [index.chunks[i] for i in counts if _keep(index.chunks[i], **f)]
+        # Multi-word literal patterns rank by BM25 over the matched set; a single token keeps the
+        # density order (identical in spirit, cheaper).
+        words = re.findall(r"[\wæøåäöüß]+", str(query).lower())
+        plain = not re.search(r"[\\.\[\](){}|?*+^$]", str(query))
+        if plain and len(words) > 1:
+            return [(score, c) for score, c in bm25(index, words, matched)][:pool]
         scored: list[tuple[float, int, Chunk]] = []
         for i, n in counts.items():
             c = index.chunks[i]

@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import json
 import re
+import threading
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -116,6 +117,9 @@ class State:
     injected: int = 0
     calls: list[dict] = field(default_factory=list)
     ratio: float = DEFAULT_RATIO
+    #: One lock for the two invariants that concurrency could break: a message is shown once, and the
+    #: injected-token counter is a single number rather than a race.
+    _lock: Any = field(default_factory=threading.Lock)
     question: str = ""
     shown: list[str] = field(default_factory=list)   # one line per region already read
 
@@ -139,7 +143,8 @@ class State:
                           min_rerank_score=self.ret.get("min_rerank_score"))
         if not hits:
             return "no messages matched. Try fewer words, or a word the donor would have used."
-        texts, _ = render_hits(hits, seen=self.seen, mark=False)
+        with self._lock:
+            texts, _ = render_hits(hits, seen=self.seen, mark=False)
         refs = self.refs.add(hits)
         blocks: list[str] = []
         for ref, hit, text in zip(refs, hits, texts):
@@ -148,8 +153,9 @@ class State:
             head = (f"R{ref} · {hit.platform} {hit.partner} · {hit.chunk.day} · "
                     f"{len(hit.lines)} msgs" + (f" · {note}" if note else ""))
             blocks.append(f"{head}\n{text}")
-            mark_shown([(hit, text)], self.seen)
-            self.shown.append(f"R{ref} {hit.partner} {hit.chunk.day}")
+            with self._lock:
+                mark_shown([(hit, text)], self.seen)
+                self.shown.append(f"R{ref} {hit.partner} {hit.chunk.day}")
             self.injected += _count(text, self.ratio)
         self.calls.append({"tool": "search", "args": {"query": query}, "result_bytes": len(text)})
         return "\n\n".join(blocks)
@@ -161,8 +167,9 @@ class State:
         if window <= 0:
             texts, _ = render_hits([hit], seen=self.seen, mark=False)
             text = texts[0]
-            mark_shown([(hit, text)], self.seen)
-            self.shown.append(f"R{ref} {hit.partner} {hit.chunk.day}")
+            with self._lock:
+                mark_shown([(hit, text)], self.seen)
+                self.shown.append(f"R{ref} {hit.partner} {hit.chunk.day}")
             self.injected += _count(text, self.ratio)
             self.calls.append({"tool": "get", "args": {"ref": ref}, "result_bytes": len(text)})
             return text
@@ -203,6 +210,32 @@ def fg_answer(text: str) -> str | None:
     """The last `call:answer{text:<escape>…<escape>}` in the message, however badly it is closed."""
     found = FG_ANSWER.findall(text)
     return clean(found[-1]) if found else None
+
+
+def _run_calls(state: "State", calls: list[tuple[str, dict]]) -> list[str]:
+    """Execute the tool calls of one turn concurrently.
+
+    A model that asks three things at once should not pay three round trips: retrieval is 100–200 ms
+    per call, and on a GPU box the *only* reason to serialise would be shared mutable state — which
+    there isn't, because each call returns its own observation. Order is preserved by index, so the
+    transcript reads as if they had run in sequence.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    def run(call: tuple[str, dict]) -> str:
+        name, kwargs = call
+        if name == "search":
+            return state.search(str(kwargs.get("query", "")), "dense")
+        if name in ("regex", "grep"):
+            return state.search(str(kwargs.get("pattern", "")), "regex")
+        if name == "get":
+            return state.get(int(kwargs.get("ref") or 0), int(kwargs.get("window") or 0))
+        return f"unknown tool {name!r}. Use search, regex or get."
+
+    if len(calls) <= 1:
+        return [run(c) for c in calls]
+    with ThreadPoolExecutor(max_workers=len(calls)) as pool:
+        return list(pool.map(run, calls))
 
 
 def clean(text: str) -> str:
@@ -332,11 +365,7 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
                 continue
             if len(state.calls) >= int(llm["max_calls"]):
                 return LoopResult(content, turn + 1, state.calls, state.injected, "max_calls")
-            answers = [str(k.get("text") or "") for n, k in calls if n == "answer"]
-            if answers:
-                return LoopResult(clean(answers[-1]), turn + 1, state.calls, state.injected,
-                                  "answered")
-            observations = []
+            observations = _run_calls(state, calls[:4])
             for name, kwargs in calls[:4]:
                 if name == "search":
                     observations.append(state.search(str(kwargs.get("query", "")), "dense"))
