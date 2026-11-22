@@ -288,12 +288,20 @@ def candidates(index: Index, query: str, embedder: Embedder | None = None, *, po
                 break
             i = int(np.searchsorted(offs, m.start(), side="right") - 1)
             counts[i] = counts.get(i, 0) + 1
+        scored: list[tuple[float, int, Chunk]] = []
         for i, n in counts.items():
             c = index.chunks[i]
             if _keep(c, **f):
-                out.append((float(n), c))
-        out.sort(key=lambda t: (-t[0], t[1].seq))
-        return out[:pool]
+                # Raw match count rewards a 4,000-char chunk for being long. A pattern that hits
+                # 40 times in 900 tokens is a denser match than 45 in 4,000, and density is what a
+                # reader means by "this chunk is about it". Saturating, so one pathological chunk
+                # cannot outrank everything by sheer repetition.
+                density = n / max(1, c.n_tokens)
+                scored.append((density, n, c))
+        scored.sort(key=lambda t: (-t[0], -t[2].ts1))
+        # The score stays the raw match count (what a reader means by "5 hits"); the *order* is by
+        # density, so a 40-hit chunk of 900 tokens beats 45 hits spread through 4,000.
+        return [(float(n), c) for _, n, c in scored[:pool]]
     if not index.chunks or index.vectors is None:
         return []
     q = embedder.embed([query], is_query=True)[0]
