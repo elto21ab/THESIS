@@ -46,7 +46,9 @@ languages:
   # A/B on 24 notes (12 Danish, 12 English) produced identical transcripts with and without a hint, so
   # this exists for donors whose language differs from the corpus default — not as a quality lever.
   vote: thread
-  # A thread whose own language is English loses a *close* vote: chat in Danish borrows English links and
-  # loanwords, so English is over-counted and the error is one-sided. The margin is the share of the vote
-  # English may win by and still be overturned — 0.10 settles ties without overruling a majority.
-  english_tiebreak_margin: 0.10
+  # Asymmetric thresholds, because the error is one-sided: a thread's own language borrows English (links,
+  # loanwords, one-sentence switches), so English is over-counted and the local language under-counted.
+  # A Danish thread that is 40% Danish and 50% English is Danish with English in it — so any non-English
+  # language wins at this share, while English needs a clear majority.
+  non_english_min_share: 0.40
+  english_min_share: 0.70

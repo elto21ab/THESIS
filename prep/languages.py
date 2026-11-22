@@ -84,8 +84,26 @@ def _meta(message: dict) -> bool:
     return message.get("call_s") is not None and bool((message.get("text") or "").strip())
 
 
-def _speech(messages: list[dict]) -> list[dict]:
-    return [m for m in messages if not _meta(m)]
+URL = re.compile(r"https?://\S+|www\.\S+")
+HANDLE = re.compile(r"@[A-Za-z0-9_.]+")
+
+
+def _clean_text(message: dict) -> str:
+    """The part of a message that is somebody's language, or nothing.
+
+    Removed before scoring, because all of these look like words to a detector and none of them are the
+    conversation's language: Meta's own lines (2.7% of the text), URLs (1,578 messages are a bare link —
+    a YouTube URL says nothing about what language these people speak), @handles, and anything left under
+    eight characters once those are gone.
+
+    The message itself stays in the list: a voice note with no caption carries no text but still needs a
+    language, and dropping it here is how the first version of this returned zero notes.
+    """
+    if _meta(message):
+        return ""
+    text = URL.sub(" ", message.get("text") or "")
+    text = HANDLE.sub(" ", text).strip()
+    return text if len(text) >= 8 else ""
 
 
 def _context(messages: list[dict], index: int, window: int = 6) -> str:
@@ -94,8 +112,8 @@ def _context(messages: list[dict], index: int, window: int = 6) -> str:
     for offset in range(1, window + 1):
         for j in (index - offset, index + offset):
             if 0 <= j < len(messages):
-                text = messages[j].get("text") or ""
-                if text.strip():
+                text = _clean_text(messages[j])
+                if text:
                     out.append(text)
     return " ".join(out)
 
@@ -109,8 +127,8 @@ def thread_language(thread_messages: list[dict]) -> tuple[str | None, float, str
     """
     votes: dict[str, int] = {}
     for message in thread_messages:
-        text = (message.get("text") or "").strip()
-        if len(text) < 8:
+        text = _clean_text(message)
+        if not text:
             continue
         code, confidence, _ = decide(text)
         if code is None:
@@ -118,21 +136,26 @@ def thread_language(thread_messages: list[dict]) -> tuple[str | None, float, str
         votes[code] = votes.get(code, 0) + int(len(text) * confidence)
     if not votes:
         return None, 0.0, "no votes"
-    code, weight = max(votes.items(), key=lambda kv: kv[1])
     total = sum(votes.values())
-    # English loses a close vote, because a thread's *own* language is the one that borrows: Danish chat
-    # is full of English links and loanwords, so English is systematically over-counted, while a genuine
-    # English thread is rarely so full of Danish that it under-counts itself. The margin to overturn is
-    # small on purpose — this settles ties, it does not overrule a majority.
-    margin = CONFIG["languages"]["english_tiebreak_margin"]
-    if code == "en" and len(votes) > 1:
-        other, other_weight = max(((c, w) for c, w in votes.items() if c != "en"), key=lambda kv: kv[1])
-        if (weight - other_weight) / total <= margin:
-            code, weight = other, other_weight
-    share = weight / total
-    if share < 0.7:
-        return None, round(share, 3), f"split thread ({votes})"
-    return code, round(share, 3), f"{weight}/{total} characters"
+    # Asymmetric on purpose. A thread's *own* language is the one that borrows: Danish chat is full of
+    # English links, loanwords and people switching for one sentence, so English is systematically
+    # over-counted and the local language under-counted. English therefore needs a clear majority to win,
+    # while any other language needs only a large plurality — a Danish thread that is 40% Danish and 50%
+    # English is a Danish thread with English in it, not an English thread.
+    english = votes.get("en", 0)
+    other, other_weight = max(((c, w) for c, w in votes.items() if c != "en"), key=lambda kv: kv[1], default=(None, 0))
+    if other and other_weight / total >= CONFIG["languages"]["non_english_min_share"]:
+        code, weight = other, other_weight
+    elif english / total >= CONFIG["languages"]["english_min_share"]:
+        code, weight = "en", english
+    else:
+        code, weight = max(votes.items(), key=lambda kv: kv[1])
+        if weight / total < CONFIG["languages"]["english_min_share"]:
+            return None, round(weight / total, 3), f"split thread ({votes})"
+    # No second threshold here: the two bars above are the whole rule, and a trailing `if share < 0.7`
+    # silently re-imposed the majority requirement on the non-English branch — the asymmetric rule was
+    # inert until it was removed.
+    return code, round(weight / total, 3), f"{weight}/{total} characters"
 
 
 def run(bundle: str | Path, out: str | Path | None = None, *, vote: str | None = None) -> dict:
@@ -142,7 +165,7 @@ def run(bundle: str | Path, out: str | Path | None = None, *, vote: str | None =
     mode = vote or CONFIG["languages"]["vote"]
     for path in sorted(root.glob("*/*.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
-        messages = _speech(payload.get("messages") or [])
+        messages = payload.get("messages") or []
         thread_code, thread_conf, thread_evidence = thread_language(messages)
         for index, message in enumerate(messages):
             for ref in message.get("media") or []:

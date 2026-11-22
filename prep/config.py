@@ -21,7 +21,7 @@ REQUIRED = {
     "render": ("version", "unintelligible"),
     "merge": ("min_overlap", "min_shared_messages"),
     "stt": ("model_version", "encoder_precision", "pad_seconds", "pad_retry_confidence"),
-    "languages": ("min_confidence", "min_context_chars", "vote", "english_tiebreak_margin"),
+    "languages": ("min_confidence", "min_context_chars", "vote", "non_english_min_share", "english_min_share"),
 }
 
 
