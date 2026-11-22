@@ -26,7 +26,7 @@ from .chunk import CHUNKERS, ChunkCfg
 from .tokens import DEFAULT_RATIO, calibrate, count as tokens_count
 from .index import Index, load, save
 from .models import HttpReranker, get_embedder
-from .ops import chunk_payload, get, hit_payload, hits_payload, push
+from .ops import chunk_payload, get, hit_payload, hits_payload, push, thread_note
 from .search import search_any
 from .loop import run as run_loop
 from .smoke import derive, load_cases, run as run_smoke
@@ -170,11 +170,17 @@ def cmd_build(a: argparse.Namespace) -> None:
         print("WARN donor_id unset — pass --donor-id (uploads should name the bundle dir "
               "<donor_id> and/or put `donor_id` in report.json)")
 
+    thread_stats = {
+        t.partner: {"platform": t.platform, "msgs": len(t.messages),
+                    "first": (t.messages[0].ts if t.messages else 0),
+                    "last": (t.messages[-1].ts if t.messages else 0)}
+        for t in threads}
     manifest = {
         "bundle": str(a.bundle), "kind": kind, "chunker": cc["name"], "donor": report.get("donor"),
         "donor_id": donor_id, "bundle_generated_at": report.get("generated_at"),
         "threads": len(threads), "rejected": len(rejects), "cfg": cfg,
         "chars_per_token": round(ratio, 3),
+        "thread_stats": thread_stats,
         "embedder": None if kind == "lexical" else (cfg["embed"]["model"] if embedder else None),
         "embedder_cfg": None if kind == "lexical" else {
             "backend": cfg["embed"]["backend"], "model": cfg["embed"]["model"],
@@ -214,16 +220,20 @@ def cmd_search(a: argparse.Namespace) -> None:
     if not a.pretty:
         return _emit({"donor": donor, "kind": idx.kind, "query": a.text,
                       "k": a.k or cfg["retrieve"]["k"],
-                      "hits": hits_payload(hits, max_chars=max_chars)}, a)
+                      "hits": [{**hp, **({"thread": thread_note(idx.manifest, hp["platform"], hp["partner"])}
+                                         if a.thread_stats else {})}
+                               for hp in hits_payload(hits, max_chars=max_chars)]}, a)
     lex = idx.kind == "lexical"
     body = _preamble(idx, a) + "\n"
     for rank, h in enumerate(hits, 1):
         c = h.chunk
         score = f"x{int(h.score)}" if lex else f"{h.score:+.3f}"
         txt = h.text[:max_chars].replace("\n", "\n  ")
+        note = thread_note(idx.manifest, h.platform, h.partner) if a.thread_stats else ""
         body += (f"#{rank} {score}  {h.platform}/{h.partner} msgs[{h.i0}:{h.i1}] "
                  f"{h.n_tokens}tok(est) {c.day}  id={c.id}"
-                 + (f"  merged×{len(h.members)}" if len(h.members) > 1 else "") + "\n")
+                 + (f"  merged×{len(h.members)}" if len(h.members) > 1 else "")
+                 + (f"  thread: {note}" if note else "") + "\n")
         body += "  " + txt + "\n\n"
     _emit({}, a, body)
 
@@ -409,6 +419,8 @@ def main() -> None:
     common(s)
     filters(s)
     s.add_argument("text")
+    s.add_argument("--thread-stats", dest="thread_stats", action="store_true",
+                   help="add the conversation's size and span to each hit")
     s.set_defaults(func=cmd_search)
     g = pls.add_parser("get", help="a chunk by id, optionally ±window raw messages")
     common(g)

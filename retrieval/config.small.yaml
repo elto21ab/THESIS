@@ -33,6 +33,7 @@ retrieve:
   max_region_chunks: 2
   hybrid_tau: null
   min_rerank_score: null
+  thread_stats: false
 llm:
   model: Qwen3.5-0.8B
   base_url: http://127.0.0.1:8081/v1

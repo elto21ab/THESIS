@@ -45,6 +45,22 @@ def get(index: Index, chunk_id: str, *, window: int = 0,
     return [{"i": i, "text": prompt_of(t.messages[i])} for i in range(lo, hi)]
 
 
+def thread_note(manifest: dict, platform: str, partner: str) -> str:
+    """One line of conversation-level facts, produced only when asked for.
+
+    Deliberately not in the chunk header: that would cost ~11 tokens on every chunk of every corpus
+    to answer a question most prompts never ask ("how long have I known this person"). A flag on the
+    tool costs nothing until it is used.
+    """
+    from datetime import datetime, timezone
+    t = (manifest.get("thread_stats") or {}).get(partner)
+    if not t:
+        return ""
+    def day(ms: int) -> str:
+        return datetime.fromtimestamp(ms / 1000, timezone.utc).strftime("%Y-%m") if ms else "?"
+    return f"{t['msgs']} msgs · {day(t['first'])}→{day(t['last'])}"
+
+
 # ── push ──────────────────────────────────────────────────────────────────────
 @dataclass(slots=True)
 class Pack:

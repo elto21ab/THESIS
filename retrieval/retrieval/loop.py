@@ -36,7 +36,7 @@ from typing import Any
 from .index import Index
 from .models import Embedder, Reranker
 from .ops import (MsgKey, RefRegistry, get, hit_payload, mark_shown, push as push_block,
-                  render_hits, search_tool_schema, window_lines)
+                  render_hits, search_tool_schema, thread_note, window_lines)
 from .search import search_any
 from .tokens import DEFAULT_RATIO, count as _count
 
@@ -140,8 +140,10 @@ class State:
         refs = self.refs.add(hits)
         blocks: list[str] = []
         for ref, hit, text in zip(refs, hits, texts):
+            note = (thread_note(self.index.manifest, hit.platform, hit.partner)
+                    if self.ret.get("thread_stats") else "")
             head = (f"R{ref} · {hit.platform} {hit.partner} · {hit.chunk.day} · "
-                    f"{len(hit.lines)} msgs")
+                    f"{len(hit.lines)} msgs" + (f" · {note}" if note else ""))
             blocks.append(f"{head}\n{text}")
             mark_shown([(hit, text)], self.seen)
             self.shown.append(f"R{ref} {hit.partner} {hit.chunk.day}")
