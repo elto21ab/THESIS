@@ -125,17 +125,23 @@ def thread_language(thread_messages: list[dict]) -> tuple[str | None, float, str
     the conversation is in, and a note whose neighbours are short has the whole thread to lean on. The
     vote is weighted by characters, because ten "ok" and one paragraph are not evidence of equal size.
     """
+    # One message, one vote.
+    #
+    # Counting characters let a single pasted document outvote a whole conversation: `OTHER-151` holds 47
+    # Danish messages and 2 English ones, and the English "win" was a 3,592-character story pasted in
+    # plus a 36-character Danish line the detector called English at confidence 1.00. A conversation's
+    # language is how its *turns* read, not how many bytes one turn happens to carry.
     votes: dict[str, int] = {}
     for message in thread_messages:
         text = _clean_text(message)
-        if not text:
+        if len(text) < CONFIG["languages"]["min_message_chars"]:
             continue
-        code, confidence, _ = decide(text)
+        code, _confidence, _ = decide(text)
         if code is None:
             continue
-        votes[code] = votes.get(code, 0) + int(len(text) * confidence)
-    if not votes:
-        return None, 0.0, "no votes"
+        votes[code] = votes.get(code, 0) + 1
+    if sum(votes.values()) < CONFIG["languages"]["min_votes"]:
+        return None, 0.0, f"too few votes ({votes})"
     total = sum(votes.values())
     # Asymmetric on purpose. A thread's *own* language is the one that borrows: Danish chat is full of
     # English links, loanwords and people switching for one sentence, so English is systematically
@@ -155,7 +161,7 @@ def thread_language(thread_messages: list[dict]) -> tuple[str | None, float, str
     # No second threshold here: the two bars above are the whole rule, and a trailing `if share < 0.7`
     # silently re-imposed the majority requirement on the non-English branch — the asymmetric rule was
     # inert until it was removed.
-    return code, round(weight / total, 3), f"{weight}/{total} characters"
+    return code, round(weight / total, 3), f"{weight}/{total} messages"
 
 
 def run(bundle: str | Path, out: str | Path | None = None, *, vote: str | None = None) -> dict:

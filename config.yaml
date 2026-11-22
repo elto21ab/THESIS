@@ -43,6 +43,15 @@ languages:
   min_confidence: 0.85
   # Fewer characters of surrounding text than this cannot separate Danish from Norwegian.
   min_context_chars: 24
+  # A message below this length does not vote: "ok", "Ja" and a bare "haha" are what the detector is
+  # least reliable on, and it answers with confidence 1.00 regardless. 40 was too high — it silenced a
+  # whole thread of short chat (36 messages, all under 40 characters, all plainly Danish).
+  min_message_chars: 12
+  # Votes a thread needs before it is allowed a verdict at all. Below this the sample is too small to
+  # overturn anything, however unanimous it looks. Measured on this corpus (649 threads): 3 → 495 da /
+  # 125 en / 28 undecided, 5 → 466 / 117 / 65, 8 → 397 / 99 / 152. 3 keeps evidence from a short
+  # exchange without letting one message decide a thread.
+  min_votes: 3
   # A/B on 24 notes (12 Danish, 12 English) produced identical transcripts with and without a hint, so
   # this exists for donors whose language differs from the corpus default — not as a quality lever.
   vote: thread
