@@ -212,7 +212,8 @@ def hit_payload(h: Hit, *, max_chars: int = DEFAULT_MAX_CHARS, rank: int | None 
     d = {"id": h.chunk.id, "ids": h.ids, "platform": h.platform, "partner": h.partner,
          "day": h.chunk.day, "seq": h.chunk.seq, "i0": h.i0, "i1": h.i1,
          "ts0": ts0, "ts1": ts1, "n_msgs": h.n_msgs, "n_tokens": h.n_tokens,
-         "score": round(h.score, 4), "text": shown, "truncated": len(shown) < len(full),
+         "score": round(h.score, 4), "scores": {k: round(v, 4) for k, v in h.scores.items()},
+         "text": shown, "truncated": len(shown) < len(full),
          "msgs": msg_index(h.partner, h.lines, shown)}
     if len(h.members) > 1:
         d["merged"] = len(h.members)

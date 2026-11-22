@@ -215,7 +215,8 @@ def cmd_search(a: argparse.Namespace) -> None:
     hits = search_any(idx, a.text, _embedder(idx, cfg), k=a.k or cfg["retrieve"]["k"],
                       platform=a.platform, partner=a.partner, since=a.since, until=a.until,
                       max_region_chunks=cfg["retrieve"]["max_region_chunks"],
-                      reranker=_reranker(cfg, enabled=a.rerank), pool=cfg["rerank"]["pool"])
+                      reranker=_reranker(cfg, enabled=a.rerank), pool=cfg["rerank"]["pool"],
+                      mode=getattr(a, "mode", "auto"))
     max_chars = cfg["retrieve"]["max_chars"]
     if not a.pretty:
         return _emit({"donor": donor, "kind": idx.kind, "query": a.text,
@@ -232,6 +233,8 @@ def cmd_search(a: argparse.Namespace) -> None:
         tag = ("ce" if a.rerank or (cfg["rerank"]["enabled"] and a.rerank is None) else
                "rrf" if idx.kind == "hybrid" else "x" if lex else "cos")
         score = f"{tag} {int(h.score)}" if tag == "x" else f"{tag} {h.score:+.3f}"
+        if len(h.scores) > 1:
+            score += " (" + " ".join(f"{k} {v:+.3f}" for k, v in h.scores.items() if k != tag) + ")"
         txt = h.text[:max_chars].replace("\n", "\n  ")
         note = thread_note(idx.manifest, h.platform, h.partner) if a.thread_stats else ""
         body += (f"#{rank} {score}  {h.platform}/{h.partner} msgs[{h.i0}:{h.i1}]  id={c.id}"
@@ -422,6 +425,8 @@ def main() -> None:
     common(s)
     filters(s)
     s.add_argument("text")
+    s.add_argument("--mode", choices=["auto", "dense", "lexical"], default="auto",
+                   help="which first stage to trust: dense, regex, or fuse what the index has")
     s.add_argument("--thread-stats", dest="thread_stats", action="store_true",
                    help="add the conversation's size and span to each hit")
     s.set_defaults(func=cmd_search)

@@ -44,7 +44,8 @@ SYSTEM = """You answer a survey as {donor}, using only messages from {donor}'s o
 
 You have three commands. Write exactly one per message, on its own line:
 
-  search <words>      search the history. Returns numbered regions R1, R2, … with the messages.
+  search <words>      search by meaning. Returns numbered regions R1, R2, … with the messages.
+  grep <pattern>      find a literal word, name, number or date. Regex, no interpretation.
   get <ref> [±N]      read region R3 again, or N messages around it: `get 3 ±5`
   answer <text>       stop searching and answer the question.
 
@@ -128,8 +129,10 @@ class State:
             parts.append("Already read (prefer new evidence): " + "; ".join(self.shown[-5:]))
         return "\n".join(parts)
 
-    def search(self, query: str) -> str:
-        hits = search_any(self.index, query, self.embedder, k=self.k, reranker=self.reranker,
+    def search(self, query: str, mode: str = "dense") -> str:
+        hits = search_any(self.index, query, self.embedder, k=self.k,
+                          reranker=self.reranker if mode == "dense" else None,
+                          mode=mode,
                           max_region_chunks=self.ret["max_region_chunks"],
                           rerank_query=self.rerank_context(query),
                           hybrid_tau=self.ret.get("hybrid_tau"),
@@ -216,7 +219,13 @@ def _schemas(reg: RefRegistry) -> list[dict]:
     """`search` always, `get` only once there is a ref to name (its enum is the set of refs the model
     was actually handed, so it cannot invent one), and `answer` — without it a tool-tuned model has
     no way to *finish*, and a 270M one will happily `get 1..26` until the call cap stops it."""
-    out = [search_tool_schema()]
+    out = [search_tool_schema(),
+           {"type": "function", "function": {
+               "name": "grep",
+               "description": "find a literal string — a name, a number, a date, a quoted phrase",
+               "parameters": {"type": "object",
+                              "properties": {"pattern": {"type": "string"}},
+                              "required": ["pattern"]}}}]
     if len(reg):
         out.append(reg.get_tool_schema())
     out.append({"type": "function", "function": {
@@ -330,12 +339,14 @@ def run(index: Index, question: str, *, cfg: dict, embedder: Embedder | None = N
             observations = []
             for name, kwargs in calls[:4]:
                 if name == "search":
-                    observations.append(state.search(str(kwargs.get("query", ""))))
+                    observations.append(state.search(str(kwargs.get("query", "")), "dense"))
+                elif name == "grep":
+                    observations.append(state.search(str(kwargs.get("pattern", "")), "lexical"))
                 elif name == "get":
                     observations.append(state.get(int(kwargs.get("ref") or 0),
                                                   int(kwargs.get("window") or 0)))
                 else:
-                    observations.append(f"unknown tool {name!r}. Use search or get.")
+                    observations.append(f"unknown tool {name!r}. Use search, grep or get.")
             messages.append({"role": "user",
                              "content": "Observation:\n" + "\n\n".join(observations)})
             if turn + 1 >= int(llm["max_turns"]) - 1:

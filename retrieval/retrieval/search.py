@@ -18,7 +18,7 @@ from __future__ import annotations
 
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Iterable
 
 import numpy as np
@@ -41,6 +41,9 @@ class Hit:
     i1: int
     n_msgs: int
     n_tokens: int
+    #: Every number the region was scored with, by stage: `{"first": 0.48, "ce": -7.2}`. Kept out of
+    #: the text the model reads — a score is a property of the retriever, not of the donor.
+    scores: dict[str, float] = field(default_factory=dict)
 
     @property
     def chunk(self) -> Chunk:
@@ -91,9 +94,12 @@ class Hit:
         self.n_tokens = round(self.n_msgs * tok_per_msg)
 
 
-def _from_chunk(c: Chunk, score: float) -> Hit:
+def _from_chunk(c: Chunk, score: float, first: float | None = None) -> Hit:
     lines = {i: ln for i, ln in zip(range(c.i0, c.i1), c.msg_lines())}
-    return Hit(score, [c], lines, c.i0, c.i1, c.n_msgs, c.n_tokens)
+    scores = {"ce" if first is not None else "first": score}
+    if first is not None:
+        scores["first"] = first
+    return Hit(score, [c], lines, c.i0, c.i1, c.n_msgs, c.n_tokens, scores)
 
 
 def _keep(c: Chunk, platform: str | None, partner: str | None,
@@ -110,7 +116,8 @@ def _keep(c: Chunk, platform: str | None, partner: str | None,
 
 
 def merge_top(candidates: Iterable[tuple[float, Chunk]], *, k: int,
-              max_region_chunks: int = 2) -> list[Hit]:
+              max_region_chunks: int = 2,
+              first_scores: dict[str, float] | None = None) -> list[Hit]:
     """Greedy fill of `k` items from a *ranked* candidate list, **pairing** overlapping neighbours.
 
     Consecutive overlapping chunks are grouped in pairs: 2 chunks → 1 item, 3 → 2 (one pair + the
@@ -127,7 +134,7 @@ def merge_top(candidates: Iterable[tuple[float, Chunk]], *, k: int,
         if target is not None and len(target.members) >= max_region_chunks:
             target = None  # pair complete: this chunk starts the next item
         if target is None:
-            hits.append(_from_chunk(c, score))
+            hits.append(_from_chunk(c, score, (first_scores or {}).get(c.id)))
             if len(hits) >= k:
                 break
             continue
@@ -188,7 +195,7 @@ def search_any(index: Index, query: str, embedder: Embedder | None = None, *, k:
                since: str | None = None, until: str | None = None,
                max_region_chunks: int = 2, reranker=None, pool: int = 50,
                rerank_query: str | None = None, hybrid_tau: float | None = None,
-               min_rerank_score: float | None = None) -> list[Hit]:
+               min_rerank_score: float | None = None, mode: str = "auto") -> list[Hit]:
     """The whole retrieval pipeline in one call — the only entry point any caller needs:
 
         candidates (vector | regex, filtered, pool)  →  [rerank]  →  merge_top(k)
@@ -197,13 +204,15 @@ def search_any(index: Index, query: str, embedder: Embedder | None = None, *, k:
     chunks, and merging then collapses near-duplicates so the k returned items stay comparable in
     size and free of repeated messages."""
     cands = candidates(index, query, embedder, pool=pool, platform=platform, partner=partner,
-                       since=since, until=until, hybrid_tau=hybrid_tau)
+                       since=since, until=until, hybrid_tau=hybrid_tau,
+                       mode=mode)
+    first_scores = {c.id: s for s, c in cands}
     # Why a *different* string goes to the cross-encoder: a bi-encoder had to compress the query and
     # the chunk separately, so it is given the bare probe. A cross-encoder reads the pair together,
     # so it can be told what the probe is *for* — the survey question, and what has already been
     # established this run. More context at rerank time is the whole reason to run a second stage.
     cands = rerank_candidates(cands, rerank_query or query, reranker, min_score=min_rerank_score)
-    return merge_top(cands, k=k, max_region_chunks=max_region_chunks)
+    return merge_top(cands, k=k, max_region_chunks=max_region_chunks, first_scores=first_scores)
 
 
 def _filters(platform, partner, since, until) -> dict:
@@ -214,12 +223,21 @@ def _filters(platform, partner, since, until) -> dict:
 def candidates(index: Index, query: str, embedder: Embedder | None = None, *, pool: int = 50,
                platform: str | None = None, partner: str | None = None,
                since: str | None = None, until: str | None = None,
-               hybrid_tau: float | None = None) -> list[tuple[float, Chunk]]:
+               hybrid_tau: float | None = None, mode: str = "auto") -> list[tuple[float, Chunk]]:
     """Ranked candidates, unmerged: everything that passes the filters, best first, capped at
     `pool`. This is what a reranker gets to see."""
     f = _filters(platform, partner, since, until)
 
-    if index.kind == "hybrid":
+    # Two tools, two epistemics: `dense` never looks at a regex, `lexical` never at a vector, and
+    # `auto` fuses only for indexes that have both and callers that did not say which they wanted.
+    # The artefact decides, not the label: an index with a blob can answer lexically even if it was
+    # built as a vector index, and vice versa. `kind` in the manifest is a description.
+    if mode != "auto":
+        kind = mode
+    else:
+        kind = index.kind
+
+    if kind == "hybrid":
         # Reciprocal rank fusion. Dense scores are cosines and lexical scores are match counts; they
         # share no scale, so only their *order* is fused. A name that the embedder buries at rank 57
         # but the regex finds at rank 1 lands near the top of the fused list, without either retriever
@@ -256,7 +274,7 @@ def candidates(index: Index, query: str, embedder: Embedder | None = None, *, po
         ranked = sorted(fused.items(), key=lambda kv: -kv[1])[:pool]
         return [(score, index.chunks[i]) for i, score in ranked]
 
-    if index.kind == "lexical":
+    if kind == "lexical":
         out: list[tuple[float, Chunk]] = []
         text, offs = read_blob(index.root) if index.root else (None, None)
         if text is None:
