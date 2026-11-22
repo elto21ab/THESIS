@@ -55,6 +55,11 @@ languages:
   # A/B on 24 notes (12 Danish, 12 English) produced identical transcripts with and without a hint, so
   # this exists for donors whose language differs from the corpus default — not as a quality lever.
   vote: thread
+  # Off by default. A/B on this corpus: transcripts are byte-identical with a derived hint, with the
+  # corpus language, and with no hint at all, so the detection is a diagnostic until a donor appears
+  # whose voice notes are in a language the engine's multilingual default handles badly. Turn it on per
+  # run with `prep stt --languages <file>`; nothing applies a hint implicitly.
+  apply: false
   # Asymmetric thresholds, because the error is one-sided: a thread's own language borrows English (links,
   # loanwords, one-sentence switches), so English is over-counted and the local language under-counted.
   # A Danish thread that is 40% Danish and 50% English is Danish with English in it — so any non-English

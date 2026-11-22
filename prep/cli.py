@@ -45,7 +45,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", help="where `render` and `merge` write (default: print a summary)")
     parser.add_argument("--show", type=int, default=5, help="parity: how many mismatches to print")
     parser.add_argument("--transcripts", help="transcripts: a {stored_name: text} JSON map from the STT pass")
-    parser.add_argument("--language", help="stt: language hint passed to the engine (omit for auto)")
+    parser.add_argument("--language", help="stt: one language hint for the whole run (omit for auto)")
+    parser.add_argument("--languages", help="stt: a `prep languages` map, used per note (needs languages.apply)")
     parser.add_argument("--limit", type=int, help="stt: only the first N notes (a smoke run)")
     parser.add_argument("--json", action="store_true", help="machine-readable output")
     args = parser.parse_args(argv)
@@ -89,7 +90,12 @@ def main(argv: list[str] | None = None) -> int:
 
         if not args.out:
             raise SystemExit("stt: --out <transcripts.json> is required")
-        print(json.dumps(run_stt(args.bundle, args.out, language=args.language, limit=args.limit), indent=1))
+        print(
+            json.dumps(
+                run_stt(args.bundle, args.out, language=args.language, languages=args.languages, limit=args.limit),
+                indent=1,
+            )
+        )
         return 0
 
     if args.verb == "audit-voice":

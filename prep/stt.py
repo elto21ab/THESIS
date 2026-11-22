@@ -120,12 +120,27 @@ def transcribe_clip(cli: Path, source: Path, language: str | None) -> dict:
 
 
 def run(bundle: str | Path, out: str | Path, *, language: str | None = None,
-        cli: str | Path | None = None, limit: int | None = None) -> dict:
-    """Every voice note in a bundle. Writes `{stored_name: {verdict, text, confidence, seconds}}`."""
+        languages: str | Path | None = None, cli: str | Path | None = None,
+        limit: int | None = None) -> dict:
+    """Every voice note in a bundle. Writes `{stored_name: {verdict, text, confidence, seconds}}`.
+
+    `language` is one code for the whole run; `languages` is a `prep languages` map, used per note. Both
+    are off by default: measured on this corpus the hint changes no transcript, so a run has to ask for it
+    rather than inherit it. `config.yaml` (`languages.apply`) governs whether the map is honoured at all.
+    """
     root = Path(bundle)
     binary = Path(cli or os.environ.get("FLUIDAUDIO_CLI", DEFAULT_CLI))
     if not binary.exists():
         raise SystemExit(f"fluidaudiocli not found at {binary} (set FLUIDAUDIO_CLI)")
+
+    hints: dict[str, str] = {}
+    if languages:
+        if not CONFIG["languages"]["apply"]:
+            raise SystemExit(
+                "languages.apply is false in config.yaml: the hint is a diagnostic, not a default. "
+                "Set it true to use the map, or drop --languages."
+            )
+        hints = {name: value["language"] for name, value in json.loads(Path(languages).read_text()).items() if value.get("language")}
 
     results: dict[str, dict] = {}
     missing = Path("")
@@ -150,7 +165,8 @@ def run(bundle: str | Path, out: str | Path, *, language: str | None = None,
                     if ref.get("missing") or not source.exists():
                         results[name] = {"verdict": "no_bytes", "text": "", "confidence": 0.0, "seconds": None}
                         continue
-                    results[name] = transcribe_clip(binary, source, language)
+                    hint = hints.get(name) or language
+                    results[name] = transcribe_clip(binary, source, hint)
 
     Path(out).write_text(json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8")
     verdicts: dict[str, int] = {}

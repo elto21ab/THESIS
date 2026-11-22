@@ -27,6 +27,7 @@ REQUIRED = {
         "min_message_chars",
         "min_votes",
         "vote",
+        "apply",
         "non_english_min_share",
         "english_min_share",
     ),
