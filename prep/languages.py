@@ -102,6 +102,15 @@ def thread_language(thread_messages: list[dict]) -> tuple[str | None, float, str
         return None, 0.0, "no votes"
     code, weight = max(votes.items(), key=lambda kv: kv[1])
     total = sum(votes.values())
+    # English loses a close vote, because a thread's *own* language is the one that borrows: Danish chat
+    # is full of English links and loanwords, so English is systematically over-counted, while a genuine
+    # English thread is rarely so full of Danish that it under-counts itself. The margin to overturn is
+    # small on purpose — this settles ties, it does not overrule a majority.
+    margin = CONFIG["languages"]["english_tiebreak_margin"]
+    if code == "en" and len(votes) > 1:
+        other, other_weight = max(((c, w) for c, w in votes.items() if c != "en"), key=lambda kv: kv[1])
+        if (weight - other_weight) / total <= margin:
+            code, weight = other, other_weight
     share = weight / total
     if share < 0.7:
         return None, round(share, 3), f"split thread ({votes})"
@@ -122,13 +131,11 @@ def run(bundle: str | Path, out: str | Path | None = None, *, vote: str | None =
                 if ref.get("kind") != "audio" or not ref.get("name"):
                     continue
                 if mode == "thread":
-                    # The thread's answer, with the note's own neighbourhood as a tiebreak when the
-                    # thread is genuinely mixed: an English note inside a mostly English conversation
-                    # should not be dragged back to the majority language.
-                    local_code, local_conf, local_evidence = decide(_context(messages, index))
-                    code = local_code if (thread_code is None and local_code) else thread_code
-                    confidence = thread_conf if code == thread_code else local_conf
-                    evidence = f"thread: {thread_evidence}" if code == thread_code else f"local: {local_evidence}"
+                    # The thread's verdict, full stop. A per-note tiebreak for "split" threads looked
+                    # helpful and was not: on two short English snippets the local detector answered
+                    # Dutch at confidence 1.00, so the fallback invented languages rather than
+                    # resolving them. A split thread gets no hint, which is the honest answer.
+                    code, confidence, evidence = thread_code, thread_conf, f"thread: {thread_evidence}"
                 else:
                     code, confidence, evidence = decide(_context(messages, index))
                 verdicts[ref["name"]] = {
