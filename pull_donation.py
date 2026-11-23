@@ -90,6 +90,53 @@ def download(remote: str, target: Path) -> tuple[int, str]:
     return written, digest.hexdigest()
 
 
+def _stamp(name: str, payload: dict | None = None) -> str:
+    """The timestamp that decides which of two files is newer.
+
+    Filenames carry it (`survey-pre-survey-2026-11-22T20-37-28-951Z.json`) and so does the body
+    (`sentAt`). The body wins when both exist, because a file renamed by hand keeps its truth; the name
+    is the fallback.
+    """
+    if isinstance(payload, dict) and isinstance(payload.get("sentAt"), str):
+        return payload["sentAt"]
+    tail = name.rsplit("-", 4)
+    return name
+
+
+def merge_surveys(items: list[tuple[str, dict]]) -> dict:
+    """Newest answers per instrument, with the losers recorded rather than dropped.
+
+    A respondent can send the same survey several times — that is deliberate, so a mis-clicked answer can
+    be corrected. The drive keeps every file; this turns the pile into one document where each instrument
+    appears once, taken from the newest send, and lists the files it came from so the choice is auditable.
+    """
+    merged: dict[str, dict] = {}
+    sources: dict[str, list[dict]] = {}
+    for name, payload in sorted(items, key=lambda row: _stamp(row[0], row[1])):
+        if not isinstance(payload, dict):
+            continue
+        at = payload.get("sentAt") or _stamp(name)
+        batch = payload.get("instruments")
+        if isinstance(batch, dict):
+            # The "send all" document: several instruments in one file.
+            for instrument, body in batch.items():
+                merged[instrument] = body
+                sources.setdefault(instrument, []).append({"file": name, "at": at, "superseded": True})
+        elif isinstance(payload.get("instrument"), str):
+            instrument = payload["instrument"]
+            merged[instrument] = payload
+            sources.setdefault(instrument, []).append({"file": name, "at": at, "superseded": True})
+    for instrument, history in sources.items():
+        if history:
+            history[-1]["superseded"] = False
+    return {
+        "schema": 1,
+        "instruments": merged,
+        "provenance": sources,
+        "policy": "newest send per instrument wins; every earlier file is listed in provenance",
+    }
+
+
 def unpack(archive: Path, into: Path) -> dict:
     """Unpack and say what arrived, so a mismatch with the receipt is visible immediately."""
     with zipfile.ZipFile(archive) as bundle:
@@ -113,6 +160,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--participant", help="the folder to pull")
     parser.add_argument("--out", type=Path, help="where to unpack (one directory per participant)")
     parser.add_argument("--keep-zip", action="store_true", help="leave the archive beside the unpacked tree")
+    parser.add_argument("--surveys", action="store_true",
+                        help="also download the survey files and write one merged surveys.json (newest per instrument)")
     args = parser.parse_args(argv)
 
     if args.list or not args.participant:
@@ -135,6 +184,23 @@ def main(argv: list[str] | None = None) -> int:
 
     summary = unpack(archive, args.out)
     print(json.dumps(summary, indent=1))
+
+    if args.surveys:
+        items: list[tuple[str, dict]] = []
+        for remote_survey in row["surveys"]:
+            name = remote_survey.split("/")[-1]
+            target = args.out / "surveys" / name
+            _, sha = download(remote_survey, target)
+            try:
+                items.append((name, json.loads(target.read_text(encoding="utf-8"))))
+            except json.JSONDecodeError:
+                print(f"skipped unreadable survey file {name} ({sha[:12]}…)")
+        merged = merge_surveys(items)
+        merged_path = args.out / "surveys.json"
+        merged_path.write_text(json.dumps(merged, ensure_ascii=False, indent=1), encoding="utf-8")
+        superseded = sum(1 for h in merged["provenance"].values() for e in h if e["superseded"])
+        print(json.dumps({"surveys": len(items), "instruments": sorted(merged["instruments"]),
+                          "superseded_files": superseded, "out": str(merged_path)}, indent=1))
     if not args.keep_zip:
         archive.unlink()
     else:
