@@ -38,11 +38,19 @@ DRIVE_ROOT = os.environ.get("UCLOUD_DRIVE_ROOT", "")
 
 
 def _headers() -> dict[str, str]:
+    """The token, and `Project` only when it is set.
+
+    Verified against the live drive: a workspace-scoped token browses its own drive path with no project
+    header at all, so requiring one would be a rule the server does not have.
+    """
     token = os.environ.get("UCLOUD_TOKEN")
+    if not token:
+        raise SystemExit("set UCLOUD_TOKEN (from the workspace's API tokens page)")
+    headers = {"Authorization": f"Bearer {token}"}
     project = os.environ.get("UCLOUD_PROJECT")
-    if not token or not project:
-        raise SystemExit("set UCLOUD_TOKEN and UCLOUD_PROJECT (see the study's shared/.env)")
-    return {"Authorization": f"Bearer {token}", "Project": project}
+    if project:
+        headers["Project"] = project
+    return headers
 
 
 def _get(path: str, params: dict | None = None) -> dict:
