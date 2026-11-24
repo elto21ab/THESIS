@@ -31,6 +31,9 @@ import zipfile
 from pathlib import Path
 
 API = os.environ.get("UCLOUD_API", "https://cloud.sdu.dk/api")
+# The donation drive's root, not the API's root: a workspace-scoped token is authorised for its own
+# drive path and answers 403 on `/` — which reads like a broken token and is not one. Verified: the same
+# token browses `/12418519` happily and 403s on `/`, `/4555`, `/home`.
 DRIVE_ROOT = os.environ.get("UCLOUD_DRIVE_ROOT", "")
 
 
@@ -62,9 +65,23 @@ def _post(path: str, body: dict) -> dict:
         return json.loads(response.read())
 
 
+def _explain_403(path: str) -> None:
+    raise SystemExit(
+        f"403 for {path}. A workspace-scoped token is authorised for its own drive path only — pass the "
+        "drive root (e.g. /12418519) as UCLOUD_DRIVE_ROOT or --drive-root, not '/' or a project id."
+    )
+
+
 def list_participants() -> list[dict]:
     """Participants are folders; a folder whose name matches the id shape is one of ours."""
-    items = _get("/files/browse", {"path": DRIVE_ROOT, "itemsPerPage": 250}).get("items", [])
+    if not DRIVE_ROOT:
+        raise SystemExit("set UCLOUD_DRIVE_ROOT (e.g. /12418519) — the drive's own root, not '/'")
+    try:
+        items = _get("/files/browse", {"path": DRIVE_ROOT, "itemsPerPage": 250}).get("items", [])
+    except urllib.error.HTTPError as error:
+        if error.code == 403:
+            _explain_403(DRIVE_ROOT)
+        raise
     out = []
     for item in items:
         name = str(item.get("id", "")).split("/")[-1]
@@ -159,10 +176,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--list", action="store_true", help="what is on the drive, and from whom")
     parser.add_argument("--participant", help="the folder to pull")
     parser.add_argument("--out", type=Path, help="where to unpack (one directory per participant)")
+    parser.add_argument("--drive-root", help="the donation drive's root path, e.g. /12418519")
     parser.add_argument("--keep-zip", action="store_true", help="leave the archive beside the unpacked tree")
     parser.add_argument("--surveys", action="store_true",
                         help="also download the survey files and write one merged surveys.json (newest per instrument)")
     args = parser.parse_args(argv)
+    if args.drive_root:
+        global DRIVE_ROOT
+        DRIVE_ROOT = args.drive_root
 
     if args.list or not args.participant:
         for row in list_participants():
